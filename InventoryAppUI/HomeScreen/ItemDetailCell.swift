@@ -21,11 +21,11 @@ struct ItemDetailCell: View {
                 AsyncImage(url: URL(string: itemImageURL ?? "")) { image in
                     image.resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80) // Fixed size for image
+                        .frame(width: 150, height: 150)
                         .cornerRadius(8)
                 } placeholder: {
-                    Color.gray
-                        .frame(width: 80, height: 80)
+                    lightGreyColor
+                        .frame(width: 150, height: 150)
                         .cornerRadius(8)
                 }
                 if let count = Int(itemCount ?? "0") {
@@ -33,35 +33,35 @@ struct ItemDetailCell: View {
                         Button(action: {}) {
                             Image(systemName: "minus.circle")
                                 .foregroundColor(.red)
+                                .font(.system(size: 30))
                         }
                         
                         Text("\(count)")
-                            .font(.body)
-                            .frame(width: 30)
+                            .font(.system(size: 20, weight: .semibold))
+                            .frame(width: 40)
+                        
                         
                         Button(action: {}) {
                             Image(systemName: "plus.circle")
                                 .foregroundColor(.green)
+                                .font(.system(size: 30))
                         }
                     }
                 }
                 
             }
             // Details Section
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 10) {
                 Text(itemName)
-                    .font(.headline)
-                    .lineLimit(1)
+                    .font(.system(size: 25, weight: .bold))
                     .foregroundColor(.primary)
-                
                 Text(itemDetail)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.primary)
 
                 if let itemDesc = itemDesc {
                     Text(itemDesc)
-                        .font(.footnote)
+                        .font(.subheadline)
                         .foregroundColor(.gray)
                 }
             }

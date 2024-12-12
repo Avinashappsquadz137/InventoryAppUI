@@ -12,7 +12,7 @@ struct MainViewVC: View {
     @State private var isLoading = true
     
     var body: some View {
-        NavigationView {
+       
             VStack {
                 if isLoading {
                     ProgressView("Loading...")
@@ -35,8 +35,6 @@ struct MainViewVC: View {
             .onAppear {
                 getMemberDetail()
             }
-          //  .navigationTitle("Items")
-        }
     }
     
     
@@ -56,7 +54,7 @@ struct MainViewVC: View {
                 case .success(let model):
                     if let data = model.data {
                         self.items = data
-                        print("Fetched items: \(data)") // Debugging
+                        print("Fetched items: \(data)") 
                     } else {
                         print("No data received")
                     }
