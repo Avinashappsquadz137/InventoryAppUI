@@ -9,7 +9,14 @@ import SwiftUI
 
 struct MainViewVC: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ItemDetailCell(
+                   itemName: "Item Name",
+                   itemDetail: "dfghfdhfh",
+                   itemDesc: "Descrifgjnsdfgxbgdfgb",
+                   itemCount: "3",
+                   itemImage: UIImage(named: "ic_favourite_tabbar") ?? UIImage() 
+               )
+     
     }
 }
 

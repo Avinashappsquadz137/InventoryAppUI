@@ -38,6 +38,15 @@ struct MAinTabbarVC: View {
             .tabItem {
                 Image.init("ic_controls", tintColor: .clear)
                 Text("CONTROLS")
+            }.tag(1) 
+            
+            NavigationView {
+                ListView()
+                .navigationBarTitle("", displayMode: .inline)
+            }
+            .tabItem {
+                Image.init("ic_favourite_tabbar", tintColor: .clear)
+                Text("FAVOURITE")
             }.tag(1)
         }
         .onAppear(){
