@@ -8,80 +8,77 @@
 import SwiftUI
 
 struct ItemDetailCell: View {
-    
-    @State var itemName: String
-    @State var itemDetail: String
-    @State var itemDesc: String?
-    @State var itemCount: String?
-    @State var itemImage: UIImage
+    let itemName: String
+    let itemDetail: String
+    let itemDesc: String?
+    let itemCount: String?
+    let itemImageURL: String?
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                HStack(spacing: 15) {
-                    VStack {
-                        // Image Section
-                        Image(uiImage: itemImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 0.2)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                        
-                        // Counter Section
-                        if let count = Int(itemCount ?? "0") {
-                            HStack {
-                                Button(action: {
-                                    if count > 0 {
-                                        itemCount = String(count - 1)
-                                    }
-                                }) {
-                                    Image(systemName: "minus.circle.fill")
-                                        .foregroundColor(.red)
-                                }
-                                
-                                Text(itemCount ?? "0")
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                                
-                                Button(action: {
-                                    itemCount = String(count + 1)
-                                }) {
-                                    Image(systemName: "plus.circle.fill")
-                                        .foregroundColor(.green)
-                                }
-                            }
-                        }
-                    }
-                    
-                    // Text Details Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(itemName)
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        
-                        Text(itemDetail)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        if let itemDesc = itemDesc {
-                            Text(itemDesc)
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.leading, 10)
+        HStack(spacing: 10) {
+            // Image Section
+            VStack(){
+                AsyncImage(url: URL(string: itemImageURL ?? "")) { image in
+                    image.resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80) // Fixed size for image
+                        .cornerRadius(8)
+                } placeholder: {
+                    Color.gray
+                        .frame(width: 80, height: 80)
+                        .cornerRadius(8)
                 }
-                .padding(20)
-                .background(Color.white)
-                .cornerRadius(15)
-                .shadow(radius: 10)
-                .frame(width: geometry.size.width - 32)
+                if let count = Int(itemCount ?? "0") {
+                    HStack(spacing: 5) {
+                        Button(action: {}) {
+                            Image(systemName: "minus.circle")
+                                .foregroundColor(.red)
+                        }
+                        
+                        Text("\(count)")
+                            .font(.body)
+                            .frame(width: 30)
+                        
+                        Button(action: {}) {
+                            Image(systemName: "plus.circle")
+                                .foregroundColor(.green)
+                        }
+                    }
+                }
+                
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            // Details Section
+            VStack(alignment: .leading, spacing: 5) {
+                Text(itemName)
+                    .font(.headline)
+                    .lineLimit(1)
+                    .foregroundColor(.primary)
+                
+                Text(itemDetail)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+
+                if let itemDesc = itemDesc {
+                    Text(itemDesc)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                }
+            }
+
+            Spacer() // Push content to the left
+
+            // Counter Section
+          
         }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(color: Color.black.opacity(0.1), radius: 5)
     }
 }
+
+
 
 struct ItemDetailCell_Previews: PreviewProvider {
     static var previews: some View {
@@ -89,8 +86,8 @@ struct ItemDetailCell_Previews: PreviewProvider {
             itemName: "Item Name",
             itemDetail: "This is a brief detail of the item.",
             itemDesc: "This is an optional description of the item.",
-            itemCount: "5",
-            itemImage: UIImage(systemName: "star.fill") ?? UIImage()
+            itemCount: "0",
+            itemImageURL: ""
         )
         .previewLayout(.sizeThatFits)
         .padding()
