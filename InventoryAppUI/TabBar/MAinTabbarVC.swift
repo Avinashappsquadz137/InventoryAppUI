@@ -22,8 +22,8 @@ struct MAinTabbarVC: View {
     var body: some View {
         VStack(){
             NavBar(
-                title: "Dashboard",
-                leftButtonImage: "gearshape",
+                title: "HOME",
+                leftButtonImage: "line.3.horizontal",
                 leftButtonAction: { print("Gear clicked") },
                 rightButtonImage: "bell",
                 rightButtonAction: { print("Bell clicked") }
@@ -56,7 +56,7 @@ struct MAinTabbarVC: View {
                 .tabItem {
                     Image.init("ic_favourite_tabbar", tintColor: .clear)
                     Text("FAVOURITE")
-                }.tag(1)
+                }.tag(2)
             }
             .onAppear(){
                 UITabBar.appearance().backgroundColor = UIColor(lightGreyColor)
@@ -89,31 +89,25 @@ struct NavBar: View {
     
     var body: some View {
         HStack {
-            // Left Button
             Button(action: leftButtonAction) {
                 Image(systemName: leftButtonImage)
                     .font(.system(size: 24, weight: .regular))
             }
-            .accentColor(.blue)
-            
+            .accentColor(royalBlue)
             Spacer()
-            
-            // Title
             Text(title)
                 .font(.headline)
                 .fontWeight(.bold)
-            
+                .foregroundColor(Color("Text_whiteBlack"))
             Spacer()
-            
-            // Right Button
             Button(action: rightButtonAction) {
                 Image(systemName: rightButtonImage)
                     .font(.system(size: 24, weight: .regular))
             }
-            .accentColor(.blue)
+            .accentColor(royalBlue)
         }
         .padding(16)
-        .background(Color.white) // Add background color if needed
-        .shadow(radius: 10) // Optional: add shadow for better visual appearance
+        .background(Color.white)
+        .shadow(radius: 10)
     }
 }
