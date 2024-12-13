@@ -11,7 +11,7 @@ struct AllCartList: View {
     
     @State private var items: [CartList] = []
     @State private var isLoading = true
-    @State private var cartCount: Int = 1
+    @State private var addedToCart: [Bool] = []
     
     var body: some View {
         VStack {
@@ -26,7 +26,11 @@ struct AllCartList: View {
                         itemDesc: item.sR_NUMBER ?? "N/A",
                         itemCount: item.items_in_cart,
                         itemImageURL: item.iTEM_THUMBNAIL ?? "",
-                        cartCount: $cartCount
+                        isAddToCartButtonVisible: false, onAddToCart: {},
+                        onCountChanged: {_ in 
+//                                                    addedToCart[index] = true // Mark the item as added to cart
+//                                                    print("Added to cart: \(items[index].iTEM_NAME ?? "Unknown")")
+                                                }
                     )
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, 5) // Add custom padding

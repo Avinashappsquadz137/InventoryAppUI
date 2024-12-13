@@ -13,8 +13,9 @@ struct ItemDetailCell: View {
     var itemCount: Int?
     let itemImageURL: String?
     @State private var itemCounts: Int = 0
- 
-    @Binding var cartCount: Int
+    var isAddToCartButtonVisible: Bool
+    var onAddToCart: () -> Void
+    var onCountChanged: ((Int) -> Void)?
     var body: some View {
         HStack(spacing: 10) {
             // Image Section
@@ -30,10 +31,11 @@ struct ItemDetailCell: View {
                         .cornerRadius(8)
                 }
                 
+                // Add To Cart Button / Quantity Adjuster
                 VStack {
-                    if cartCount == 0 {
+                    if isAddToCartButtonVisible {
                         Button(action: {
-                            cartCount += 1
+                            onAddToCart()
                         }) {
                             Text("Add To Cart")
                                 .font(.headline)
@@ -44,34 +46,34 @@ struct ItemDetailCell: View {
                                 .cornerRadius(8)
                         }
                     } else {
-                        HStack(spacing: 20) { // Adjusted spacing for better button separation
-                            Button(action: {
-                                if itemCounts > 0 {
-                                    itemCounts -= 1
-                                    print("Item count after minus: \(itemCounts)")
+                        HStack(spacing: 20) {
+                                    Button(action: {
+                                        if itemCounts > 0 {
+                                            itemCounts -= 1
+                                            print("Item count after minus: \(itemCounts)")
+                                            onCountChanged?(itemCounts) // Notify parent view with updated count
+                                        }
+                                    }) {
+                                        Image(systemName: "minus.circle")
+                                            .foregroundColor(.red)
+                                            .font(.system(size: 30))
+                                    }
+                                    
+                                    Text("\(itemCounts)")
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .frame(width: 40)
+                                    
+                                    Button(action: {
+                                        itemCounts += 1
+                                        print("Item count after plus: \(itemCounts)")
+                                        onCountChanged?(itemCounts) // Notify parent view with updated count
+                                    }) {
+                                        Image(systemName: "plus.circle")
+                                            .foregroundColor(.green)
+                                            .font(.system(size: 30))
+                                    }
                                 }
-                            }) {
-                                Image(systemName: "minus.circle")
-                                    .foregroundColor(.red)
-                                    .font(.system(size: 30))
-                                    .padding(.leading) // Added padding to avoid interaction with other buttons
-                            }
-                            
-                            Text("\(itemCount ?? 0)")
-                                .font(.system(size: 20, weight: .semibold))
-                                .frame(width: 40)
-                            
-                            Button(action: {
-                                itemCounts += 1
-                                print("Item count after plus: \(itemCounts)")
-                            }) {
-                                Image(systemName: "plus.circle")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 30))
-                                    .padding(.trailing) // Added padding to avoid interaction with other buttons
-                            }
-                        }
-                        .padding(.top, 5)
+                                .padding(.top, 5)
                     }
                 }
             }
@@ -100,17 +102,3 @@ struct ItemDetailCell: View {
     }
 }
 
-struct ItemDetailCell_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var cartCount: Int = 0
-        ItemDetailCell(
-            itemName: "Item Name",
-            itemDetail: "This is a brief detail of the item.",
-            itemDesc: "This is an optional description of the item.",
-            itemCount: 0,
-            itemImageURL: "", cartCount: .constant(cartCount)
-        )
-        .previewLayout(.sizeThatFits)
-        .padding()
-    }
-}
