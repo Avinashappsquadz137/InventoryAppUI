@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B51267BB368D2B2146655F6E /* Pods_InventoryAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */; };
+		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
+		C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */; };
 		C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D722D0AC54700D09D41 /* MainViewVC.swift */; };
 		C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */; };
 		C7868D772D0AC66600D09D41 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D762D0AC66600D09D41 /* ListView.swift */; };
@@ -26,6 +28,8 @@
 		89DC08FB85F87B86899B0716 /* Pods-InventoryAppUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InventoryAppUI.debug.xcconfig"; path = "Target Support Files/Pods-InventoryAppUI/Pods-InventoryAppUI.debug.xcconfig"; sourceTree = "<group>"; };
 		98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InventoryAppUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E644721B02B22C030B1630 /* Pods-InventoryAppUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InventoryAppUI.release.xcconfig"; path = "Target Support Files/Pods-InventoryAppUI/Pods-InventoryAppUI.release.xcconfig"; sourceTree = "<group>"; };
+		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
+		C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllCartList.swift; sourceTree = "<group>"; };
 		C7868D722D0AC54700D09D41 /* MainViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewVC.swift; sourceTree = "<group>"; };
 		C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAinTabbarVC.swift; sourceTree = "<group>"; };
 		C7868D762D0AC66600D09D41 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -70,6 +74,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C718C1DD2D0C37C1008A1EFC /* CartList */ = {
+			isa = PBXGroup;
+			children = (
+				C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */,
+			);
+			path = CartList;
+			sourceTree = "<group>";
+		};
 		C7868D7A2D0AC73D00D09D41 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */,
+				C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -147,6 +160,7 @@
 				C7868DA62D0AF37A00D09D41 /* Model */,
 				C7868D7C2D0AC78500D09D41 /* Extension */,
 				C7868D7B2D0AC75000D09D41 /* HomeScreen */,
+				C718C1DD2D0C37C1008A1EFC /* CartList */,
 				C7868D7A2D0AC73D00D09D41 /* TabBar */,
 				C7868D762D0AC66600D09D41 /* ListView.swift */,
 				C7DC34792D0AB20400FAC786 /* Assets.xcassets */,
@@ -280,8 +294,10 @@
 				C7868D772D0AC66600D09D41 /* ListView.swift in Sources */,
 				C7868DA22D0AE5BC00D09D41 /* ItemDetailCell.swift in Sources */,
 				C7868DB22D0AF7DD00D09D41 /* APIManager.swift in Sources */,
+				C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */,
 				C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ContentView.swift in Sources */,
+				C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */,
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
 				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,

@@ -10,7 +10,7 @@ import SwiftUI
 struct MAinTabbarVC: View {
     
     @State private var selectedView = 0
-    
+    @State private var navigationTitle = "HOME"
     init() {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         UINavigationBar.appearance().shadowImage = UIImage()
@@ -22,18 +22,21 @@ struct MAinTabbarVC: View {
     var body: some View {
         VStack(){
             NavBar(
-                title: "HOME",
+                title: navigationTitle,
                 leftButtonImage: "line.3.horizontal",
                 leftButtonAction: { print("Gear clicked") },
                 rightButtonImage: "bell",
                 rightButtonAction: { print("Bell clicked") }
             )
-
+            
             Spacer()
             TabView(selection: $selectedView) {
                 
                 NavigationView {
                     MainViewVC()
+                        .onAppear {
+                            navigationTitle = "HOME"
+                        }
                 }
                 .tabItem {
                     Image.init("ic_home", tintColor: .clear)
@@ -42,7 +45,9 @@ struct MAinTabbarVC: View {
                 
                 NavigationView {
                     ListView()
-                        .navigationBarTitle("", displayMode: .inline)
+                        .onAppear {
+                            navigationTitle = "FAVOURITE"
+                        }
                 }
                 .tabItem {
                     Image.init("ic_favourite_tabbar", tintColor: .clear)
@@ -50,8 +55,10 @@ struct MAinTabbarVC: View {
                 }.tag(1)
                 
                 NavigationView {
-                    ListView()
-                        .navigationBarTitle("", displayMode: .inline)
+                    AllCartList()
+                        .onAppear {
+                            navigationTitle = "CARTS"
+                        }
                 }
                 .tabItem {
                     Image.init("cart", tintColor: .clear)
@@ -60,7 +67,9 @@ struct MAinTabbarVC: View {
                 
                 NavigationView {
                     ListView()
-                        .navigationBarTitle("", displayMode: .inline)
+                        .onAppear {
+                            navigationTitle = "SAVED"
+                        }
                 }
                 .tabItem {
                     Image.init("saved", tintColor: .clear)

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MainViewVC: View {
-    @State private var items: [Datas] = [] // Replace `Datas` with your data model
+    @State private var items: [Datas] = []
     @State private var isLoading = true
-    
+    @State var cartCount: Int = 0
     var body: some View {
        
             VStack {
@@ -23,21 +23,20 @@ struct MainViewVC: View {
                             itemName: item.iTEM_NAME ?? "Unknown",
                             itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
                             itemDesc: item.sR_NUMBER,
-                            itemCount: "\(item.items_in_cart ?? 0)",
-                            itemImageURL: item.iTEM_THUMBNAIL
+                            itemCount: item.items_in_cart,
+                            itemImageURL: item.iTEM_THUMBNAIL, cartCount: .constant(cartCount)
                         )
-                        .listRowInsets(EdgeInsets()) // Remove default padding
-                        .padding(.vertical, 5) // Add custom padding
+                        .listRowInsets(EdgeInsets())
+                        .padding(.vertical, 5)
                     }
-                    .listStyle(PlainListStyle()) // Optional: Use plain style for better visuals
+                    .listStyle(PlainListStyle())
                 }
             }
             .onAppear {
                 getMemberDetail()
             }
     }
-    
-    
+
     func getMemberDetail() {
         let parameters: [String: Any] = ["emp_code": "SANS-00290"]
         
