@@ -45,8 +45,8 @@ struct MAinTabbarVC: View {
                         .navigationBarTitle("", displayMode: .inline)
                 }
                 .tabItem {
-                    Image.init("ic_controls", tintColor: .clear)
-                    Text("CONTROLS")
+                    Image.init("ic_favourite_tabbar", tintColor: .clear)
+                    Text("FAVOURITE")
                 }.tag(1)
                 
                 NavigationView {
@@ -54,9 +54,18 @@ struct MAinTabbarVC: View {
                         .navigationBarTitle("", displayMode: .inline)
                 }
                 .tabItem {
-                    Image.init("ic_favourite_tabbar", tintColor: .clear)
-                    Text("FAVOURITE")
+                    Image.init("cart", tintColor: .clear)
+                    Text("CARTS")
                 }.tag(2)
+                
+                NavigationView {
+                    ListView()
+                        .navigationBarTitle("", displayMode: .inline)
+                }
+                .tabItem {
+                    Image.init("saved", tintColor: .clear)
+                    Text("SAVED")
+                }.tag(3)
             }
             .onAppear(){
                 UITabBar.appearance().backgroundColor = UIColor(lightGreyColor)
