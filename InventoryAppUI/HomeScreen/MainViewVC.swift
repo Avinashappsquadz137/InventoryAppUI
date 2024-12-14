@@ -11,7 +11,6 @@ struct MainViewVC: View {
     @State private var isLoading = true
     @State private var addedToCart: [Bool] = [] // Track "Add to Cart" state for each item
     @State private var itemCounts: [Int] = []  // Track counts for each item
-    
     var body: some View {
         VStack {
             if isLoading {
@@ -20,13 +19,15 @@ struct MainViewVC: View {
             } else {
                 List(items.indices, id: \.self) { index in
                     ItemDetailCell(
-                        itemMasterId : items[index].iTEM_MASTER_ID ,
+                        itemMasterId: items[index].iTEM_MASTER_ID,
                         itemName: items[index].iTEM_NAME ?? "Unknown",
                         itemDetail: "Brand: \(items[index].bRAND ?? "Unknown"), Model: \(items[index].mODEL_NO ?? "Unknown")",
                         itemDesc: items[index].sR_NUMBER,
-                        itemCounts: $itemCounts[index],
+                        itemCounts: $itemCounts[index], // Pass as binding
+                        isAddToCartButtonVisible: Binding(
+                            get: { items[index].items_in_cart ?? 0 },
+                            set: { items[index].items_in_cart = $0 }),
                         itemImageURL: items[index].iTEM_THUMBNAIL,
-                        isAddToCartButtonVisible: !addedToCart[index],
                         onAddToCart: {
                             addedToCart[index] = true
                             print("Added to cart: \(items[index].iTEM_NAME ?? "Unknown")")
@@ -39,6 +40,7 @@ struct MainViewVC: View {
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, 5)
                 }
+
                 .listStyle(PlainListStyle())
             }
         }

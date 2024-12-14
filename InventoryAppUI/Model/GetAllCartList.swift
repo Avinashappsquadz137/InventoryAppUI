@@ -31,6 +31,7 @@ struct GetAllCartList : Codable {
 
 }
 struct CartList : Codable {
+    let iTEM_MASTER_ID : String?
     let id : String?
     let user_id : String?
     let iTEM_NAME : String?
@@ -38,10 +39,10 @@ struct CartList : Codable {
     let bRAND : String?
     let sR_NUMBER : String?
     let iTEM_THUMBNAIL : String?
-    let items_in_cart : Int?
+    var items_in_cart : Int?
 
     enum CodingKeys: String, CodingKey {
-
+        case iTEM_MASTER_ID = "ITEM_MASTER_ID"
         case id = "id"
         case user_id = "user_id"
         case iTEM_NAME = "ITEM_NAME"
@@ -54,6 +55,7 @@ struct CartList : Codable {
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        iTEM_MASTER_ID = try values.decodeIfPresent(String.self, forKey: .iTEM_MASTER_ID)
         id = try values.decodeIfPresent(String.self, forKey: .id)
         user_id = try values.decodeIfPresent(String.self, forKey: .user_id)
         iTEM_NAME = try values.decodeIfPresent(String.self, forKey: .iTEM_NAME)

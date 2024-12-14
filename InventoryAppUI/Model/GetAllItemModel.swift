@@ -38,7 +38,7 @@ struct Datas : Codable {
     let bRAND : String?
     let sR_NUMBER : String?
     let iTEM_THUMBNAIL : String?
-    let items_in_cart : Int?
+    var items_in_cart : Int?
 
     enum CodingKeys: String, CodingKey {
 

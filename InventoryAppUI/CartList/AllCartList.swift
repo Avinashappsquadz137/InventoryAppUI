@@ -20,13 +20,12 @@ struct AllCartList: View {
             } else {
                 List(items, id: \.id) { item in
                     ItemDetailCell(
-                        itemMasterId : "",
+                        itemMasterId :item.iTEM_MASTER_ID,
                         itemName: item.iTEM_NAME ?? "Unknown",
                         itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
                         itemDesc: item.sR_NUMBER ?? "N/A",
                         itemCounts: .constant(item.items_in_cart ?? 1),  // Use a constant binding if no change is needed
-                        itemImageURL: item.iTEM_THUMBNAIL ?? "",
-                        isAddToCartButtonVisible: false,
+                        isAddToCartButtonVisible: .constant(item.items_in_cart ?? 1), itemImageURL: item.iTEM_THUMBNAIL ?? "",
                         onAddToCart: {},
                         onCountChanged: { _ in }
                     )

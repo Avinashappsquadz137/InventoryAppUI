@@ -7,15 +7,16 @@
 import SwiftUI
 
 struct ItemDetailCell: View {
-    let itemMasterId : String?
+    let itemMasterId: String?
     let itemName: String
     let itemDetail: String
     let itemDesc: String?
-    @Binding var itemCounts: Int
+    @Binding var itemCounts: Int // Binding for item count
+    @Binding var isAddToCartButtonVisible: Int // Binding for "Add to Cart" button visibility
     let itemImageURL: String?
-    var isAddToCartButtonVisible: Bool
     var onAddToCart: () -> Void
     var onCountChanged: (Int) -> Void
+    
     var body: some View {
         HStack(spacing: 10) {
             // Image Section
@@ -33,11 +34,12 @@ struct ItemDetailCell: View {
                 
                 // Add To Cart Button / Quantity Adjuster
                 VStack {
-                    if isAddToCartButtonVisible {
+                    if isAddToCartButtonVisible == 0 {
                         Button(action: {
-                               onAddToCart()
-                               addRemoveData()
-                           }) {
+                            onAddToCart()
+                            addRemoveData()
+                            isAddToCartButtonVisible = 1
+                        }) {
                             Text("Add To Cart")
                                 .font(.headline)
                                 .padding()
@@ -45,7 +47,6 @@ struct ItemDetailCell: View {
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
-                            
                         }
                         .buttonStyle(PlainButtonStyle())
                     } else {
@@ -55,7 +56,6 @@ struct ItemDetailCell: View {
                                     itemCounts -= 1
                                     addRemoveData()
                                     onCountChanged(itemCounts)
-                                    
                                 }
                             }) {
                                 Image(systemName: "minus.circle")
@@ -106,8 +106,13 @@ struct ItemDetailCell: View {
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5)
     }
+    
     func addRemoveData() {
-        let parameters: [String: Any] = ["emp_code": "1","ITEM_NAME" : "\(itemMasterId ?? "")" ,"items_in_cart": "\(itemCounts)"]
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "ITEM_NAME" : "\(itemMasterId ?? "")",
+            "items_in_cart": "\(itemCounts)"
+        ]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.addtocart,
             method: .post,
@@ -118,7 +123,6 @@ struct ItemDetailCell: View {
                 switch result {
                 case .success(let model):
                     if let data = model.data {
-    
                         print("Fetched items: \(data)")
                     } else {
                         print("No data received")
