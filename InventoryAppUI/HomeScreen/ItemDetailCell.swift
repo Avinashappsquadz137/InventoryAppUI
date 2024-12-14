@@ -12,7 +12,7 @@ struct ItemDetailCell: View {
     let itemDesc: String?
     var itemCount: Int?
     let itemImageURL: String?
-    @State private var itemCounts: Int = 0
+    @State private var itemCounts: Int = 1
     var isAddToCartButtonVisible: Bool
     var onAddToCart: () -> Void
     var onCountChanged: ((Int) -> Void)?
@@ -45,10 +45,11 @@ struct ItemDetailCell: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                         }
+                        .buttonStyle(PlainButtonStyle())
                     } else {
                         HStack(spacing: 20) {
                                     Button(action: {
-                                        if itemCounts > 0 {
+                                        if itemCounts > 1 {
                                             itemCounts -= 1
                                             print("Item count after minus: \(itemCounts)")
                                             onCountChanged?(itemCounts) // Notify parent view with updated count
@@ -58,7 +59,7 @@ struct ItemDetailCell: View {
                                             .foregroundColor(.red)
                                             .font(.system(size: 30))
                                     }
-                                    
+                                    .buttonStyle(PlainButtonStyle())
                                     Text("\(itemCounts)")
                                         .font(.system(size: 20, weight: .semibold))
                                         .frame(width: 40)
@@ -72,6 +73,7 @@ struct ItemDetailCell: View {
                                             .foregroundColor(.green)
                                             .font(.system(size: 30))
                                     }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
                                 .padding(.top, 5)
                     }
