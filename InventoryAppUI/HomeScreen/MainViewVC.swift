@@ -20,6 +20,7 @@ struct MainViewVC: View {
             } else {
                 List(items.indices, id: \.self) { index in
                     ItemDetailCell(
+                        itemMasterId : items[index].iTEM_MASTER_ID ,
                         itemName: items[index].iTEM_NAME ?? "Unknown",
                         itemDetail: "Brand: \(items[index].bRAND ?? "Unknown"), Model: \(items[index].mODEL_NO ?? "Unknown")",
                         itemDesc: items[index].sR_NUMBER,

@@ -20,6 +20,7 @@ struct AllCartList: View {
             } else {
                 List(items, id: \.id) { item in
                     ItemDetailCell(
+                        itemMasterId : "",
                         itemName: item.iTEM_NAME ?? "Unknown",
                         itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
                         itemDesc: item.sR_NUMBER ?? "N/A",
