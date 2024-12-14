@@ -9,8 +9,8 @@ import SwiftUI
 struct MainViewVC: View {
     @State private var items: [Datas] = []
     @State private var isLoading = true
-    @State private var addedToCart: [Bool] = [] // Track the "Add to Cart" state for each item
-    @State private var itemCounts: [Int] = [] // Track counts for each item
+    @State private var addedToCart: [Bool] = [] // Track "Add to Cart" state for each item
+    @State private var itemCounts: [Int] = []  // Track counts for each item
     
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct MainViewVC: View {
                         itemName: items[index].iTEM_NAME ?? "Unknown",
                         itemDetail: "Brand: \(items[index].bRAND ?? "Unknown"), Model: \(items[index].mODEL_NO ?? "Unknown")",
                         itemDesc: items[index].sR_NUMBER,
-                        itemCount: itemCounts[index], // Use itemCounts here
+                        itemCounts: $itemCounts[index],
                         itemImageURL: items[index].iTEM_THUMBNAIL,
                         isAddToCartButtonVisible: !addedToCart[index],
                         onAddToCart: {
@@ -31,7 +31,7 @@ struct MainViewVC: View {
                             print("Added to cart: \(items[index].iTEM_NAME ?? "Unknown")")
                         },
                         onCountChanged: { newCount in
-                            itemCounts[index] = newCount // Update the item count
+                            itemCounts[index] = newCount
                             print("Updated count for \(items[index].iTEM_NAME ?? "Unknown"): \(newCount)")
                         }
                     )
@@ -62,8 +62,8 @@ struct MainViewVC: View {
                 case .success(let model):
                     if let data = model.data {
                         self.items = data
-                        self.addedToCart = Array(repeating: false, count: data.count) // Initialize the array
-                        self.itemCounts = Array(repeating: 0, count: data.count) // Initialize itemCounts array with 0
+                        self.addedToCart = Array(repeating: false, count: data.count)
+                        self.itemCounts = Array(repeating: 1, count: data.count) // Initialize with 1
                         print("Fetched items: \(data)")
                     } else {
                         print("No data received")

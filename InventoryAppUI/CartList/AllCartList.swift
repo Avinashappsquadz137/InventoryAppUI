@@ -11,7 +11,6 @@ struct AllCartList: View {
     
     @State private var items: [CartList] = []
     @State private var isLoading = true
-    @State private var addedToCart: [Bool] = []
     
     var body: some View {
         VStack {
@@ -24,18 +23,16 @@ struct AllCartList: View {
                         itemName: item.iTEM_NAME ?? "Unknown",
                         itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
                         itemDesc: item.sR_NUMBER ?? "N/A",
-                        itemCount: item.items_in_cart,
+                        itemCounts: .constant(item.items_in_cart ?? 1),  // Use a constant binding if no change is needed
                         itemImageURL: item.iTEM_THUMBNAIL ?? "",
-                        isAddToCartButtonVisible: false, onAddToCart: {},
-                        onCountChanged: {_ in 
-//                                                    addedToCart[index] = true // Mark the item as added to cart
-//                                                    print("Added to cart: \(items[index].iTEM_NAME ?? "Unknown")")
-                                                }
+                        isAddToCartButtonVisible: false,
+                        onAddToCart: {},
+                        onCountChanged: { _ in }
                     )
                     .listRowInsets(EdgeInsets())
-                    .padding(.vertical, 5) // Add custom padding
+                    .padding(.vertical, 5)
                 }
-                .listStyle(PlainListStyle()) // Optional: Use plain style for better visuals
+                .listStyle(PlainListStyle())
             }
         }
         .onAppear {

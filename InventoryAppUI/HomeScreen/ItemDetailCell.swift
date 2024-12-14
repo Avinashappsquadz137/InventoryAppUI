@@ -10,12 +10,11 @@ struct ItemDetailCell: View {
     let itemName: String
     let itemDetail: String
     let itemDesc: String?
-    var itemCount: Int?
+    @Binding var itemCounts: Int
     let itemImageURL: String?
-    @State private var itemCounts: Int = 1
     var isAddToCartButtonVisible: Bool
     var onAddToCart: () -> Void
-    var onCountChanged: ((Int) -> Void)?
+    var onCountChanged: (Int) -> Void
     var body: some View {
         HStack(spacing: 10) {
             // Image Section
@@ -34,9 +33,7 @@ struct ItemDetailCell: View {
                 // Add To Cart Button / Quantity Adjuster
                 VStack {
                     if isAddToCartButtonVisible {
-                        Button(action: {
-                            onAddToCart()
-                        }) {
+                        Button(action: onAddToCart) {
                             Text("Add To Cart")
                                 .font(.headline)
                                 .padding()
@@ -48,34 +45,33 @@ struct ItemDetailCell: View {
                         .buttonStyle(PlainButtonStyle())
                     } else {
                         HStack(spacing: 20) {
-                                    Button(action: {
-                                        if itemCounts > 1 {
-                                            itemCounts -= 1
-                                            print("Item count after minus: \(itemCounts)")
-                                            onCountChanged?(itemCounts) // Notify parent view with updated count
-                                        }
-                                    }) {
-                                        Image(systemName: "minus.circle")
-                                            .foregroundColor(.red)
-                                            .font(.system(size: 30))
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    Text("\(itemCounts)")
-                                        .font(.system(size: 20, weight: .semibold))
-                                        .frame(width: 40)
-                                    
-                                    Button(action: {
-                                        itemCounts += 1
-                                        print("Item count after plus: \(itemCounts)")
-                                        onCountChanged?(itemCounts) // Notify parent view with updated count
-                                    }) {
-                                        Image(systemName: "plus.circle")
-                                            .foregroundColor(.green)
-                                            .font(.system(size: 30))
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
+                            Button(action: {
+                                if itemCounts > 1 {
+                                    itemCounts -= 1
+                                    onCountChanged(itemCounts)
                                 }
-                                .padding(.top, 5)
+                            }) {
+                                Image(systemName: "minus.circle")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 30))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            Text("\(itemCounts)")
+                                .font(.system(size: 20, weight: .semibold))
+                                .frame(width: 40)
+                            
+                            Button(action: {
+                                itemCounts += 1
+                                onCountChanged(itemCounts)
+                            }) {
+                                Image(systemName: "plus.circle")
+                                    .foregroundColor(.green)
+                                    .font(.system(size: 30))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        .padding(.top, 5)
                     }
                 }
             }
@@ -88,7 +84,7 @@ struct ItemDetailCell: View {
                 Text(itemDetail)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.primary)
-
+                
                 if let itemDesc = itemDesc {
                     Text(itemDesc)
                         .font(.subheadline)
@@ -103,4 +99,3 @@ struct ItemDetailCell: View {
         .shadow(color: Color.black.opacity(0.1), radius: 5)
     }
 }
-
