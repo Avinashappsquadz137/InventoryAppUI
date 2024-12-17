@@ -46,7 +46,7 @@ struct ItemDetailCell: View {
                             Text("Add To Cart")
                                 .font(.headline)
                                 .padding()
-                                .frame(maxWidth: .infinity)
+                                .frame(maxWidth: 150)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
