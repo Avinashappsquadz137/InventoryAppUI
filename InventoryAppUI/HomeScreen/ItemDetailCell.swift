@@ -13,6 +13,9 @@ struct ItemDetailCell: View {
     let itemDesc: String?
     @Binding var itemCounts: Int // Binding for item count
     @Binding var isAddToCartButtonVisible: Int // Binding for "Add to Cart" button visibility
+    @State private var isChecked: Bool = false
+    var isCheckboxVisible: Bool
+    
     let itemImageURL: String?
     var onAddToCart: () -> Void
     var onCountChanged: (Int) -> Void
@@ -24,11 +27,11 @@ struct ItemDetailCell: View {
                 AsyncImage(url: URL(string: itemImageURL ?? "")) { image in
                     image.resizable()
                         .scaledToFit()
-                        .frame(width: 150, height: 150)
+                        .frame(maxWidth: .infinity, maxHeight: 150)
                         .cornerRadius(8)
                 } placeholder: {
                     Color.gray
-                        .frame(width: 150, height: 150)
+                        .frame(maxWidth: .infinity, maxHeight: 150)
                         .cornerRadius(8)
                 }
                 
@@ -43,7 +46,7 @@ struct ItemDetailCell: View {
                             Text("Add To Cart")
                                 .font(.headline)
                                 .padding()
-                                .frame(maxWidth: 150)
+                                .frame(maxWidth: .infinity)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
@@ -99,7 +102,17 @@ struct ItemDetailCell: View {
                         .foregroundColor(.gray)
                 }
             }
-            Spacer()
+            if isCheckboxVisible {
+                Button(action: {
+                    isChecked.toggle()
+                    print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
+                }) {
+                    Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
+                        .font(.system(size: 30))
+                        .foregroundColor(isChecked ? .green : .gray)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
         }
         .padding()
         .background(Color.white)

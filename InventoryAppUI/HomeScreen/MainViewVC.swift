@@ -27,6 +27,7 @@ struct MainViewVC: View {
                         isAddToCartButtonVisible: Binding(
                             get: { items[index].items_in_cart ?? 0 },
                             set: { items[index].items_in_cart = $0 }),
+                        isCheckboxVisible: false,
                         itemImageURL: items[index].iTEM_THUMBNAIL,
                         onAddToCart: {
                             addedToCart[index] = true

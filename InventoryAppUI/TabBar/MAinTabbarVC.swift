@@ -24,7 +24,7 @@ struct MAinTabbarVC: View {
             NavBar(
                 title: navigationTitle,
                 leftButtonImage: "line.3.horizontal",
-                leftButtonAction: { print("Gear clicked") },
+                leftButtonAction: { print("line.3.horizontal") },
                 rightButtonImage: "bell",
                 rightButtonAction: { print("Bell clicked") }
             )
