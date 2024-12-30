@@ -10,7 +10,9 @@
 		B51267BB368D2B2146655F6E /* Pods_InventoryAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */; };
 		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
 		C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */; };
+		C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB8E2D227FE600B51955 /* QRScannerView.swift */; };
 		C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */; };
+		C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */; };
 		C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D722D0AC54700D09D41 /* MainViewVC.swift */; };
 		C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */; };
 		C7868D772D0AC66600D09D41 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D762D0AC66600D09D41 /* ListView.swift */; };
@@ -20,6 +22,7 @@
 		C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DAF2D0AF6E700D09D41 /* ApiClient.swift */; };
 		C7868DB22D0AF7DD00D09D41 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DB12D0AF7DC00D09D41 /* APIManager.swift */; };
 		C7868DB42D0AF92800D09D41 /* GetAllItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */; };
+		C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B344262D1589B600129ED4 /* DataScannerRepresentable.swift */; };
 		C7DC34762D0AB20300FAC786 /* InventoryAppUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DC34752D0AB20300FAC786 /* InventoryAppUIApp.swift */; };
 		C7DC347A2D0AB20400FAC786 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DC34792D0AB20400FAC786 /* Assets.xcassets */; };
 		C7DC347D2D0AB20400FAC786 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DC347C2D0AB20400FAC786 /* Preview Assets.xcassets */; };
@@ -31,7 +34,9 @@
 		B7E644721B02B22C030B1630 /* Pods-InventoryAppUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InventoryAppUI.release.xcconfig"; path = "Target Support Files/Pods-InventoryAppUI/Pods-InventoryAppUI.release.xcconfig"; sourceTree = "<group>"; };
 		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
 		C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllCartList.swift; sourceTree = "<group>"; };
+		C76EFB8E2D227FE600B51955 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatePopUp.swift; sourceTree = "<group>"; };
+		C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterDetailsVC.swift; sourceTree = "<group>"; };
 		C7868D722D0AC54700D09D41 /* MainViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewVC.swift; sourceTree = "<group>"; };
 		C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAinTabbarVC.swift; sourceTree = "<group>"; };
 		C7868D762D0AC66600D09D41 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -41,6 +46,7 @@
 		C7868DAF2D0AF6E700D09D41 /* ApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		C7868DB12D0AF7DC00D09D41 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllItemModel.swift; sourceTree = "<group>"; };
+		C7B344262D1589B600129ED4 /* DataScannerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScannerRepresentable.swift; sourceTree = "<group>"; };
 		C7DC34722D0AB20300FAC786 /* InventoryAppUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InventoryAppUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DC34752D0AB20300FAC786 /* InventoryAppUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryAppUIApp.swift; sourceTree = "<group>"; };
 		C7DC34792D0AB20400FAC786 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,9 +85,20 @@
 		C718C1DD2D0C37C1008A1EFC /* CartList */ = {
 			isa = PBXGroup;
 			children = (
+				C76EFB8D2D227FD400B51955 /* QRScannerView */,
 				C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */,
+				C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */,
 			);
 			path = CartList;
+			sourceTree = "<group>";
+		};
+		C76EFB8D2D227FD400B51955 /* QRScannerView */ = {
+			isa = PBXGroup;
+			children = (
+				C7B344262D1589B600129ED4 /* DataScannerRepresentable.swift */,
+				C76EFB8E2D227FE600B51955 /* QRScannerView.swift */,
+			);
+			path = QRScannerView;
 			sourceTree = "<group>";
 		};
 		C76F1ED12D1069E3000D0ADC /* PopUpCustom */ = {
@@ -234,6 +251,9 @@
 				Base,
 			);
 			mainGroup = C7DC34692D0AB20300FAC786;
+			packageReferences = (
+				C7B344282D158B7800129ED4 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = C7DC34732D0AB20300FAC786 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,10 +328,13 @@
 				C7868DB22D0AF7DD00D09D41 /* APIManager.swift in Sources */,
 				C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */,
 				C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */,
+				C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ContentView.swift in Sources */,
 				C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */,
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
+				C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */,
 				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
+				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,
 				C7DC34762D0AB20300FAC786 /* InventoryAppUIApp.swift in Sources */,
 				C7868DB42D0AF92800D09D41 /* GetAllItemModel.swift in Sources */,
@@ -452,11 +475,13 @@
 				DEVELOPMENT_TEAM = 7BMX4SN26T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan QR codes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -482,11 +507,13 @@
 				DEVELOPMENT_TEAM = 7BMX4SN26T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan QR codes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -522,6 +549,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C7B344282D158B7800129ED4 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = C7DC346A2D0AB20300FAC786 /* Project object */;
 }

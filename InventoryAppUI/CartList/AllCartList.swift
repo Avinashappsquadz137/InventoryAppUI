@@ -6,72 +6,108 @@
 //
 
 import SwiftUI
+import VisionKit
 
 struct AllCartList: View {
-    
     @State private var items: [CartList] = []
     @State private var isLoading = true
     @State private var showPopup = false
+    @State private var showDateilScreen = false
     
+    @State var isShowingScanner = false
+    @State private var scannedText = ""
     var body: some View {
-        //        ZStack
-        ZStack {
-            VStack {
-                if isLoading {
-                    ProgressView("Loading...")
-                        .padding()
-                } else {
-                    List(items, id: \.id) { item in
-                        ItemDetailCell(
-                            itemMasterId: item.iTEM_MASTER_ID,
-                            itemName: item.iTEM_NAME ?? "Unknown",
-                            itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
-                            itemDesc: item.sR_NUMBER ?? "N/A",
-                            itemCounts: .constant(item.items_in_cart ?? 1),
-                            isAddToCartButtonVisible: .constant(item.items_in_cart ?? 1),
-                            isCheckboxVisible: true,
-                            itemImageURL: item.iTEM_THUMBNAIL ?? "",
-                            onAddToCart: {},
-                            onCountChanged: { _ in }
-                        )
-                        .listRowInsets(EdgeInsets())
-                        .padding(.vertical, 5)
+        NavigationStack {
+            ZStack {
+                
+                VStack {
+                    if isLoading {
+                        ProgressView("Loading...")
+                            .padding()
+                    } else {
+                        HStack {
+                            // Button to open QR Scanner
+                            Button(action: {
+                                if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
+                                    isShowingScanner = true
+                                } else {
+                                    print("Scanner is not supported or available")
+                                }
+                            }) {
+                                HStack {
+                                    Image(systemName: "qrcode.viewfinder")
+                                    Text("Scan QR")
+                                }
+                                .padding()
+                                .foregroundColor(.white)
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        
+                        List(items, id: \.id) { item in
+                            ItemDetailCell(
+                                itemMasterId: item.iTEM_MASTER_ID,
+                                itemName: item.iTEM_NAME ?? "Unknown",
+                                itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
+                                itemDesc: item.sR_NUMBER ?? "N/A",
+                                itemCounts: .constant(item.items_in_cart ?? 1),
+                                isAddToCartButtonVisible: .constant(item.items_in_cart ?? 1),
+                                isCheckboxVisible: true,
+                                itemImageURL: item.iTEM_THUMBNAIL ?? "",
+                                onAddToCart: {},
+                                onCountChanged: { _ in }
+                            )
+                            .listRowInsets(EdgeInsets())
+                            .padding(.vertical, 5)
+                        }
+                        .listStyle(PlainListStyle())
                     }
-                    .listStyle(PlainListStyle())
+                    HStack {
+                        Button(action: {
+                            showPopup = true
+                        }) {
+                            Text("Continue")
+                        }
+                        .font(.headline)
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
+                    .padding(5)
+                }
+                .onAppear {
+                    getMemberDetail()
                 }
                 
-                HStack {
-                    Button(action: {
-                        showPopup = true
-                    }) {
-                        Text("Continue")
+                if showPopup {
+                    ZStack {
+                        Color.black.opacity(0.4)
+                            .ignoresSafeArea()
+                            .onTapGesture {
+                                showPopup = false
+                            }
+                        SelectDatePopUp(showPopup: $showPopup, onSubmit: {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                showDateilScreen = true
+                            }
+                        })
                     }
-                    .font(.headline)
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .transition(.opacity)
+                    .animation(.easeInOut, value: showPopup)
                 }
-                .padding(5)
             }
-            .onAppear {
-                getMemberDetail()
+            .navigationDestination(isPresented: $showDateilScreen) {
+                EnterDetailsVC()
             }
-            if showPopup {
-                ZStack {
-                    Color.black.opacity(0.4)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            showPopup = false
+            .fullScreenCover(isPresented: $isShowingScanner) {
+                            QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
                         }
-                    SelectDatePopUp(showPopup: $showPopup)
-                }
-                .transition(.opacity) 
-                .animation(.easeInOut, value: showPopup)
-            }
         }
-        
     }
     
     func getMemberDetail() {
@@ -100,8 +136,4 @@ struct AllCartList: View {
             }
         }
     }
-}
-
-#Preview {
-    AllCartList()
 }
