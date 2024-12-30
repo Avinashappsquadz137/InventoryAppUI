@@ -101,9 +101,13 @@ struct AllCartList: View {
                     .animation(.easeInOut, value: showPopup)
                 }
             }
-            .navigationDestination(isPresented: $showDateilScreen) {
+//            .navigationDestination(isPresented: $showDateilScreen) {
+//                EnterDetailsVC()
+//            }    
+            .fullScreenCover(isPresented: $showDateilScreen) {
                 EnterDetailsVC()
             }
+            
             .fullScreenCover(isPresented: $isShowingScanner) {
                             QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
                         }
