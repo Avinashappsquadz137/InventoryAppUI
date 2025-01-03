@@ -13,7 +13,7 @@ struct ItemDetailCell: View {
     let itemDesc: String?
     @Binding var itemCounts: Int // Binding for item count
     @Binding var isAddToCartButtonVisible: Int // Binding for "Add to Cart" button visibility
-    @State private var isChecked: Bool = false
+    @State private var isChecked: Bool = true
     var isCheckboxVisible: Bool
     
     let itemImageURL: String?
@@ -30,8 +30,11 @@ struct ItemDetailCell: View {
                         .frame(maxWidth: .infinity, maxHeight: 150)
                         .cornerRadius(8)
                 } placeholder: {
-                    Color.gray
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: 150)
+                        .foregroundColor(.gray)
                         .cornerRadius(8)
                 }
                 
@@ -42,6 +45,7 @@ struct ItemDetailCell: View {
                             onAddToCart()
                             addRemoveData()
                             isAddToCartButtonVisible = 1
+                            itemCounts = 1
                         }) {
                             Text("Add To Cart")
                                 .font(.headline)
@@ -55,10 +59,14 @@ struct ItemDetailCell: View {
                     } else {
                         HStack(spacing: 20) {
                             Button(action: {
-                                if itemCounts > 1 {
+                                if itemCounts > 0 {
                                     itemCounts -= 1
                                     addRemoveData()
                                     onCountChanged(itemCounts)
+                                    
+                                }
+                                if itemCounts == 0 {
+                                    isAddToCartButtonVisible = 0
                                 }
                             }) {
                                 Image(systemName: "minus.circle")
