@@ -20,7 +20,6 @@ struct InventoryAppUIApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         return true
     }
 }
@@ -32,13 +31,14 @@ struct SplashView: View {
     var body: some View {
         if isActive {
             MAinTabbarVC()
+                .overlay(ToastView())
         } else {
             ZStack {
-                Color.white.ignoresSafeArea() // Background color
+                Color.white.ignoresSafeArea()
                 Image("inventory-management")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 200) // Adjust size as needed
+                    .frame(width: 200, height: 200)
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

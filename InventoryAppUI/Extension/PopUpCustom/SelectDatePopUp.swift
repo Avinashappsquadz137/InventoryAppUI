@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SelectDatePopUp: View {
     @Binding var showPopup: Bool
-    let onSubmit: () -> Void // Callback for submit action
-
+    let onSubmit: () -> Void 
+    let checkedStates: [String]
     @State private var fromDate: Date = Date()
     @State private var toDate: Date = Date()
     @State private var isFromDatePickerVisible: Bool = false
@@ -88,8 +88,9 @@ struct SelectDatePopUp: View {
                 Button(action: {
                     print("From Date: \(fromDate), To Date: \(toDate)")
                     onSubmit()
+                    itemAvailabilityByDate()
                 }) {
-                    Text("Submit")
+                    Text("OK")
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -105,7 +106,33 @@ struct SelectDatePopUp: View {
         .cornerRadius(12)
         .shadow(radius: 10)
     }
-
+    
+    func itemAvailabilityByDate() {
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "to_date": "\(toDate)",
+            "item_list": checkedStates,
+            "from_date" : "\(fromDate)"]
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.itemAvailabilityByDate,
+            method: .post,
+            param: parameters,
+            model: ItemAvailabilityModel.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        
+                    } else {
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    print("API Error: \(error)")
+                }
+            }
+        }
+    }
     private func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

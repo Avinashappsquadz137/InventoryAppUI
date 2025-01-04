@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B51267BB368D2B2146655F6E /* Pods_InventoryAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */; };
+		C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */; };
+		C718A9782D29534B00487615 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9772D29534B00487615 /* ToastManager.swift */; };
 		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
 		C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */; };
 		C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB8E2D227FE600B51955 /* QRScannerView.swift */; };
@@ -33,6 +35,8 @@
 		89DC08FB85F87B86899B0716 /* Pods-InventoryAppUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InventoryAppUI.debug.xcconfig"; path = "Target Support Files/Pods-InventoryAppUI/Pods-InventoryAppUI.debug.xcconfig"; sourceTree = "<group>"; };
 		98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InventoryAppUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E644721B02B22C030B1630 /* Pods-InventoryAppUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InventoryAppUI.release.xcconfig"; path = "Target Support Files/Pods-InventoryAppUI/Pods-InventoryAppUI.release.xcconfig"; sourceTree = "<group>"; };
+		C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAvailabilityModel.swift; sourceTree = "<group>"; };
+		C718A9772D29534B00487615 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
 		C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllCartList.swift; sourceTree = "<group>"; };
 		C76EFB8E2D227FE600B51955 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
@@ -83,6 +87,14 @@
 				98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C718A9762D29533A00487615 /* Toster */ = {
+			isa = PBXGroup;
+			children = (
+				C718A9772D29534B00487615 /* ToastManager.swift */,
+			);
+			path = Toster;
 			sourceTree = "<group>";
 		};
 		C718C1DD2D0C37C1008A1EFC /* CartList */ = {
@@ -140,6 +152,7 @@
 		C7868D7C2D0AC78500D09D41 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C718A9762D29533A00487615 /* Toster */,
 				C76F1ED12D1069E3000D0ADC /* PopUpCustom */,
 				C7868D7D2D0AC7C300D09D41 /* ContentView.swift */,
 			);
@@ -151,6 +164,7 @@
 			children = (
 				C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */,
 				C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */,
+				C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -344,10 +358,12 @@
 				C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */,
 				C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ContentView.swift in Sources */,
+				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
 				C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */,
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
 				C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */,
 				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
+				C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */,
 				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,
 				C7DC34762D0AB20300FAC786 /* InventoryAppUIApp.swift in Sources */,

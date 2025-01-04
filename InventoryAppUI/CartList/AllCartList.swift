@@ -16,7 +16,7 @@ struct AllCartList: View {
     
     @State var isShowingScanner = false
     @State private var scannedText = ""
-    @State private var checkedStates: [Int] = []
+    @State private var checkedStates: [String?] = []
     
     var body: some View {
         NavigationStack {
@@ -69,13 +69,14 @@ struct AllCartList: View {
                                 },
                                 onCheckUncheck : {
                                     if let index = items.firstIndex(where: { $0.id == item.id }) {
-                                        if let existingIndex = checkedStates.firstIndex(of: index) {
+                                        if let existingIndex = checkedStates.firstIndex(of: item.id) {
                                             checkedStates.remove(at: existingIndex)
                                         } else {
-                                            checkedStates.append(index)
+                                            checkedStates.append(item.id)
                                         }
-                                        print("Selected Indices: \(checkedStates)")
+                                        print("Selected IDs: \(checkedStates)")
                                     }
+
                                 }
                             )
                             .listRowInsets(EdgeInsets())
@@ -107,11 +108,14 @@ struct AllCartList: View {
                             .onTapGesture {
                                 showPopup = false
                             }
-                        SelectDatePopUp(showPopup: $showPopup, onSubmit: {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                showDateilScreen = true
-                            }
-                        })
+                        SelectDatePopUp(
+                            showPopup: $showPopup,
+                            onSubmit: {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    showDateilScreen = true
+                                }
+                            }, checkedStates: checkedStates.map { $0 ?? "" }
+                        )
                     }
                     .transition(.opacity)
                     .animation(.easeInOut, value: showPopup)

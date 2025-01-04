@@ -11,8 +11,8 @@ struct ItemDetailCell: View {
     let itemName: String
     let itemDetail: String
     let itemDesc: String?
-    @Binding var itemCounts: Int // Binding for item count
-    @Binding var isAddToCartButtonVisible: Int // Binding for "Add to Cart" button visibility
+    @Binding var itemCounts: Int
+    @Binding var isAddToCartButtonVisible: Int 
     @State private var isChecked: Bool = false
     var isCheckboxVisible: Bool
     
@@ -183,6 +183,7 @@ struct ItemDetailCell: View {
                 switch result {
                 case .success(let model):
                     if let data = model.data {
+                        ToastManager.shared.show(message: model.message ?? "Success")
                         print("Fetched items: \(data)")
                         onDelete()
                     } else {
