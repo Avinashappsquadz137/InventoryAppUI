@@ -26,7 +26,6 @@ struct AllCartList: View {
                             .padding()
                     } else {
                         HStack {
-                            // Button to open QR Scanner
                             Button(action: {
                                 if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
                                     isShowingScanner = true
@@ -43,7 +42,7 @@ struct AllCartList: View {
                                 .background(Color.blue)
                                 .cornerRadius(10)
                             }
-                            .padding()
+                            .padding(2)
                             .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         
@@ -53,17 +52,27 @@ struct AllCartList: View {
                                 itemName: item.iTEM_NAME ?? "Unknown",
                                 itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
                                 itemDesc: item.sR_NUMBER ?? "N/A",
-                                itemCounts: .constant(item.items_in_cart ?? 1),
-                                isAddToCartButtonVisible: .constant(item.items_in_cart ?? 1),
+                                itemCounts: .constant(item.items_in_cart ?? 0),
+                                isAddToCartButtonVisible: .constant(item.items_in_cart ?? 0),
                                 isCheckboxVisible: true,
                                 itemImageURL: item.iTEM_THUMBNAIL ?? "",
                                 onAddToCart: {},
-                                onCountChanged: { _ in }
+                                onCountChanged: { _ in },
+                                hideDeleteButton: false,
+                                onDelete: {
+                                    
+                                    if let index = items.firstIndex(where: { $0.id == item.id }) {
+                                        items.remove(at: index)
+                                    }
+                                }
                             )
                             .listRowInsets(EdgeInsets())
                             .padding(.vertical, 5)
                         }
                         .listStyle(PlainListStyle())
+                        .onAppear {
+                            getMemberDetail()
+                        }
                     }
                     HStack {
                         Button(action: {
@@ -80,10 +89,6 @@ struct AllCartList: View {
                     }
                     .padding(5)
                 }
-                .onAppear {
-                    getMemberDetail()
-                }
-                
                 if showPopup {
                     ZStack {
                         Color.black.opacity(0.4)
@@ -101,16 +106,17 @@ struct AllCartList: View {
                     .animation(.easeInOut, value: showPopup)
                 }
             }
-//            .navigationDestination(isPresented: $showDateilScreen) {
-//                EnterDetailsVC()
-//            }    
             .fullScreenCover(isPresented: $showDateilScreen) {
                 EnterDetailsVC()
             }
             
             .fullScreenCover(isPresented: $isShowingScanner) {
-                            QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
-                        }
+                QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
+            }
+            
+        }
+        .onAppear {
+            getMemberDetail()
         }
     }
     
@@ -135,9 +141,11 @@ struct AllCartList: View {
                         print("No data received")
                     }
                 case .failure(let error):
+                    self.items = []
                     print("API Error: \(error)")
                 }
             }
         }
     }
+    
 }

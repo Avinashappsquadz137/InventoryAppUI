@@ -11,32 +11,54 @@ struct MainViewVC: View {
     @State private var isLoading = true
     @State private var addedToCart: [Bool] = [] // Track "Add to Cart" state for each item
     @State private var itemCounts: [Int] = []  // Track counts for each item
+    @State private var searchText: String = ""
+    
+    var filteredItems: [Datas] {
+           if searchText.isEmpty {
+               return items
+           } else {
+               return items.filter {
+                   $0.iTEM_NAME?.localizedCaseInsensitiveContains(searchText) ?? false
+               }
+           }
+       }
+    
     var body: some View {
         VStack {
             if isLoading {
                 ProgressView("Loading...")
                     .padding()
             } else {
-                List(items.indices, id: \.self) { index in
+                TextField("Search items...", text: $searchText)
+                                       .padding(10)
+                                       .background(Color(.systemGray6))
+                                       .cornerRadius(8)
+                                       .padding(.horizontal)
+                
+                List(filteredItems.indices, id: \.self) { index in
                     ItemDetailCell(
-                        itemMasterId: items[index].iTEM_MASTER_ID,
-                        itemName: items[index].iTEM_NAME ?? "Unknown",
-                        itemDetail: "Brand: \(items[index].bRAND ?? "Unknown"), Model: \(items[index].mODEL_NO ?? "Unknown")",
-                        itemDesc: items[index].sR_NUMBER,
+                        itemMasterId: filteredItems[index].iTEM_MASTER_ID,
+                        itemName: filteredItems[index].iTEM_NAME ?? "Unknown",
+                        itemDetail: "Brand: \(filteredItems[index].bRAND ?? "Unknown"), Model: \(filteredItems[index].mODEL_NO ?? "Unknown")",
+                        itemDesc: filteredItems[index].sR_NUMBER,
                         itemCounts: $itemCounts[index], // Pass as binding
                         isAddToCartButtonVisible: Binding(
-                            get: { items[index].items_in_cart ?? 0 },
-                            set: { items[index].items_in_cart = $0 }),
+                            get: { filteredItems[index].items_in_cart ?? 0 },
+                            set: { newValue in
+                                if let itemIndex = items.firstIndex(where: { $0.iTEM_MASTER_ID == filteredItems[index].iTEM_MASTER_ID }) {
+                                    items[itemIndex].items_in_cart = newValue
+                                } }),
                         isCheckboxVisible: false,
-                        itemImageURL: items[index].iTEM_THUMBNAIL,
+                        itemImageURL: filteredItems[index].iTEM_THUMBNAIL,
                         onAddToCart: {
                             addedToCart[index] = true
-                            print("Added to cart: \(items[index].iTEM_NAME ?? "Unknown")")
+                            print("Added to cart: \(filteredItems[index].iTEM_NAME ?? "Unknown")")
                         },
                         onCountChanged: { newCount in
                             itemCounts[index] = newCount
-                            print("Updated count for \(items[index].iTEM_NAME ?? "Unknown"): \(newCount)")
-                        }
+                            print("Updated count for \(filteredItems[index].iTEM_NAME ?? "Unknown"): \(newCount)")
+                        },
+                        hideDeleteButton: true, onDelete: {}
                     )
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, 5)

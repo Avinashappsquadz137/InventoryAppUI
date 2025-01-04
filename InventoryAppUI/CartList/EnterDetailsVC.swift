@@ -65,7 +65,7 @@ struct EnterDetailsVC: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
                     
-                    Button("Cancel") {
+                    Button("Clear") {
                         clearTextFields()
                     }
                     .padding()

@@ -19,6 +19,8 @@ struct ItemDetailCell: View {
     let itemImageURL: String?
     var onAddToCart: () -> Void
     var onCountChanged: (Int) -> Void
+    var hideDeleteButton: Bool
+    var onDelete: () -> Void
     
     var body: some View {
         HStack(spacing: 10) {
@@ -49,7 +51,7 @@ struct ItemDetailCell: View {
                         }) {
                             Text("Add To Cart")
                                 .font(.headline)
-                                .padding()
+                                .padding(10)
                                 .frame(maxWidth: 150)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
@@ -92,6 +94,7 @@ struct ItemDetailCell: View {
                         }
                         .padding(.top, 5)
                     }
+                    
                 }
             }
             
@@ -109,9 +112,27 @@ struct ItemDetailCell: View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
+                if !hideDeleteButton { // Show delete button only when hideDeleteButton is false
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            deleteCartItem()
+                        }) {
+                            Text("DELETE")
+                                .font(.headline)
+                                .padding(8)
+                                .frame(maxWidth: 100)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
             }
             if isCheckboxVisible {
                 Button(action: {
+                    
                     isChecked.toggle()
                     print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
                 }) {
@@ -127,6 +148,8 @@ struct ItemDetailCell: View {
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5)
     }
+    
+    //deleteCartItem
     
     func addRemoveData() {
         let parameters: [String: Any] = [
@@ -145,6 +168,34 @@ struct ItemDetailCell: View {
                 case .success(let model):
                     if let data = model.data {
                         print("Fetched items: \(data)")
+                    } else {
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    print("API Error: \(error)")
+                }
+            }
+        }
+    }
+    func deleteCartItem() {
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "product_id" : "\(itemMasterId ?? "")"
+            
+        ]
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.deleteCartItem,
+            method: .post,
+            param: parameters,
+            model: RemoveData.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                       
+                        print("Fetched items: \(data)")
+                        onDelete()
                     } else {
                         print("No data received")
                     }

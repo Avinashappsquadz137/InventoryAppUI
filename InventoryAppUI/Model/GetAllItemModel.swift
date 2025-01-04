@@ -63,3 +63,45 @@ struct Datas : Codable {
     }
 
 }
+
+
+struct RemoveData : Codable {
+    let status : Bool?
+    let message : String?
+    let data : String?
+    let error : Errore?
+
+    enum CodingKeys: String, CodingKey {
+
+        case status = "status"
+        case message = "message"
+        case data = "data"
+        case error = "error"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        status = try values.decodeIfPresent(Bool.self, forKey: .status)
+        message = try values.decodeIfPresent(String.self, forKey: .message)
+        data = try values.decodeIfPresent(String.self, forKey: .data)
+        error = try values.decodeIfPresent(Errore.self, forKey: .error)
+    }
+
+}
+struct Errore : Codable {
+    let error_code : Int?
+    let error_message : String?
+
+    enum CodingKeys: String, CodingKey {
+
+        case error_code = "error_code"
+        case error_message = "error_message"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        error_code = try values.decodeIfPresent(Int.self, forKey: .error_code)
+        error_message = try values.decodeIfPresent(String.self, forKey: .error_message)
+    }
+
+}
