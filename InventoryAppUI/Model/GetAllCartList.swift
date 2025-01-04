@@ -11,7 +11,7 @@ struct GetAllCartList : Codable {
     let status : Bool?
     let message : String?
     let data : [CartList]?
-    let error : String?
+    let error : ErrorDetail?
 
     enum CodingKeys: String, CodingKey {
 
@@ -26,9 +26,14 @@ struct GetAllCartList : Codable {
         status = try values.decodeIfPresent(Bool.self, forKey: .status)
         message = try values.decodeIfPresent(String.self, forKey: .message)
         data = try values.decodeIfPresent([CartList].self, forKey: .data)
-        error = try values.decodeIfPresent(String.self, forKey: .error)
+        error = try values.decodeIfPresent(ErrorDetail.self, forKey: .error)
     }
 
+}
+
+struct ErrorDetail: Codable {
+    let code: Int?
+    let message: String?
 }
 struct CartList : Codable {
     let iTEM_MASTER_ID : String?
@@ -68,9 +73,6 @@ struct CartList : Codable {
 
 }
 
-
-
-import Foundation
 
 struct AddRemoveData : Codable {
     let status : Bool?

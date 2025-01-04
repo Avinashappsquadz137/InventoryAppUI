@@ -65,17 +65,14 @@ struct QRScannerView: View {
         }
     }
     func addQRItemDetail() {
-        let parameters: [String: Any] = ["emp_code": "1","item_qr_string": "1369_125_1722507307289"]
-        
+        let parameters: [String: Any] = ["emp_code": "1","item_qr_string": "\(scannedText)"]
         ApiClient.shared.callmethodMultipart(
-            apiendpoint: Constant.addtocartbyitemqr,
+            apiendpoint: Constant.addToCartByItemQr,
             method: .post,
             param: parameters,
             model: GetAllCartList.self
         ) { result in
             DispatchQueue.main.async {
-            
-                
                 switch result {
                 case .success(let model):
                     if let data = model.data {
