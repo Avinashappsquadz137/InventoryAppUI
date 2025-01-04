@@ -99,13 +99,13 @@ struct ItemDetailCell: View {
                     .font(.system(size: 25, weight: .bold))
                     .foregroundColor(.primary)
                 Text(itemDetail)
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.primary)
                 
                 if let itemDesc = itemDesc {
                     Text(itemDesc)
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.red)
                 }
                 if !hideDeleteButton {
                     HStack {

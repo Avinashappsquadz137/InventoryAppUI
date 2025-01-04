@@ -18,6 +18,12 @@ struct AllCartList: View {
     @State private var scannedText = ""
     @State private var checkedStates: [String?] = []
     
+    @State private var fromDate: Date = Date()
+    @State private var toDate: Date = Date()    
+    @State private var isFromDatePickerVisible: Bool = false
+    @State private var isToDatePickerVisible: Bool = false
+    
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -29,6 +35,56 @@ struct AllCartList: View {
                     } else {
                         HStack {
                             Button(action: {
+                                showPopup = true
+                            }) {
+                                Text("\(formattedDate(fromDate))")
+                                    .font(.headline)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue.opacity(0.1))
+                                    .foregroundColor(.blue)
+                                    .cornerRadius(8)
+                            }
+
+                            if isFromDatePickerVisible {
+                                DatePicker(
+                                    "",
+                                    selection: $fromDate,
+                                    in: Date()...,
+                                    displayedComponents: [.date]
+                                )
+                                .datePickerStyle(GraphicalDatePickerStyle())
+                                .background(Color.blue.opacity(0.1))
+                                .cornerRadius(8)
+                                .padding(10)
+                            }
+
+                            Button(action: {
+                                showPopup = true
+                            }) {
+                                Text("\(formattedDate(toDate))")
+                                    .font(.headline)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.green.opacity(0.1))
+                                    .foregroundColor(.green)
+                                    .cornerRadius(8)
+                            }
+
+                            if isToDatePickerVisible {
+                                DatePicker(
+                                    "",
+                                    selection: $toDate,
+                                    in: fromDate...,
+                                    displayedComponents: [.date]
+                                )
+                                .datePickerStyle(GraphicalDatePickerStyle())
+                                .background(Color.green.opacity(0.1))
+                                .cornerRadius(8)
+                                .padding(10)
+                            }
+                            
+                            Button(action: {
                                 if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
                                     isShowingScanner = true
                                 } else {
@@ -37,9 +93,8 @@ struct AllCartList: View {
                             }) {
                                 HStack {
                                     Image(systemName: "qrcode.viewfinder")
-                                    Text("Scan QR")
                                 }
-                                .padding()
+                                .padding(10)
                                 .foregroundColor(.white)
                                 .background(Color.blue)
                                 .cornerRadius(10)
@@ -114,7 +169,9 @@ struct AllCartList: View {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                     showDateilScreen = true
                                 }
-                            }, checkedStates: checkedStates.map { $0 ?? "" }
+                            }, checkedStates: checkedStates.map { $0 ?? "" },
+                            fromDate: $fromDate,
+                            toDate: $toDate
                         )
                     }
                     .transition(.opacity)

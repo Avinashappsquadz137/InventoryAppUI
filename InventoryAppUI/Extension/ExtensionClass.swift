@@ -14,3 +14,10 @@ let lightblueColor = Color(red: 85.0/255.0, green: 84.0/255.0, blue: 166.0/255.0
 
 let royalBlue = Color(red: 65.0/255.0, green: 105.0/255.0, blue: 225.0/255.0, opacity: 1.0)
 
+
+
+func formattedDate(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"  
+    return formatter.string(from: date)
+}

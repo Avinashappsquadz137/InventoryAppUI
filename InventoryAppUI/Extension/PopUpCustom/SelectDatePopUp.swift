@@ -11,8 +11,10 @@ struct SelectDatePopUp: View {
     @Binding var showPopup: Bool
     let onSubmit: () -> Void 
     let checkedStates: [String]
-    @State private var fromDate: Date = Date()
-    @State private var toDate: Date = Date()
+    
+    @Binding var fromDate: Date
+    @Binding var toDate: Date
+    
     @State private var isFromDatePickerVisible: Bool = false
     @State private var isToDatePickerVisible: Bool = false
 
@@ -39,6 +41,7 @@ struct SelectDatePopUp: View {
                 DatePicker(
                     "",
                     selection: $fromDate,
+                    in: Date()...,
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
@@ -64,6 +67,7 @@ struct SelectDatePopUp: View {
                 DatePicker(
                     "",
                     selection: $toDate,
+                    in: fromDate...,
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
@@ -110,9 +114,9 @@ struct SelectDatePopUp: View {
     func itemAvailabilityByDate() {
         let parameters: [String: Any] = [
             "emp_code": "1",
-            "to_date": "\(toDate)",
+            "to_date": "\(formattedDate(toDate))",
             "item_list": checkedStates,
-            "from_date" : "\(fromDate)"]
+            "from_date" : "\(formattedDate(fromDate))"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.itemAvailabilityByDate,
             method: .post,
@@ -133,9 +137,5 @@ struct SelectDatePopUp: View {
             }
         }
     }
-    private func formattedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
+    
 }
