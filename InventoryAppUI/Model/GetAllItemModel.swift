@@ -68,7 +68,7 @@ struct Datas : Codable {
 struct RemoveData : Codable {
     let status : Bool?
     let message : String?
-    let data : String?
+    let data : [String]?
     let error : Errore?
 
     enum CodingKeys: String, CodingKey {
@@ -83,7 +83,7 @@ struct RemoveData : Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         status = try values.decodeIfPresent(Bool.self, forKey: .status)
         message = try values.decodeIfPresent(String.self, forKey: .message)
-        data = try values.decodeIfPresent(String.self, forKey: .data)
+        data = try values.decodeIfPresent([String].self, forKey: .data)
         error = try values.decodeIfPresent(Errore.self, forKey: .error)
     }
 

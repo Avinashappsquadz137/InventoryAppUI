@@ -24,7 +24,6 @@ struct ItemDetailCell: View {
     
     var body: some View {
         HStack(spacing: 10) {
-            // Image Section
             VStack {
                 AsyncImage(url: URL(string: itemImageURL ?? "")) { image in
                     image.resizable()
@@ -39,8 +38,6 @@ struct ItemDetailCell: View {
                         .foregroundColor(.gray)
                         .cornerRadius(8)
                 }
-                
-                // Add To Cart Button / Quantity Adjuster
                 VStack {
                     if isAddToCartButtonVisible == 0 {
                         Button(action: {
@@ -94,11 +91,8 @@ struct ItemDetailCell: View {
                         }
                         .padding(.top, 5)
                     }
-                    
                 }
             }
-            
-            // Details Section
             VStack(alignment: .leading, spacing: 10) {
                 Text(itemName)
                     .font(.system(size: 25, weight: .bold))
@@ -112,7 +106,7 @@ struct ItemDetailCell: View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
-                if !hideDeleteButton { // Show delete button only when hideDeleteButton is false
+                if !hideDeleteButton {
                     HStack {
                         Spacer()
                         Button(action: {
@@ -148,9 +142,6 @@ struct ItemDetailCell: View {
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5)
     }
-    
-    //deleteCartItem
-    
     func addRemoveData() {
         let parameters: [String: Any] = [
             "emp_code": "1",
@@ -180,9 +171,7 @@ struct ItemDetailCell: View {
     func deleteCartItem() {
         let parameters: [String: Any] = [
             "emp_code": "1",
-            "product_id" : "\(itemMasterId ?? "")"
-            
-        ]
+            "product_id" : "\(itemMasterId ?? "")"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.deleteCartItem,
             method: .post,
@@ -193,7 +182,6 @@ struct ItemDetailCell: View {
                 switch result {
                 case .success(let model):
                     if let data = model.data {
-                       
                         print("Fetched items: \(data)")
                         onDelete()
                     } else {

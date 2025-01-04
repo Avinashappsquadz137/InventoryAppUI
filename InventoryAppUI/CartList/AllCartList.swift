@@ -60,32 +60,31 @@ struct AllCartList: View {
                                 onCountChanged: { _ in },
                                 hideDeleteButton: false,
                                 onDelete: {
-                                    
                                     if let index = items.firstIndex(where: { $0.id == item.id }) {
                                         items.remove(at: index)
                                     }
+                                    getMemberDetail()
                                 }
                             )
                             .listRowInsets(EdgeInsets())
                             .padding(.vertical, 5)
                         }
                         .listStyle(PlainListStyle())
-                        .onAppear {
-                            getMemberDetail()
-                        }
                     }
                     HStack {
-                        Button(action: {
-                            showPopup = true
-                        }) {
-                            Text("Continue")
+                        if !items.isEmpty {
+                            Button(action: {
+                                showPopup = true
+                            }) {
+                                Text("Continue")
+                            }
+                            .font(.headline)
+                            .padding(10)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                         }
-                        .font(.headline)
-                        .padding(10)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
                     }
                     .padding(5)
                 }
