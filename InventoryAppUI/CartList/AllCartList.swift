@@ -16,6 +16,8 @@ struct AllCartList: View {
     
     @State var isShowingScanner = false
     @State private var scannedText = ""
+    @State private var checkedStates: [Int] = []
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -64,6 +66,16 @@ struct AllCartList: View {
                                         items.remove(at: index)
                                     }
                                     getMemberDetail()
+                                },
+                                onCheckUncheck : {
+                                    if let index = items.firstIndex(where: { $0.id == item.id }) {
+                                        if let existingIndex = checkedStates.firstIndex(of: index) {
+                                            checkedStates.remove(at: existingIndex)
+                                        } else {
+                                            checkedStates.append(index)
+                                        }
+                                        print("Selected Indices: \(checkedStates)")
+                                    }
                                 }
                             )
                             .listRowInsets(EdgeInsets())
@@ -72,7 +84,7 @@ struct AllCartList: View {
                         .listStyle(PlainListStyle())
                     }
                     HStack {
-                        if !items.isEmpty {
+                        if !checkedStates.isEmpty {
                             Button(action: {
                                 showPopup = true
                             }) {

@@ -58,7 +58,7 @@ struct MainViewVC: View {
                             itemCounts[index] = newCount
                             print("Updated count for \(filteredItems[index].iTEM_NAME ?? "Unknown"): \(newCount)")
                         },
-                        hideDeleteButton: true, onDelete: {}
+                        hideDeleteButton: true, onDelete: {}, onCheckUncheck: {}
                     )
                     .listRowInsets(EdgeInsets())
                     .padding(.vertical, 5)

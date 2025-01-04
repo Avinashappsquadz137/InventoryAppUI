@@ -13,7 +13,7 @@ struct ItemDetailCell: View {
     let itemDesc: String?
     @Binding var itemCounts: Int // Binding for item count
     @Binding var isAddToCartButtonVisible: Int // Binding for "Add to Cart" button visibility
-    @State private var isChecked: Bool = true
+    @State private var isChecked: Bool = false
     var isCheckboxVisible: Bool
     
     let itemImageURL: String?
@@ -21,6 +21,7 @@ struct ItemDetailCell: View {
     var onCountChanged: (Int) -> Void
     var hideDeleteButton: Bool
     var onDelete: () -> Void
+    var onCheckUncheck : () -> Void
     
     var body: some View {
         HStack(spacing: 10) {
@@ -126,7 +127,7 @@ struct ItemDetailCell: View {
             }
             if isCheckboxVisible {
                 Button(action: {
-                    
+                    onCheckUncheck()
                     isChecked.toggle()
                     print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
                 }) {
