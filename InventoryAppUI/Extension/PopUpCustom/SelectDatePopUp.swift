@@ -92,7 +92,7 @@ struct SelectDatePopUp: View {
                 Button(action: {
                     print("From Date: \(fromDate), To Date: \(toDate)")
                     onSubmit()
-                    itemAvailabilityByDate()
+                  
                 }) {
                     Text("OK")
                         .font(.headline)
@@ -111,31 +111,6 @@ struct SelectDatePopUp: View {
         .shadow(radius: 10)
     }
     
-    func itemAvailabilityByDate() {
-        let parameters: [String: Any] = [
-            "emp_code": "1",
-            "to_date": "\(formattedDate(toDate))",
-            "item_list": checkedStates,
-            "from_date" : "\(formattedDate(fromDate))"]
-        ApiClient.shared.callmethodMultipart(
-            apiendpoint: Constant.itemAvailabilityByDate,
-            method: .post,
-            param: parameters,
-            model: ItemAvailabilityModel.self
-        ) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let model):
-                    if let data = model.data {
-                        
-                    } else {
-                        print("No data received")
-                    }
-                case .failure(let error):
-                    print("API Error: \(error)")
-                }
-            }
-        }
-    }
+  
     
 }

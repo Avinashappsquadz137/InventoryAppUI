@@ -13,7 +13,7 @@ struct ItemDetailCell: View {
     let itemDesc: String?
     @Binding var itemCounts: Int
     @Binding var isAddToCartButtonVisible: Int 
-    @State private var isChecked: Bool = false
+    @State private var isChecked: Bool = true
     var isCheckboxVisible: Bool
     
     let itemImageURL: String?

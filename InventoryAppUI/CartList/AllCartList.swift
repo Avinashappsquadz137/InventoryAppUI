@@ -16,7 +16,7 @@ struct AllCartList: View {
     
     @State var isShowingScanner = false
     @State private var scannedText = ""
-    @State private var checkedStates: [String?] = []
+    @State private var checkedStates: [String] = []
     
     @State private var fromDate: Date = Date()
     @State private var toDate: Date = Date()    
@@ -108,7 +108,7 @@ struct AllCartList: View {
                                 itemMasterId: item.iTEM_MASTER_ID,
                                 itemName: item.iTEM_NAME ?? "Unknown",
                                 itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
-                                itemDesc: item.sR_NUMBER ?? "N/A",
+                                itemDesc: "item.sR_NUMBER",
                                 itemCounts: .constant(item.items_in_cart ?? 0),
                                 isAddToCartButtonVisible: .constant(item.items_in_cart ?? 0),
                                 isCheckboxVisible: true,
@@ -123,15 +123,16 @@ struct AllCartList: View {
                                     getMemberDetail()
                                 },
                                 onCheckUncheck : {
-                                    if let index = items.firstIndex(where: { $0.id == item.id }) {
-                                        if let existingIndex = checkedStates.firstIndex(of: item.id) {
-                                            checkedStates.remove(at: existingIndex)
-                                        } else {
-                                            checkedStates.append(item.id)
+                                    if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == item.iTEM_MASTER_ID }) {
+                                        if let itemId = item.iTEM_MASTER_ID {
+                                            if let existingIndex = checkedStates.firstIndex(of: itemId) {
+                                                checkedStates.remove(at: existingIndex)
+                                            } else {
+                                                checkedStates.append(itemId)
+                                            }
+                                            print("Selected IDs: \(checkedStates)")
                                         }
-                                        print("Selected IDs: \(checkedStates)")
                                     }
-
                                 }
                             )
                             .listRowInsets(EdgeInsets())
@@ -166,9 +167,11 @@ struct AllCartList: View {
                         SelectDatePopUp(
                             showPopup: $showPopup,
                             onSubmit: {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    showDateilScreen = true
-                                }
+                                itemAvailabilityByDate()
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                                    showDateilScreen = true
+//                                }
+                                
                             }, checkedStates: checkedStates.map { $0 ?? "" },
                             fromDate: $fromDate,
                             toDate: $toDate
@@ -184,6 +187,9 @@ struct AllCartList: View {
             
             .fullScreenCover(isPresented: $isShowingScanner) {
                 QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
+                    .onDisappear {
+                        getMemberDetail()
+                    }
             }
             
         }
@@ -208,6 +214,7 @@ struct AllCartList: View {
                 case .success(let model):
                     if let data = model.data {
                         self.items = data
+                        self.checkedStates = data.compactMap { $0.iTEM_MASTER_ID }
                         print("Fetched items: \(data)")
                     } else {
                         print("No data received")
@@ -220,4 +227,30 @@ struct AllCartList: View {
         }
     }
     
+    func itemAvailabilityByDate() {
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "to_date": "\(formattedDate(toDate))",
+            "item_list": checkedStates.compactMap { $0 },
+            "from_date" : "\(formattedDate(fromDate))"]
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.itemAvailabilityByDate,
+            method: .post,
+            param: parameters,
+            model: ItemAvailabilityModel.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        
+                    } else {
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    print("API Error: \(error)")
+                }
+            }
+        }
+    }
 }

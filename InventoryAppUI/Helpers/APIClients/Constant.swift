@@ -9,7 +9,7 @@ import UIKit
 
 struct Constant {
 
-    static let BASEURL                     = "https://store.totalbhakti.com/"
+    static let BASEURL                     = "https://store.totalbhakti.com/tmedia/"
     static let bookingBase                 = "http://bms.sanskargroup.in/sans-api/rest/apiServices"
     
     static let getAllItem                  = "api_panel/get_all_item"
