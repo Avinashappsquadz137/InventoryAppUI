@@ -63,7 +63,11 @@ struct ItemDetailCell: View {
                                     itemCounts -= 1
                                     addRemoveData()
                                     onCountChanged(itemCounts)
-                                    
+                                    NotificationCenter.default.post(
+                                        name: .updateValueNotification,
+                                        object: nil,
+                                        userInfo: ["value": -1]
+                                    )
                                 }
                                 if itemCounts == 0 {
                                     isAddToCartButtonVisible = 0
@@ -83,6 +87,11 @@ struct ItemDetailCell: View {
                                 itemCounts += 1
                                 addRemoveData()
                                 onCountChanged(itemCounts)
+                                NotificationCenter.default.post(
+                                    name: .updateValueNotification,
+                                    object: nil,
+                                    userInfo: ["value": +1]
+                                )
                             }) {
                                 Image(systemName: "plus.circle")
                                     .foregroundColor(.green)
@@ -146,7 +155,7 @@ struct ItemDetailCell: View {
     func addRemoveData() {
         let parameters: [String: Any] = [
             "emp_code": "1",
-            "ITEM_NAME" : "\(itemMasterId ?? "")",
+            "ITEM_NAME" : itemMasterId ?? "",
             "items_in_cart": "\(itemCounts)"
         ]
         ApiClient.shared.callmethodMultipart(

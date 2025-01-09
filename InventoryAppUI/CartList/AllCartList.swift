@@ -22,8 +22,7 @@ struct AllCartList: View {
     @State private var toDate: Date = Date()    
     @State private var isFromDatePickerVisible: Bool = false
     @State private var isToDatePickerVisible: Bool = false
-    
-    
+    @State private var value: Int = 0
     var body: some View {
         NavigationStack {
             ZStack {
@@ -45,7 +44,7 @@ struct AllCartList: View {
                                     .foregroundColor(.blue)
                                     .cornerRadius(8)
                             }
-
+                            
                             if isFromDatePickerVisible {
                                 DatePicker(
                                     "",
@@ -58,7 +57,7 @@ struct AllCartList: View {
                                 .cornerRadius(8)
                                 .padding(10)
                             }
-
+                            
                             Button(action: {
                                 showPopup = true
                             }) {
@@ -70,7 +69,7 @@ struct AllCartList: View {
                                     .foregroundColor(.green)
                                     .cornerRadius(8)
                             }
-
+                            
                             if isToDatePickerVisible {
                                 DatePicker(
                                     "",
@@ -114,7 +113,14 @@ struct AllCartList: View {
                                 isCheckboxVisible: true,
                                 itemImageURL: item.iTEM_THUMBNAIL ?? "",
                                 onAddToCart: {},
-                                onCountChanged: { _ in },
+                                onCountChanged: { newCount in
+                                    if let itemID = item.iTEM_MASTER_ID {
+                                        let updatedCount = (item.items_in_cart ?? 0) + value
+                                        if updatedCount > 0 {
+                                            updateItemCount(itemID: itemID, newCount: updatedCount)
+                                        }
+                                    }
+                                },
                                 hideDeleteButton: false,
                                 onDelete: {
                                     if let index = items.firstIndex(where: { $0.id == item.id }) {
@@ -168,9 +174,9 @@ struct AllCartList: View {
                             showPopup: $showPopup,
                             onSubmit: {
                                 itemAvailabilityByDate()
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                                    showDateilScreen = true
-//                                }
+                                //                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                //                                    showDateilScreen = true
+                                //                                }
                                 
                             }, checkedStates: checkedStates.map { $0 ?? "" },
                             fromDate: $fromDate,
@@ -195,6 +201,11 @@ struct AllCartList: View {
         }
         .onAppear {
             getMemberDetail()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .updateValueNotification)) { notification in
+            if let newValue = notification.userInfo?["value"] as? Int {
+                self.value = newValue
+            }
         }
     }
     
@@ -253,4 +264,35 @@ struct AllCartList: View {
             }
         }
     }
+    
+    func updateItemCount(itemID: String, newCount: Int) {
+        if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == itemID }) {
+            items[index].items_in_cart = newCount
+        }
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "ITEM_NAME" : itemID,
+            "items_in_cart": "\(newCount)"
+        ]
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.addtocart,
+            method: .post,
+            param: parameters,
+            model: AddRemoveData.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        print("Fetched items: \(data)")
+                    } else {
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    print("API Error: \(error)")
+                }
+            }
+        }
+    }
+    
 }
