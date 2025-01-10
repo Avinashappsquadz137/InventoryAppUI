@@ -79,6 +79,16 @@ struct MAinTabbarVC: View {
                         Image.init("saved", tintColor: .clear)
                         Text("SAVED")
                     }.tag(3)
+                    NavigationView {
+                        ReturnChallanView()
+                            .onAppear {
+                                navigationTitle = "RETURN CHALLAN"
+                            }
+                    }
+                    .tabItem {
+                        Image.init("ic_controls", tintColor: .clear)
+                        Text("RETURN")
+                    }.tag(4)
                 }
                 
                 .onAppear(){

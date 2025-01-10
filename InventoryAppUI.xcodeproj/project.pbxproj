@@ -17,6 +17,8 @@
 		C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */; };
 		C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */; };
 		C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D9562D2FDAC700D83DE6 /* UserDefultS.swift */; };
+		C784D95A2D30020700D83DE6 /* ReturnChallanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D9592D30020700D83DE6 /* ReturnChallanView.swift */; };
+		C784D95C2D3002C800D83DE6 /* ReturnChallanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */; };
 		C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D722D0AC54700D09D41 /* MainViewVC.swift */; };
 		C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */; };
 		C7868D772D0AC66600D09D41 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D762D0AC66600D09D41 /* ListView.swift */; };
@@ -45,6 +47,8 @@
 		C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatePopUp.swift; sourceTree = "<group>"; };
 		C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterDetailsVC.swift; sourceTree = "<group>"; };
 		C784D9562D2FDAC700D83DE6 /* UserDefultS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefultS.swift; sourceTree = "<group>"; };
+		C784D9592D30020700D83DE6 /* ReturnChallanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanView.swift; sourceTree = "<group>"; };
+		C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanCell.swift; sourceTree = "<group>"; };
 		C7868D722D0AC54700D09D41 /* MainViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewVC.swift; sourceTree = "<group>"; };
 		C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAinTabbarVC.swift; sourceTree = "<group>"; };
 		C7868D762D0AC66600D09D41 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -134,6 +138,15 @@
 			path = PopUpCustom;
 			sourceTree = "<group>";
 		};
+		C784D9582D30019600D83DE6 /* ReturnChallan */ = {
+			isa = PBXGroup;
+			children = (
+				C784D9592D30020700D83DE6 /* ReturnChallanView.swift */,
+				C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */,
+			);
+			path = ReturnChallan;
+			sourceTree = "<group>";
+		};
 		C7868D7A2D0AC73D00D09D41 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +232,7 @@
 				C7868D7B2D0AC75000D09D41 /* HomeScreen */,
 				C718C1DD2D0C37C1008A1EFC /* CartList */,
 				C76EFB922D22C1BE00B51955 /* SideMenu */,
+				C784D9582D30019600D83DE6 /* ReturnChallan */,
 				C7868D7A2D0AC73D00D09D41 /* TabBar */,
 				C7868D762D0AC66600D09D41 /* ListView.swift */,
 				C7DC34792D0AB20400FAC786 /* Assets.xcassets */,
@@ -355,6 +369,7 @@
 				C7868D772D0AC66600D09D41 /* ListView.swift in Sources */,
 				C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */,
 				C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */,
+				C784D95A2D30020700D83DE6 /* ReturnChallanView.swift in Sources */,
 				C7868DA22D0AE5BC00D09D41 /* ItemDetailCell.swift in Sources */,
 				C7868DB22D0AF7DD00D09D41 /* APIManager.swift in Sources */,
 				C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */,
@@ -364,6 +379,7 @@
 				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
 				C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */,
 				C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */,
+				C784D95C2D3002C800D83DE6 /* ReturnChallanCell.swift in Sources */,
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
 				C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */,
 				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
