@@ -16,6 +16,8 @@
 		C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB932D22C1DA00B51955 /* SideMenuView.swift */; };
 		C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */; };
 		C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */; };
+		C78354962D312FA400959FEA /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78354952D312FA400959FEA /* ViewModifier.swift */; };
+		C78354992D31398700959FEA /* ReturnChallanByID.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78354982D31398700959FEA /* ReturnChallanByID.swift */; };
 		C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D9562D2FDAC700D83DE6 /* UserDefultS.swift */; };
 		C784D95A2D30020700D83DE6 /* ReturnChallanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D9592D30020700D83DE6 /* ReturnChallanView.swift */; };
 		C784D95C2D3002C800D83DE6 /* ReturnChallanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */; };
@@ -46,6 +48,8 @@
 		C76EFB932D22C1DA00B51955 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatePopUp.swift; sourceTree = "<group>"; };
 		C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterDetailsVC.swift; sourceTree = "<group>"; };
+		C78354952D312FA400959FEA /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
+		C78354982D31398700959FEA /* ReturnChallanByID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanByID.swift; sourceTree = "<group>"; };
 		C784D9562D2FDAC700D83DE6 /* UserDefultS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefultS.swift; sourceTree = "<group>"; };
 		C784D9592D30020700D83DE6 /* ReturnChallanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanView.swift; sourceTree = "<group>"; };
 		C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanCell.swift; sourceTree = "<group>"; };
@@ -138,9 +142,26 @@
 			path = PopUpCustom;
 			sourceTree = "<group>";
 		};
+		C78354942D312F9100959FEA /* ViewModifier */ = {
+			isa = PBXGroup;
+			children = (
+				C78354952D312FA400959FEA /* ViewModifier.swift */,
+			);
+			path = ViewModifier;
+			sourceTree = "<group>";
+		};
+		C78354972D31397900959FEA /* ReturnChallanByID */ = {
+			isa = PBXGroup;
+			children = (
+				C78354982D31398700959FEA /* ReturnChallanByID.swift */,
+			);
+			path = ReturnChallanByID;
+			sourceTree = "<group>";
+		};
 		C784D9582D30019600D83DE6 /* ReturnChallan */ = {
 			isa = PBXGroup;
 			children = (
+				C78354972D31397900959FEA /* ReturnChallanByID */,
 				C784D9592D30020700D83DE6 /* ReturnChallanView.swift */,
 				C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */,
 			);
@@ -167,6 +188,7 @@
 		C7868D7C2D0AC78500D09D41 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C78354942D312F9100959FEA /* ViewModifier */,
 				C718A9762D29533A00487615 /* Toster */,
 				C76F1ED12D1069E3000D0ADC /* PopUpCustom */,
 				C7868D7D2D0AC7C300D09D41 /* ExtensionClass.swift */,
@@ -375,6 +397,7 @@
 				C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */,
 				C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */,
 				C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */,
+				C78354962D312FA400959FEA /* ViewModifier.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */,
 				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
 				C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */,
@@ -386,6 +409,7 @@
 				C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */,
 				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,
+				C78354992D31398700959FEA /* ReturnChallanByID.swift in Sources */,
 				C7DC34762D0AB20300FAC786 /* InventoryAppUIApp.swift in Sources */,
 				C7868DB42D0AF92800D09D41 /* GetAllItemModel.swift in Sources */,
 			);

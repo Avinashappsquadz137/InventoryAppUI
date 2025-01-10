@@ -52,7 +52,6 @@ struct EnterDetailsVC: View {
                     Button("Submit") {
                         validateTextFields { isValid, collectedData in
                             if isValid {
-                                // Call API or handle the submit
                                 print("Form is valid: \(collectedData)")
                             } else {
                                 alertMessage = "Please fill all required fields."
@@ -77,18 +76,18 @@ struct EnterDetailsVC: View {
             .onAppear {
                 loadTextFieldValues()
                 getMemberDetail()
-                setNavigationBarAppearance() // Set white background for the navigation bar
             }
+            .modifier(ViewModifiers())
             .navigationTitle("Enter Details")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        presentationMode.wrappedValue.dismiss() // Dismiss the view
+                        presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
-                            Image(systemName: "chevron.left") // Back icon
-                            Text("Back") // Optional: add a label
+                            Image(systemName: "chevron.left")
+                            Text("Back")
                         }
                     }
                 }
@@ -113,7 +112,6 @@ struct EnterDetailsVC: View {
     }
     
     func getMemberDetail() {
-        // Simulate getting data
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             teamMembers = ["John Doe", "Jane Smith", "Robert Brown"] // Simulated API response
         }
@@ -121,17 +119,6 @@ struct EnterDetailsVC: View {
     func clearTextFields() {
         textFieldValues = Array(repeating: "", count: data.count)
         saveTextFieldValues()
-    }
-    // Custom function to set navigation bar appearance
-    func setNavigationBarAppearance() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white // Set the background color to white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black] // Optional: set title color
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black] // Optional: set large title color
-        
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 }
 

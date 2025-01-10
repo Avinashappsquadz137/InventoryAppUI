@@ -8,24 +8,33 @@
 import SwiftUI
 
 struct ReturnChallanCell: View {
-    var itemImageURL: String?
-
+    var index: Int
+    var title: String
+    var imageName: String // Accept image name (or URL)
+    var onTap: (Int) -> Void // Closure to handle the tap action
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: itemImageURL ?? "")) { image in
-                image.resizable()
-                    .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width / 2 - 20, height: 150)
+            ZStack {
+                Color.blue.opacity(0.2) // Light blue background
                     .cornerRadius(8)
-            } placeholder: {
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width / 2 - 20, height: 150)
-                    .foregroundColor(.gray)
-                    .cornerRadius(8)
+                VStack{
+                    Image(systemName: imageName) // Use the passed image name
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.blue)
+                    Text(title) 
+                        .font(.headline)
+                }
+            }
+            .onTapGesture {
+                onTap(index) // Call the tap closure with the index
             }
         }
     }
 }
 
+#Preview {
+    ReturnChallanView()
+}
