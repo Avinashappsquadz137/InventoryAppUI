@@ -179,7 +179,7 @@ class ApiClient: NSObject {
     
     
      func setHeader() -> HTTPHeaders {
-           var headers: HTTPHeaders = [
+         let headers: HTTPHeaders = [
 
                
            ]
@@ -189,7 +189,7 @@ class ApiClient: NSObject {
     
     
     func createBodyWithParameters(parameters: [String: Any], fileURL: URL? = nil, filename: String? = nil) -> MultipartFormData {
-        var body = Data()
+        _ = Data()
         var multipartData = MultipartFormData()
         for (key, value) in parameters {
             if value is NSArray {

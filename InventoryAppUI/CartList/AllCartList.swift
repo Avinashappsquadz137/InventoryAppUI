@@ -26,7 +26,6 @@ struct AllCartList: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                
                 VStack {
                     if isLoading {
                         ProgressView("Loading...")
@@ -129,7 +128,7 @@ struct AllCartList: View {
                                     getMemberDetail()
                                 },
                                 onCheckUncheck : {
-                                    if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == item.iTEM_MASTER_ID }) {
+                                    if items.firstIndex(where: { $0.iTEM_MASTER_ID == item.iTEM_MASTER_ID }) != nil {
                                         if let itemId = item.iTEM_MASTER_ID {
                                             if let existingIndex = checkedStates.firstIndex(of: itemId) {
                                                 checkedStates.remove(at: existingIndex)
@@ -152,13 +151,14 @@ struct AllCartList: View {
                                 showPopup = true
                             }) {
                                 Text("Continue")
+                                    .font(.headline)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
                             }
-                            .font(.headline)
-                            .padding(10)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                            
                         }
                     }
                     .padding(5)
@@ -174,11 +174,8 @@ struct AllCartList: View {
                             showPopup: $showPopup,
                             onSubmit: {
                                 itemAvailabilityByDate()
-                                //                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                //                                    showDateilScreen = true
-                                //                                }
-                                
-                            }, checkedStates: checkedStates.map { $0 ?? "" },
+                
+                            }, checkedStates: checkedStates.map { $0 },
                             fromDate: $fromDate,
                             toDate: $toDate
                         )
@@ -187,10 +184,7 @@ struct AllCartList: View {
                     .animation(.easeInOut, value: showPopup)
                 }
             }
-            .fullScreenCover(isPresented: $showDateilScreen) {
-                EnterDetailsVC()
-            }
-            
+    
             .fullScreenCover(isPresented: $isShowingScanner) {
                 QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
                     .onDisappear {
@@ -253,8 +247,7 @@ struct AllCartList: View {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let model):
-                    if let data = model.data {
-                        
+                    if model.data != nil {
                     } else {
                         print("No data received")
                     }

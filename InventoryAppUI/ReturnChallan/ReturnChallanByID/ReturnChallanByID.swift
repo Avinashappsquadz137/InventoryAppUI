@@ -37,7 +37,6 @@ struct ReturnChallanByID: View {
             }
             .padding()
             .modifier(ViewModifiers())
-        
             .navigationTitle("Enter Challan ID")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

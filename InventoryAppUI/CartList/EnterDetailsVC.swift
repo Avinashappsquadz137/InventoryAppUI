@@ -9,7 +9,8 @@ import SwiftUI
 
 struct EnterDetailsVC: View {
     
-    @State private var textFieldValues: [String] = Array(repeating: "", count: 9)
+    let order: ItemDetail
+    @State private var textFieldValues: [String] = Array(repeating: "", count: 10)
     @State private var teamMembers: [String] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
     @State private var tempID: String?
@@ -17,10 +18,11 @@ struct EnterDetailsVC: View {
     @State private var alertMessage: String = ""
     @State var showDateilScreen = false
     @Environment(\.presentationMode) var presentationMode
+    @State private var selectedDate: Date = Date()
     
     let data = [
         "Consignee", "Transporter", "Consigner", "HSN/SAC Code",
-        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id"
+        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id","RENTAMOUNT"
     ]
     let userDefaultsKey = "TextFieldValues"
     
@@ -42,8 +44,9 @@ struct EnterDetailsVC: View {
                             teamMembers: $teamMembers,
                             multiSelectValues: $multiSelectValues
                         )
-                    }.padding(10)
+                    }
                 }
+                
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Validation Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
@@ -53,6 +56,7 @@ struct EnterDetailsVC: View {
                         validateTextFields { isValid, collectedData in
                             if isValid {
                                 print("Form is valid: \(collectedData)")
+                                addSaveChallanmaster()
                             } else {
                                 alertMessage = "Please fill all required fields."
                                 showAlert.toggle()
@@ -76,6 +80,7 @@ struct EnterDetailsVC: View {
             .onAppear {
                 loadTextFieldValues()
                 getMemberDetail()
+             
             }
             .modifier(ViewModifiers())
             .navigationTitle("Enter Details")
@@ -120,6 +125,52 @@ struct EnterDetailsVC: View {
         textFieldValues = Array(repeating: "", count: data.count)
         saveTextFieldValues()
     }
+    
+    func addSaveChallanmaster() {
+        var dict = [String: Any]()
+        dict["challan_status"] = "0"
+        dict["temp_id"] = "\(order.tempID)"
+        dict["item_qr_string"] = ["1378_125_1722507307310","1409_125_1722507307380","1460_129_1722507307495","1461_129_1722507307498"]
+        dict["emp_code"] = "SANS-00290"
+        for (index, field) in data.enumerated() {
+            switch field {
+            case "Consignee":
+                dict["consignee"] = textFieldValues[index]
+            case "Transporter":
+                dict["transporter"] = textFieldValues[index]
+            case "Consigner":
+                dict["consigner"] = textFieldValues[index]
+            case "HSN/SAC Code":
+                dict["hsn_sac_code"] = textFieldValues[index]
+            case "Eway Bill Transaction":
+                dict["eway_bill_transaction"] = textFieldValues[index]
+            case "Eway Bill No":
+                dict["eway_bill_no"] = textFieldValues[index]
+            case "Eway Bill Date":
+                dict["eway_bill_date"] = textFieldValues[index]
+            case "Team Member":
+                dict["team_member"] = [textFieldValues[index]]
+            case "Transport Id":
+                dict["transport_id"] = textFieldValues[index]
+            case "RENTAMOUNT":
+                dict["RENTAMOUNT"] = textFieldValues[index]
+            default:
+                break
+            }
+        }
+        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.addSaveChallanmaster, method: .post, param: dict, model: SaveChallanMaster.self){ result in
+            switch result {
+            case .success(let model):
+                if let data = model.data {
+                    print("Fetched items: \(data)")
+                } else {
+                    print("No data received")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 struct TextFieldCell: View {
@@ -141,7 +192,25 @@ struct TextFieldCell: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-            } else {
+            } else if data == "Eway Bill Date" {
+                DatePicker(
+                    "Select \(data)",
+                    selection: Binding(
+                        get: {
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd"
+                            return formatter.date(from: textFieldValue) ?? Date()
+                        },
+                        set: { newValue in
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd"
+                            textFieldValue = formatter.string(from: newValue)
+                        }
+                    ),
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(CompactDatePickerStyle())
+            }else {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
@@ -150,8 +219,3 @@ struct TextFieldCell: View {
     }
 }
 
-struct RequestDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        EnterDetailsVC()
-    }
-}

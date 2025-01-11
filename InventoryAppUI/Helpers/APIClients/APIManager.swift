@@ -49,7 +49,7 @@ class APIManager: NSObject {
     }
     
     class func setHeader() -> [String: String] {
-        var dict = [String: String]()
+        let dict = [String: String]()
         // dict["device_type"] = currentUser.device_type
         return dict
     }

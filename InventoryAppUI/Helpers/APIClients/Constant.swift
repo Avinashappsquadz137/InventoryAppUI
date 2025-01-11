@@ -18,8 +18,8 @@ struct Constant {
     static let addToCartByItemQr           = "api_panel/add_to_cart_by_item_qr"
     static let deleteCartItem              = "api_panel/delete_cart_item"
     static let itemAvailabilityByDate      = "api_panel/item_availability_by_date"
-    
-    
+    static let requestdetailapi            = "api_panel/order_list"
+    static let addSaveChallanmaster        = "api_panel/add_save_challan_master"
 
 
 }
