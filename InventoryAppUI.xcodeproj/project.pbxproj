@@ -13,6 +13,9 @@
 		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
 		C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */; };
 		C72A5E482D32417500B73D29 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E472D32417500B73D29 /* RequestData.swift */; };
+		C72A5E4A2D326C0400B73D29 /* CrewMemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */; };
+		C72A5E4D2D32711600B73D29 /* ShowScannedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E4C2D32711600B73D29 /* ShowScannedItemsView.swift */; };
+		C72A5E4F2D32712400B73D29 /* ShowScannedItemsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E4E2D32712400B73D29 /* ShowScannedItemsCells.swift */; };
 		C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB8E2D227FE600B51955 /* QRScannerView.swift */; };
 		C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB932D22C1DA00B51955 /* SideMenuView.swift */; };
 		C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */; };
@@ -48,6 +51,9 @@
 		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
 		C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllCartList.swift; sourceTree = "<group>"; };
 		C72A5E472D32417500B73D29 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMemberModel.swift; sourceTree = "<group>"; };
+		C72A5E4C2D32711600B73D29 /* ShowScannedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowScannedItemsView.swift; sourceTree = "<group>"; };
+		C72A5E4E2D32712400B73D29 /* ShowScannedItemsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowScannedItemsCells.swift; sourceTree = "<group>"; };
 		C76EFB8E2D227FE600B51955 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		C76EFB932D22C1DA00B51955 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatePopUp.swift; sourceTree = "<group>"; };
@@ -123,6 +129,15 @@
 			path = CartList;
 			sourceTree = "<group>";
 		};
+		C72A5E4B2D3270D500B73D29 /* ShowScannedItems */ = {
+			isa = PBXGroup;
+			children = (
+				C72A5E4C2D32711600B73D29 /* ShowScannedItemsView.swift */,
+				C72A5E4E2D32712400B73D29 /* ShowScannedItemsCells.swift */,
+			);
+			path = ShowScannedItems;
+			sourceTree = "<group>";
+		};
 		C76EFB8D2D227FD400B51955 /* QRScannerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +182,7 @@
 		C783549A2D313C2600959FEA /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
+				C72A5E4B2D3270D500B73D29 /* ShowScannedItems */,
 				C783549B2D313C5800959FEA /* MoreOrderCell.swift */,
 				C783549D2D313C7200959FEA /* OrderView.swift */,
 			);
@@ -218,6 +234,7 @@
 				C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */,
 				C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */,
 				C72A5E472D32417500B73D29 /* RequestData.swift */,
+				C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -407,13 +424,16 @@
 			files = (
 				C7868D772D0AC66600D09D41 /* ListView.swift in Sources */,
 				C783549E2D313C7200959FEA /* OrderView.swift in Sources */,
+				C72A5E4A2D326C0400B73D29 /* CrewMemberModel.swift in Sources */,
 				C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */,
 				C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */,
 				C784D95A2D30020700D83DE6 /* ReturnChallanView.swift in Sources */,
 				C7868DA22D0AE5BC00D09D41 /* ItemDetailCell.swift in Sources */,
 				C7868DB22D0AF7DD00D09D41 /* APIManager.swift in Sources */,
+				C72A5E4F2D32712400B73D29 /* ShowScannedItemsCells.swift in Sources */,
 				C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */,
 				C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */,
+				C72A5E4D2D32711600B73D29 /* ShowScannedItemsView.swift in Sources */,
 				C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */,
 				C78354962D312FA400959FEA /* ViewModifier.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */,

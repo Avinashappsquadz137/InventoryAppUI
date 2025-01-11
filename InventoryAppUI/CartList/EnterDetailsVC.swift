@@ -9,17 +9,17 @@ import SwiftUI
 
 struct EnterDetailsVC: View {
     
-    let order: ItemDetail
+    @State private var navigateToScannedItemsView = false
     @State private var textFieldValues: [String] = Array(repeating: "", count: 10)
     @State private var teamMembers: [String] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
     @State private var tempID: String?
-    @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     @State var showDateilScreen = false
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedDate: Date = Date()
     
+    let order: ItemDetail
     let data = [
         "Consignee", "Transporter", "Consigner", "HSN/SAC Code",
         "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id","RENTAMOUNT"
@@ -46,11 +46,6 @@ struct EnterDetailsVC: View {
                         )
                     }
                 }
-                
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Validation Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-                }
-                
                 HStack {
                     Button("Submit") {
                         validateTextFields { isValid, collectedData in
@@ -58,8 +53,7 @@ struct EnterDetailsVC: View {
                                 print("Form is valid: \(collectedData)")
                                 addSaveChallanmaster()
                             } else {
-                                alertMessage = "Please fill all required fields."
-                                showAlert.toggle()
+                                ToastManager.shared.show(message:"Please fill all required fields.")
                             }
                         }
                     }
@@ -80,7 +74,7 @@ struct EnterDetailsVC: View {
             .onAppear {
                 loadTextFieldValues()
                 getMemberDetail()
-             
+                
             }
             .modifier(ViewModifiers())
             .navigationTitle("Enter Details")
@@ -96,7 +90,12 @@ struct EnterDetailsVC: View {
                         }
                     }
                 }
-            }
+            }.overlay(ToastView())
+            NavigationLink(
+                destination: ShowScannedItemsView(),
+                isActive: $navigateToScannedItemsView,
+                label: { EmptyView() }
+            )
         }
     }
     func saveTextFieldValues() {
@@ -115,12 +114,7 @@ struct EnterDetailsVC: View {
             completion(false, [])
         }
     }
-    
-    func getMemberDetail() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            teamMembers = ["John Doe", "Jane Smith", "Robert Brown"] // Simulated API response
-        }
-    }
+
     func clearTextFields() {
         textFieldValues = Array(repeating: "", count: data.count)
         saveTextFieldValues()
@@ -163,9 +157,24 @@ struct EnterDetailsVC: View {
             case .success(let model):
                 if let data = model.data {
                     print("Fetched items: \(data)")
+                    ToastManager.shared.show(message: model.message ?? "Success")
+                    if model.status == true {
+                        navigateToScannedItemsView = true
+                    }
+                    clearTextFields()
                 } else {
                     print("No data received")
                 }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    func getMemberDetail() {
+        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getCrewMember, method: .post, param: [:], model: CrewMemberModel.self){ result in
+            switch result {
+            case .success(let model):
+                self.teamMembers = model.data?.compactMap { $0.emp_name } ?? []
             case .failure(let error):
                 print(error)
             }

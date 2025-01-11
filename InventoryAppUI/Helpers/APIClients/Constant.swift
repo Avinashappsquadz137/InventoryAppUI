@@ -20,7 +20,7 @@ struct Constant {
     static let itemAvailabilityByDate      = "api_panel/item_availability_by_date"
     static let requestdetailapi            = "api_panel/order_list"
     static let addSaveChallanmaster        = "api_panel/add_save_challan_master"
-
+    static let getCrewMember               = "api_panel/get-crew-member"
 
 }
 
