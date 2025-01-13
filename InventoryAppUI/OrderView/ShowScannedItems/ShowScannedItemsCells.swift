@@ -55,7 +55,7 @@ struct ShowScannedItemsCells: View {
                     Text("Include GST")
                         .font(.headline)
                     Button(action: {
-                     
+                        isChecked.toggle()
                         print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
                     }) {
                         Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")

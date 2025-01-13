@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EnterDetailsVC: View {
     
+    
     @State private var navigateToScannedItemsView = false
     @State private var textFieldValues: [String] = Array(repeating: "", count: 10)
     @State private var teamMembers: [String] = []
@@ -51,7 +52,7 @@ struct EnterDetailsVC: View {
                         validateTextFields { isValid, collectedData in
                             if isValid {
                                 print("Form is valid: \(collectedData)")
-                                addSaveChallanmaster()
+                                navigateToScannedItemsView = true
                             } else {
                                 ToastManager.shared.show(message:"Please fill all required fields.")
                             }
@@ -92,7 +93,7 @@ struct EnterDetailsVC: View {
                 }
             }.overlay(ToastView())
             NavigationLink(
-                destination: ShowScannedItemsView(),
+                destination: ShowScannedItemsView(order: order,textFieldValues: $textFieldValues, teamMembers: teamMembers, data: data),
                 isActive: $navigateToScannedItemsView,
                 label: { EmptyView() }
             )
@@ -120,56 +121,6 @@ struct EnterDetailsVC: View {
         saveTextFieldValues()
     }
     
-    func addSaveChallanmaster() {
-        var dict = [String: Any]()
-        dict["challan_status"] = "0"
-        dict["temp_id"] = "\(order.tempID)"
-        dict["item_qr_string"] = ["1378_125_1722507307310","1409_125_1722507307380","1460_129_1722507307495","1461_129_1722507307498"]
-        dict["emp_code"] = "SANS-00290"
-        for (index, field) in data.enumerated() {
-            switch field {
-            case "Consignee":
-                dict["consignee"] = textFieldValues[index]
-            case "Transporter":
-                dict["transporter"] = textFieldValues[index]
-            case "Consigner":
-                dict["consigner"] = textFieldValues[index]
-            case "HSN/SAC Code":
-                dict["hsn_sac_code"] = textFieldValues[index]
-            case "Eway Bill Transaction":
-                dict["eway_bill_transaction"] = textFieldValues[index]
-            case "Eway Bill No":
-                dict["eway_bill_no"] = textFieldValues[index]
-            case "Eway Bill Date":
-                dict["eway_bill_date"] = textFieldValues[index]
-            case "Team Member":
-                dict["team_member"] = [textFieldValues[index]]
-            case "Transport Id":
-                dict["transport_id"] = textFieldValues[index]
-            case "RENTAMOUNT":
-                dict["RENTAMOUNT"] = textFieldValues[index]
-            default:
-                break
-            }
-        }
-        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.addSaveChallanmaster, method: .post, param: dict, model: SaveChallanMaster.self){ result in
-            switch result {
-            case .success(let model):
-                if let data = model.data {
-                    print("Fetched items: \(data)")
-                    ToastManager.shared.show(message: model.message ?? "Success")
-                    if model.status == true {
-                        navigateToScannedItemsView = true
-                    }
-                    clearTextFields()
-                } else {
-                    print("No data received")
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
     func getMemberDetail() {
         ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getCrewMember, method: .post, param: [:], model: CrewMemberModel.self){ result in
             switch result {
