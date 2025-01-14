@@ -14,44 +14,60 @@ struct ShowScannedItemsCells: View {
     @State var isShowingScanner = false
     @State private var scannedText = ""
     @State private var isChecked: Bool = false
+    @State var itemName: String
+    @State var itemQuantity: String
+    @State var itemCategory: String
+  
+    @State var itemPerPrice: String
+    @State private var scanCount = 0
+    
+    var onUpdateTotalRent: (Int) -> Void
     
     var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("JBL")
-                        .font(.title)
+                    Text("\(itemName)")
+                        .font(.subheadline)
                         .fontWeight(.bold)
-                    Text("Max Quantity :")
+                    Text("Max Quantity :\(itemQuantity)")
                         .font(.headline)
-                    Text("Selected Quantity :")
+                    Text("Selected Quantity : \(scanCount)")
                         .font(.headline)
-                    Text("Total Rent : ")
+                    let itemTotalRent = (Int(scanCount)) * (Int(textFieldValue) ?? 0)
+                    Text("Total Rent: \(itemTotalRent)")
                         .font(.headline)
                     Text("Per Pices Rent : \(textFieldValue)")
                         .font(.headline)
+                    
                 }
                 Spacer()
                 Button(action: {
-                    if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
-                        isShowingScanner = true
+                    if scanCount < (Int(itemQuantity) ?? 0) {
+                        if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
+                            isShowingScanner = true
+                        } else {
+                            print("Scanner is not supported or available")
+                        }
                     } else {
-                        print("Scanner is not supported or available")
+                        print("Scan limit reached")
                     }
                 }){
                     Image(systemName: "qrcode.viewfinder")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 80, height: 80)
-                        .foregroundColor(.blue)
+                        .foregroundColor(scanCount < (Int(itemQuantity) ?? 0) ? .blue : .gray)
                 }
                 .buttonStyle(PlainButtonStyle())
+                .disabled(scanCount >= (Int(itemQuantity) ?? 0))
                 
             }
             VStack {
                 HStack {
                     TextField("Rent Per Items", text: $textFieldValue)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
                     Text("Include GST")
                         .font(.headline)
                     Button(action: {
@@ -66,6 +82,8 @@ struct ShowScannedItemsCells: View {
                 }
                 Button(action: {
                     print("Button tapped with text: \(textFieldValue)")
+                    let totalRent = (scanCount * (Int(textFieldValue) ?? 0))
+                    onUpdateTotalRent(totalRent)
                     textFieldValue = ""
                 }) {
                     Text("SHOW SCANNED ITEMS")
@@ -76,6 +94,7 @@ struct ShowScannedItemsCells: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .padding(16)
@@ -83,14 +102,15 @@ struct ShowScannedItemsCells: View {
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5)
         .fullScreenCover(isPresented: $isShowingScanner) {
-            QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
-                .onDisappear {
-                   
+                    QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
+                        .onDisappear {
+                            // Increment scan count on successful scan
+                            if !scannedText.isEmpty {
+                                scanCount += 1
+                                print("Scanned text: \(scannedText), Total scans: \(scanCount)")
+                                scannedText = "" // Reset scanned text if necessary
+                            }
+                        }
                 }
-        }
     }
-}
-
-#Preview {
-    ShowScannedItemsCells(textFieldValue: "")
 }

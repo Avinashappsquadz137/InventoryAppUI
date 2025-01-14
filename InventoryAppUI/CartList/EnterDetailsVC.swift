@@ -11,7 +11,7 @@ struct EnterDetailsVC: View {
     
     
     @State private var navigateToScannedItemsView = false
-    @State private var textFieldValues: [String] = Array(repeating: "", count: 10)
+    @State private var textFieldValues: [String] = Array(repeating: "", count: 9)
     @State private var teamMembers: [String] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
     @State private var tempID: String?
@@ -23,7 +23,7 @@ struct EnterDetailsVC: View {
     let order: ItemDetail
     let data = [
         "Consignee", "Transporter", "Consigner", "HSN/SAC Code",
-        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id","RENTAMOUNT"
+        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id"
     ]
     let userDefaultsKey = "TextFieldValues"
     
@@ -48,7 +48,7 @@ struct EnterDetailsVC: View {
                     }
                 }
                 HStack {
-                    Button("Submit") {
+                    Button("SAVE") {
                         validateTextFields { isValid, collectedData in
                             if isValid {
                                 print("Form is valid: \(collectedData)")

@@ -11,16 +11,25 @@ struct ShowScannedItemsView: View {
     
     let order: ItemDetail
     @Binding var textFieldValues: [String]
+  
     let teamMembers: [String]
     let data: [String]
-    
+    @State private var totalRent = 0
     
     var body: some View {
         VStack{
-            
-            ShowScannedItemsCells(textFieldValue: "sd")
-            
-            
+            List(order.items, id: \.itemName) { item in
+                ShowScannedItemsCells(
+                    textFieldValue: "",
+                    itemName: item.itemName,
+                    itemQuantity: item.quantity,
+                    itemCategory: item.category,
+                    itemPerPrice: "",
+                    onUpdateTotalRent: { rent in
+                        totalRent += rent // Accumulate total rent
+                    }
+                )
+            }
             Spacer()
             Button(action: {
                 addSaveChallanmaster()
@@ -33,8 +42,8 @@ struct ShowScannedItemsView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+            .padding(16)
         }
-        .padding(16)
         .navigationTitle("Scan Items")
     }
         
@@ -44,6 +53,7 @@ struct ShowScannedItemsView: View {
             dict["temp_id"] = "\(order.tempID)"
             dict["item_qr_string"] = ["1378_125_1722507307310","1409_125_1722507307380","1460_129_1722507307495","1461_129_1722507307498"]
             dict["emp_code"] = "SANS-00290"
+            dict["RENTAMOUNT"] = "\(totalRent)"
             for (index, field) in data.enumerated() {
                 switch field {
                 case "Consignee":
@@ -64,8 +74,7 @@ struct ShowScannedItemsView: View {
                     dict["team_member"] = [textFieldValues[index]]
                 case "Transport Id":
                     dict["transport_id"] = textFieldValues[index]
-                case "RENTAMOUNT":
-                    dict["RENTAMOUNT"] = textFieldValues[index]
+
                 default:
                     break
                 }
