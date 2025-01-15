@@ -11,14 +11,6 @@ struct MAinTabbarVC: View {
     @State var presentSideMenu = false
     @State private var selectedView = 0
     @State private var navigationTitle = "HOME"
-    // @State private var presentSideMenu = false
-    //    init() {
-    //        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-    //        UINavigationBar.appearance().shadowImage = UIImage()
-    //        UINavigationBar.appearance().isTranslucent = true
-    //        UINavigationBar.appearance().tintColor = .black
-    //        UINavigationBar.appearance().backgroundColor = .clear
-    //    }
     
     var body: some View {
         ZStack(){
@@ -30,9 +22,15 @@ struct MAinTabbarVC: View {
                     leftButtonImage: "line.3.horizontal",
                     leftButtonAction: { print("line.3.horizontal") },
                     rightButtonImage: "bell",
-                    rightButtonAction: { print("Bell clicked") }, presentSideMenu: $presentSideMenu
+                    rightButtonAction: { print("Bell clicked") },
+                    presentSideMenu: $presentSideMenu,
+                    trailingButtonImage: selectedView == 0 ? "plus.circle" : nil,
+                    trailingButtonAction: {
+                        if selectedView == 0 {
+                            print("Plus button clicked")
+                        }
+                    }
                 )
-                
                 Spacer()
                 TabView(selection: $selectedView) {
                     
@@ -124,6 +122,8 @@ struct NavBar: View {
     var rightButtonImage: String
     var rightButtonAction: () -> Void
     @Binding var presentSideMenu: Bool
+    var trailingButtonImage: String?
+    var trailingButtonAction: (() -> Void)?
     
     var body: some View {
         HStack {
@@ -133,19 +133,26 @@ struct NavBar: View {
                 leftButtonAction()
             }) {
                 Image(systemName: leftButtonImage)
-                    .font(.system(size: 24, weight: .regular))
+                    .font(.system(size: 30, weight: .regular))
             }
             
             .accentColor(royalBlue)
             Spacer()
             Text(title)
-                .font(.headline)
-                .fontWeight(.bold)
+                .font(.system(size: 24, weight: .bold))
                 .foregroundColor(Color("Text_whiteBlack"))
             Spacer()
+            if let trailingImage = trailingButtonImage, let trailingAction = trailingButtonAction {
+                Button(action: trailingAction) {
+                    Image(systemName: trailingImage)
+                        .font(.system(size: 30, weight: .regular))
+                }
+                .accentColor(royalBlue)
+            }
+            
             Button(action: rightButtonAction) {
                 Image(systemName: rightButtonImage)
-                    .font(.system(size: 24, weight: .regular))
+                    .font(.system(size: 30, weight: .regular))
             }
             .accentColor(royalBlue)
         }
