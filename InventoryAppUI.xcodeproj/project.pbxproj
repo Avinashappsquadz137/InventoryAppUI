@@ -16,6 +16,7 @@
 		C72A5E4A2D326C0400B73D29 /* CrewMemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */; };
 		C72A5E4D2D32711600B73D29 /* ShowScannedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E4C2D32711600B73D29 /* ShowScannedItemsView.swift */; };
 		C72A5E4F2D32712400B73D29 /* ShowScannedItemsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E4E2D32712400B73D29 /* ShowScannedItemsCells.swift */; };
+		C76C8ED62D36A29500F3A8E3 /* EnterChallanIDModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */; };
 		C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB8E2D227FE600B51955 /* QRScannerView.swift */; };
 		C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB932D22C1DA00B51955 /* SideMenuView.swift */; };
 		C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */; };
@@ -36,6 +37,8 @@
 		C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DAF2D0AF6E700D09D41 /* ApiClient.swift */; };
 		C7868DB22D0AF7DD00D09D41 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DB12D0AF7DC00D09D41 /* APIManager.swift */; };
 		C7868DB42D0AF92800D09D41 /* GetAllItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */; };
+		C78EE08D2D37B33D007ADBB8 /* ReturnChallanItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78EE08C2D37B33D007ADBB8 /* ReturnChallanItemView.swift */; };
+		C78EE08F2D37B348007ADBB8 /* ReturnChallanItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78EE08E2D37B348007ADBB8 /* ReturnChallanItemCell.swift */; };
 		C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B344262D1589B600129ED4 /* DataScannerRepresentable.swift */; };
 		C7DC34762D0AB20300FAC786 /* InventoryAppUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DC34752D0AB20300FAC786 /* InventoryAppUIApp.swift */; };
 		C7DC347A2D0AB20400FAC786 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DC34792D0AB20400FAC786 /* Assets.xcassets */; };
@@ -54,6 +57,7 @@
 		C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMemberModel.swift; sourceTree = "<group>"; };
 		C72A5E4C2D32711600B73D29 /* ShowScannedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowScannedItemsView.swift; sourceTree = "<group>"; };
 		C72A5E4E2D32712400B73D29 /* ShowScannedItemsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowScannedItemsCells.swift; sourceTree = "<group>"; };
+		C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterChallanIDModal.swift; sourceTree = "<group>"; };
 		C76EFB8E2D227FE600B51955 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		C76EFB932D22C1DA00B51955 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatePopUp.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 		C7868DAF2D0AF6E700D09D41 /* ApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		C7868DB12D0AF7DC00D09D41 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllItemModel.swift; sourceTree = "<group>"; };
+		C78EE08C2D37B33D007ADBB8 /* ReturnChallanItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanItemView.swift; sourceTree = "<group>"; };
+		C78EE08E2D37B348007ADBB8 /* ReturnChallanItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanItemCell.swift; sourceTree = "<group>"; };
 		C7B344262D1589B600129ED4 /* DataScannerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScannerRepresentable.swift; sourceTree = "<group>"; };
 		C7DC34722D0AB20300FAC786 /* InventoryAppUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InventoryAppUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7DC34752D0AB20300FAC786 /* InventoryAppUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryAppUIApp.swift; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 		C784D9582D30019600D83DE6 /* ReturnChallan */ = {
 			isa = PBXGroup;
 			children = (
+				C78EE08B2D37B31F007ADBB8 /* ReturnChallanItem */,
 				C78354972D31397900959FEA /* ReturnChallanByID */,
 				C784D9592D30020700D83DE6 /* ReturnChallanView.swift */,
 				C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */,
@@ -235,6 +242,7 @@
 				C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */,
 				C72A5E472D32417500B73D29 /* RequestData.swift */,
 				C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */,
+				C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -256,6 +264,15 @@
 				C784D9562D2FDAC700D83DE6 /* UserDefultS.swift */,
 			);
 			path = APIClients;
+			sourceTree = "<group>";
+		};
+		C78EE08B2D37B31F007ADBB8 /* ReturnChallanItem */ = {
+			isa = PBXGroup;
+			children = (
+				C78EE08C2D37B33D007ADBB8 /* ReturnChallanItemView.swift */,
+				C78EE08E2D37B348007ADBB8 /* ReturnChallanItemCell.swift */,
+			);
+			path = ReturnChallanItem;
 			sourceTree = "<group>";
 		};
 		C7DC34692D0AB20300FAC786 = {
@@ -434,6 +451,7 @@
 				C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */,
 				C7868DB02D0AF6E700D09D41 /* ApiClient.swift in Sources */,
 				C72A5E4D2D32711600B73D29 /* ShowScannedItemsView.swift in Sources */,
+				C78EE08F2D37B348007ADBB8 /* ReturnChallanItemCell.swift in Sources */,
 				C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */,
 				C78354962D312FA400959FEA /* ViewModifier.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */,
@@ -441,12 +459,14 @@
 				C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */,
 				C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */,
 				C784D95C2D3002C800D83DE6 /* ReturnChallanCell.swift in Sources */,
+				C78EE08D2D37B33D007ADBB8 /* ReturnChallanItemView.swift in Sources */,
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
 				C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */,
 				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
 				C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */,
 				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,
+				C76C8ED62D36A29500F3A8E3 /* EnterChallanIDModal.swift in Sources */,
 				C783549C2D313C5800959FEA /* MoreOrderCell.swift in Sources */,
 				C78354992D31398700959FEA /* ReturnChallanByID.swift in Sources */,
 				C72A5E482D32417500B73D29 /* RequestData.swift in Sources */,
