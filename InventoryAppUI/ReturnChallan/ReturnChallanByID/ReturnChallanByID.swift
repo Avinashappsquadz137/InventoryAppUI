@@ -22,6 +22,7 @@ struct ReturnChallanByID: View {
                 Text("Enter Challan ID")
                     .font(.title)
                     .fontWeight(.bold)
+                    .keyboardType(.numberPad)
                 TextField("Enter Challan ID", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {

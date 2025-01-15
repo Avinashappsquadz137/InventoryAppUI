@@ -8,45 +8,56 @@
 import SwiftUI
 
 struct ReturnChallanItemView: View {
+    
     var challanDetail: ChallanIDModal
     @State private var isChecked = false
-    var isCheckboxVisible: Bool
+    @State private var itemCheckedStates: [Bool]
+    
+    init(challanDetail: ChallanIDModal, isCheckboxVisible: Bool) {
+        self.challanDetail = challanDetail
+        _itemCheckedStates = State(initialValue: Array(repeating: false, count: challanDetail.products?.count ?? 0))
+    }
+    
     
     var body: some View {
         VStack {
-                if isCheckboxVisible {
-                    Button(action: {
-                        isChecked.toggle()
-                        print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
-                    }) {
-                        HStack(){
-                            Spacer()
-                            Text("ALL SELECT")
-                                .font(.headline)
-                            Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
-                                .font(.system(size: 30))
-                                .foregroundColor(isChecked ? .green : .gray)
-                        }
-                        .padding(5)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                isChecked.toggle()
+                itemCheckedStates = Array(repeating: isChecked, count: itemCheckedStates.count)
+                print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
+            }) {
+                HStack(){
+                    Spacer()
+                    Text("ALL SELECT")
+                        .font(.headline)
+                    Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
+                        .font(.system(size: 30))
+                        .foregroundColor(isChecked ? .green : .gray)
                 }
+                .padding(5)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
             if let products = challanDetail.products, !products.isEmpty {
-                List(products) { item in
+                List(products.indices, id: \.self) { index in
                     ReturnChallanItemCell(
-                        itemImageURL: item.iTEM_THUMBNAIL,
-                        isCheckboxVisible: true,
-                        itemName: item.iTEM_NAME ?? "Unknown Item",
-                        modelNo: item.mODEL_NO ?? "No Model No",
-                        brand: item.bRAND ?? "Unknown Brand"
+                        itemImageURL: products[index].iTEM_THUMBNAIL,
+                        isChecked: $itemCheckedStates[index],
+                        itemName: products[index].iTEM_NAME ?? "Unknown Item",
+                        modelNo: products[index].mODEL_NO ?? "No Model No",
+                        brand: products[index].bRAND ?? "Unknown Brand"
                     )
+                    .onChange(of: itemCheckedStates[index]) { _ in
+                        updateAllSelectState()
+                    }
                     .listRowInsets(EdgeInsets())
                     .padding(10)
                 }
                 .listStyle(PlainListStyle())
             }
             Button(action: {
-               
+                
             }) {
                 Text("Next")
                     .font(.headline)
@@ -56,8 +67,11 @@ struct ReturnChallanItemView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-
+            
         }
         .padding(10)
+    }
+    private func updateAllSelectState() {
+        isChecked = itemCheckedStates.allSatisfy { $0 }
     }
 }

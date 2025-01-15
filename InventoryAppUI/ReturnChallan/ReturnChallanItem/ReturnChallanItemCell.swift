@@ -10,8 +10,7 @@ import SwiftUI
 struct ReturnChallanItemCell: View {
     
     let itemImageURL: String?
-    var isCheckboxVisible: Bool
-    @State private var isChecked: Bool = true
+    @Binding var isChecked: Bool
     var itemName: String
     var modelNo: String
     var brand: String
@@ -43,7 +42,6 @@ struct ReturnChallanItemCell: View {
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.primary)
             }
-            if isCheckboxVisible {
                 Button(action: {
                     
                     isChecked.toggle()
@@ -54,7 +52,6 @@ struct ReturnChallanItemCell: View {
                         .foregroundColor(isChecked ? .green : .gray)
                 }
                 .buttonStyle(PlainButtonStyle())
-            }
         }
         .padding()
         .background(Color.white)
@@ -62,9 +59,3 @@ struct ReturnChallanItemCell: View {
         .shadow(color: Color.black.opacity(0.1), radius: 5)
     }
 }
-
-
-
-//#Preview {
-//    ReturnChallanItemCell(itemImageURL: "", isCheckboxVisible: true)
-//}
