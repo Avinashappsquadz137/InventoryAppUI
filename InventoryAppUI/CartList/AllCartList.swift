@@ -9,17 +9,12 @@ import SwiftUI
 import VisionKit
 
 struct AllCartList: View {
+    @EnvironmentObject var dateSelectionVM: OpenViewModel
     @State private var items: [CartList] = []
     @State private var isLoading = true
-    @State private var showPopup = false
     @State private var showDateilScreen = false
-    
-    @State var isShowingScanner = false
     @State private var scannedText = ""
     @State private var checkedStates: [String] = []
-    
-    @State private var fromDate: Date = Date()
-    @State private var toDate: Date = Date()    
     @State private var isFromDatePickerVisible: Bool = false
     @State private var isToDatePickerVisible: Bool = false
     @State private var value: Int = 0
@@ -32,75 +27,22 @@ struct AllCartList: View {
                             .padding()
                     } else {
                         HStack {
-                            Button(action: {
-                                showPopup = true
-                            }) {
-                                Text("\(formattedDate(fromDate))")
-                                    .font(.headline)
-                                    .padding(10)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.blue.opacity(0.1))
-                                    .foregroundColor(.blue)
-                                    .cornerRadius(8)
-                            }
-                            
-                            if isFromDatePickerVisible {
-                                DatePicker(
-                                    "",
-                                    selection: $fromDate,
-                                    in: Date()...,
-                                    displayedComponents: [.date]
-                                )
-                                .datePickerStyle(GraphicalDatePickerStyle())
+                            Text("FROM : \(formattedDate(dateSelectionVM.fromDate))")
+                                .font(.headline)
+                                .padding(10)
+                                .frame(maxWidth: .infinity)
                                 .background(Color.blue.opacity(0.1))
+                                .foregroundColor(.blue)
                                 .cornerRadius(8)
+                            Text("TO : \(formattedDate(dateSelectionVM.toDate))")
+                                .font(.headline)
                                 .padding(10)
-                            }
-                            
-                            Button(action: {
-                                showPopup = true
-                            }) {
-                                Text("\(formattedDate(toDate))")
-                                    .font(.headline)
-                                    .padding(10)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.green.opacity(0.1))
-                                    .foregroundColor(.green)
-                                    .cornerRadius(8)
-                            }
-                            
-                            if isToDatePickerVisible {
-                                DatePicker(
-                                    "",
-                                    selection: $toDate,
-                                    in: fromDate...,
-                                    displayedComponents: [.date]
-                                )
-                                .datePickerStyle(GraphicalDatePickerStyle())
+                                .frame(maxWidth: .infinity)
                                 .background(Color.green.opacity(0.1))
+                                .foregroundColor(.green)
                                 .cornerRadius(8)
-                                .padding(10)
-                            }
-                            
-                            Button(action: {
-                                if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
-                                    isShowingScanner = true
-                                } else {
-                                    print("Scanner is not supported or available")
-                                }
-                            }) {
-                                HStack {
-                                    Image(systemName: "qrcode.viewfinder")
-                                }
-                                .padding(10)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
-                                .cornerRadius(10)
-                            }
-                            .padding(2)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        
+                        .padding(5)
                         List(items, id: \.id) { item in
                             ItemDetailCell(
                                 itemMasterId: item.iTEM_MASTER_ID,
@@ -116,7 +58,7 @@ struct AllCartList: View {
                                     if let itemID = item.iTEM_MASTER_ID {
                                         let updatedCount = (item.items_in_cart ?? 0) + value
                                         if updatedCount > 0 {
-                                            updateItemCount(itemID: itemID, newCount: updatedCount)
+                                          //  updateItemCount(itemID: itemID, newCount: updatedCount)
                                         }
                                     }
                                 },
@@ -146,52 +88,22 @@ struct AllCartList: View {
                         .listStyle(PlainListStyle())
                     }
                     HStack {
-                        if !checkedStates.isEmpty {
-                            Button(action: {
-                                showPopup = true
-                            }) {
-                                Text("Continue")
-                                    .font(.headline)
-                                    .padding(10)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                            }
+                        
+                        Button(action: {
                             
+                        }) {
+                            Text("Continue")
+                                .font(.headline)
+                                .padding(10)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                     }
                     .padding(5)
                 }
-                if showPopup {
-                    ZStack {
-                        Color.black.opacity(0.4)
-                            .ignoresSafeArea()
-                            .onTapGesture {
-                                showPopup = false
-                            }
-                        SelectDatePopUp(
-                            showPopup: $showPopup,
-                            onSubmit: {
-                                itemAvailabilityByDate()
-                
-                            }, checkedStates: checkedStates.map { $0 },
-                            fromDate: $fromDate,
-                            toDate: $toDate
-                        )
-                    }
-                    .transition(.opacity)
-                    .animation(.easeInOut, value: showPopup)
-                }
             }
-    
-            .fullScreenCover(isPresented: $isShowingScanner) {
-                QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
-                    .onDisappear {
-                        getMemberDetail()
-                    }
-            }
-            
         }
         .onAppear {
             getMemberDetail()
@@ -232,60 +144,60 @@ struct AllCartList: View {
         }
     }
     
-    func itemAvailabilityByDate() {
-        let parameters: [String: Any] = [
-            "emp_code": "1",
-            "to_date": "\(formattedDate(toDate))",
-            "item_list": checkedStates.compactMap { $0 },
-            "from_date" : "\(formattedDate(fromDate))"]
-        ApiClient.shared.callmethodMultipart(
-            apiendpoint: Constant.itemAvailabilityByDate,
-            method: .post,
-            param: parameters,
-            model: ItemAvailabilityModel.self
-        ) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let model):
-                    if model.data != nil {
-                    } else {
-                        print("No data received")
-                    }
-                case .failure(let error):
-                    print("API Error: \(error)")
-                }
-            }
-        }
-    }
+//    func itemAvailabilityByDate() {
+//        let parameters: [String: Any] = [
+//            "emp_code": "1",
+//            "to_date": "\(formattedDate(dateSelectionVM.toDate))",
+//            "item_list": checkedStates.compactMap { $0 },
+//            "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"]
+//        ApiClient.shared.callmethodMultipart(
+//            apiendpoint: Constant.itemAvailabilityByDate,
+//            method: .post,
+//            param: parameters,
+//            model: ItemAvailabilityModel.self
+//        ) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success(let model):
+//                    if model.data != nil {
+//                    } else {
+//                        print("No data received")
+//                    }
+//                case .failure(let error):
+//                    print("API Error: \(error)")
+//                }
+//            }
+//        }
+//    }
     
-    func updateItemCount(itemID: String, newCount: Int) {
-        if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == itemID }) {
-            items[index].items_in_cart = newCount
-        }
-        let parameters: [String: Any] = [
-            "emp_code": "1",
-            "ITEM_NAME" : itemID,
-            "items_in_cart": "\(newCount)"
-        ]
-        ApiClient.shared.callmethodMultipart(
-            apiendpoint: Constant.addtocart,
-            method: .post,
-            param: parameters,
-            model: AddRemoveData.self
-        ) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let model):
-                    if let data = model.data {
-                        print("Fetched items: \(data)")
-                    } else {
-                        print("No data received")
-                    }
-                case .failure(let error):
-                    print("API Error: \(error)")
-                }
-            }
-        }
-    }
+//    func updateItemCount(itemID: String, newCount: Int) {
+//        if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == itemID }) {
+//            items[index].items_in_cart = newCount
+//        }
+//        let parameters: [String: Any] = [
+//            "emp_code": "1",
+//            "ITEM_NAME" : itemID,
+//            "items_in_cart": "\(newCount)"
+//        ]
+//        ApiClient.shared.callmethodMultipart(
+//            apiendpoint: Constant.addtocart,
+//            method: .post,
+//            param: parameters,
+//            model: AddRemoveData.self
+//        ) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success(let model):
+//                    if let data = model.data {
+//                        print("Fetched items: \(data)")
+//                    } else {
+//                        print("No data received")
+//                    }
+//                case .failure(let error):
+//                    print("API Error: \(error)")
+//                }
+//            }
+//        }
+//    }
     
 }

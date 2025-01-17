@@ -31,3 +31,22 @@ func formattedDate(_ date: Date) -> String {
        UINavigationBar.appearance().standardAppearance = appearance
        UINavigationBar.appearance().scrollEdgeAppearance = appearance
    }
+
+
+class OpenViewModel: ObservableObject {
+    @Published var fromDate: Date
+    @Published var toDate: Date
+       
+       init(fromDate: Date, toDate: Date) {
+           self.fromDate = fromDate
+           self.toDate = toDate
+       }
+       
+       func updateFromDate(to date: Date) {
+           self.fromDate = date
+       }
+
+       func updateToDate(to date: Date) {
+           self.toDate = date
+       }
+}

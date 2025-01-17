@@ -138,7 +138,6 @@
 			children = (
 				C76EFB8D2D227FD400B51955 /* QRScannerView */,
 				C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */,
-				C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */,
 			);
 			path = CartList;
 			sourceTree = "<group>";
@@ -213,6 +212,7 @@
 		C783549A2D313C2600959FEA /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
+				C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */,
 				C72A5E4B2D3270D500B73D29 /* ShowScannedItems */,
 				C783549B2D313C5800959FEA /* MoreOrderCell.swift */,
 				C783549D2D313C7200959FEA /* OrderView.swift */,

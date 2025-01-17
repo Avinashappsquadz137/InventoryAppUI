@@ -15,7 +15,7 @@ struct ItemDetailCell: View {
     @Binding var isAddToCartButtonVisible: Int 
     @State private var isChecked: Bool = true
     var isCheckboxVisible: Bool
-    
+    @EnvironmentObject var dateSelectionVM: OpenViewModel
     let itemImageURL: String?
     var onAddToCart: () -> Void
     var onCountChanged: (Int) -> Void
@@ -157,11 +157,14 @@ struct ItemDetailCell: View {
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5)
     }
+    
     func addRemoveData() {
         let parameters: [String: Any] = [
             "emp_code": "1",
             "ITEM_NAME" : itemMasterId ?? "",
-            "items_in_cart": "\(itemCounts)"
+            "items_in_cart": "\(itemCounts)",
+            "to_date": "\(formattedDate(dateSelectionVM.toDate))",
+            "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"
         ]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.addtocart,

@@ -9,11 +9,8 @@ import SwiftUI
 import VisionKit
 
 struct MainViewItemByDateView: View {
-    
+    @EnvironmentObject var dateSelectionVM: OpenViewModel
     @State private var item: [Items] = []
-    
-    @State private var fromDate: Date = Date()
-    @State private var toDate: Date = Date()
     @State private var isFromDatePickerVisible: Bool = false
     @State private var isToDatePickerVisible: Bool = false
     
@@ -40,17 +37,19 @@ struct MainViewItemByDateView: View {
         ZStack{
             VStack {
                 HStack {
-                    TextField("Search items...", text: $searchText)
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                
-                    Button(action: {
-                        showPopup = true
-                    }) {
-                        Image(systemName: "calendar.badge.plus")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 30))
+                    if !item.isEmpty {
+                        TextField("Search items...", text: $searchText)
+                            .padding(10)
+                            .background(Color(.systemGray6))
+                            .cornerRadius(8)
+                        
+                        Button(action: {
+                            showPopup = true
+                        }) {
+                            Image(systemName: "calendar.badge.plus")
+                                .foregroundColor(.blue)
+                                .font(.system(size: 30))
+                        }
                     }
                 }
                 .padding(10)
@@ -109,8 +108,8 @@ struct MainViewItemByDateView: View {
                            
                             getItemByDateDetail()
                         }, checkedStates: checkedStates.map { $0 },
-                        fromDate: $fromDate,
-                        toDate: $toDate
+                        fromDate: $dateSelectionVM.fromDate,
+                        toDate: $dateSelectionVM.toDate
                     )
                 }
                 .transition(.opacity)
@@ -122,8 +121,8 @@ struct MainViewItemByDateView: View {
     func getItemByDateDetail() {
         let parameters: [String: Any] = [
             "emp_code": "1",
-            "to_date": "2024-01-18",
-            "from_date" : "2024-01-16"]
+            "to_date": "\(dateSelectionVM.toDate)",
+            "from_date" : "\(dateSelectionVM.fromDate)"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.getItemByDate,
             method: .post,
@@ -136,7 +135,8 @@ struct MainViewItemByDateView: View {
                     if let data = model.data {
                         self.item = data
                         self.addedToCart = Array(repeating: false, count: data.count)
-                        self.itemCounts = Array(repeating: 1, count: data.count) // Initialize with 1
+                        self.itemCounts = Array(repeating: 1, count: data.count)
+                        showPopup = false
                         print("Fetched items: \(data)")
                     } else {
                         print("No data received")
@@ -147,8 +147,4 @@ struct MainViewItemByDateView: View {
             }
         }
     }
-}
-
-#Preview {
-    MainViewItemByDateView()
 }
