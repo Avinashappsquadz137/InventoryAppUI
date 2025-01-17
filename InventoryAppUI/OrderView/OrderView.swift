@@ -21,7 +21,8 @@ struct OrderView: View {
                         clientName: order.clientName,
                         clientContact: order.personMobileNo,
                         clientLocation: order.toLocation,
-                        clientDate: order.showDate
+                        clientDate: order.showDate,
+                        source: "OrderView"
                     ) {
                         print("Open details for \(order.clientName)")
                         selectedOrder = order

@@ -12,6 +12,7 @@ struct MoreOrderCell: View {
     let clientContact: String
     let clientLocation: String
     let clientDate: String
+    let source: String
     var openDetails: () -> Void
 
     var body: some View {
@@ -27,16 +28,33 @@ struct MoreOrderCell: View {
                     .font(.headline)
             }
             Spacer()
-            Button(action: openDetails) {
-                Text("OPEN")
-                    .font(.callout)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 16)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+            HStack {
+                if source == "SubmitChallanView" {
+                    Button(action: openDetails) {
+                        
+                        Text("OPEN PDF")
+                            .font(.callout)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }else {
+                    Button(action: openDetails) {
+                        
+                        Text("OPEN")
+                            .font(.callout)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
             }
-            .buttonStyle(PlainButtonStyle())
         }
         .padding(5)
         .background(Color(.systemGray6))

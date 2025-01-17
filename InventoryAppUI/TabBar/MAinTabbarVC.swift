@@ -55,7 +55,7 @@ struct MAinTabbarVC: View {
                     }.tag(0)
                     
                     NavigationView {
-                        ListView()
+                        SubmitChallanView()
                             .onAppear {
                                 navigationTitle = "FAVOURITE"
                             }

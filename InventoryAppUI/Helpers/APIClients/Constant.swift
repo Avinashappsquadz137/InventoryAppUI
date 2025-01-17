@@ -24,6 +24,7 @@ struct Constant {
     static let getItemDetailByChallanId    = "api_panel/get_item_detail_by_challan_id"
     static let getItemByDate               = "api_panel/get_item_by_date"
     static let returnItemByChallanId       = "api_panel/return_item_by_challan_id"
+    static let getInventoryDetail          = "api_panel/get_inventory_detail"
 
 }
 
