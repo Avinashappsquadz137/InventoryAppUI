@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import VisionKit
 
 struct MAinTabbarVC: View {
     @State var presentSideMenu = false
     @State private var selectedView = 0
     @State private var navigationTitle = "HOME"
+    
+    @State var isShowingScanner = false
+    @State private var scannedText = ""
     
     var body: some View {
         ZStack(){
@@ -22,12 +26,17 @@ struct MAinTabbarVC: View {
                     leftButtonImage: "line.3.horizontal",
                     leftButtonAction: { print("line.3.horizontal") },
                     rightButtonImage: "bell",
-                    rightButtonAction: { print("Bell clicked") },
+                   // rightButtonAction: { print("bell clicked") },
                     presentSideMenu: $presentSideMenu,
-                    trailingButtonImage: selectedView == 0 ? "plus.circle" : nil,
+                    trailingButtonImage: selectedView == 0 ? "qrcode.viewfinder" : nil,
                     trailingButtonAction: {
                         if selectedView == 0 {
-                            print("Plus button clicked")
+                            if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
+                                isShowingScanner = true
+                                print("Scanner available")
+                            } else {
+                                print("Scanner is not supported or available")
+                            }
                         }
                     }
                 )
@@ -35,7 +44,7 @@ struct MAinTabbarVC: View {
                 TabView(selection: $selectedView) {
                     
                     NavigationView {
-                        MainViewVC()
+                        MainViewItemByDateView()
                             .onAppear {
                                 navigationTitle = "HOME"
                             }
@@ -96,6 +105,9 @@ struct MAinTabbarVC: View {
             }
             SideMenu(isShowing: $presentSideMenu, content: AnyView(SideMenuView(selectedSideMenuTab: $selectedView, presentSideMenu: $presentSideMenu)))
         }
+        .fullScreenCover(isPresented: $isShowingScanner) {
+            QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
+        }
     }
     
 }
@@ -120,7 +132,7 @@ struct NavBar: View {
     var leftButtonImage: String
     var leftButtonAction: () -> Void
     var rightButtonImage: String
-    var rightButtonAction: () -> Void
+   // var rightButtonAction: () -> Void
     @Binding var presentSideMenu: Bool
     var trailingButtonImage: String?
     var trailingButtonAction: (() -> Void)?
@@ -150,11 +162,11 @@ struct NavBar: View {
                 .accentColor(royalBlue)
             }
             
-            Button(action: rightButtonAction) {
-                Image(systemName: rightButtonImage)
-                    .font(.system(size: 30, weight: .regular))
-            }
-            .accentColor(royalBlue)
+//            Button(action: rightButtonAction) {
+//                Image(systemName: rightButtonImage)
+//                    .font(.system(size: 30, weight: .regular))
+//            }
+//            .accentColor(royalBlue)
         }
         .padding(16)
         .background(Color.white)

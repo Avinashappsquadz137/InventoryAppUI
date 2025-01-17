@@ -106,7 +106,7 @@ struct AllCartList: View {
                                 itemMasterId: item.iTEM_MASTER_ID,
                                 itemName: item.iTEM_NAME ?? "Unknown",
                                 itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
-                                itemDesc: "item.sR_NUMBER",
+                                itemDesc: "",
                                 itemCounts: .constant(item.items_in_cart ?? 0),
                                 isAddToCartButtonVisible: .constant(item.items_in_cart ?? 0),
                                 isCheckboxVisible: true,

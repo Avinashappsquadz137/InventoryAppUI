@@ -22,6 +22,8 @@ struct Constant {
     static let addSaveChallanmaster        = "api_panel/add_save_challan_master"
     static let getCrewMember               = "api_panel/get-crew-member"
     static let getItemDetailByChallanId    = "api_panel/get_item_detail_by_challan_id"
+    static let getItemByDate               = "api_panel/get_item_by_date"
+    static let returnItemByChallanId       = "api_panel/return_item_by_challan_id"
 
 }
 

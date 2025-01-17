@@ -42,7 +42,7 @@ struct ReturnChallanItemView: View {
             if let products = challanDetail.products, !products.isEmpty {
                 List(products.indices, id: \.self) { index in
                     ReturnChallanItemCell(
-                        itemImageURL: products[index].iTEM_THUMBNAIL,
+                        itemImageURL: "\(Constant.BASEURL)/\(products[index].iTEM_THUMBNAIL ?? "")",
                         isChecked: $itemCheckedStates[index],
                         itemName: products[index].iTEM_NAME ?? "Unknown Item",
                         modelNo: products[index].mODEL_NO ?? "No Model No",
@@ -57,9 +57,9 @@ struct ReturnChallanItemView: View {
                 .listStyle(PlainListStyle())
             }
             Button(action: {
-                
+                returnItemByChallanId()
             }) {
-                Text("Next")
+                Text("Submit Return")
                     .font(.headline)
                     .padding(10)
                     .frame(maxWidth: .infinity)
@@ -73,5 +73,35 @@ struct ReturnChallanItemView: View {
     }
     private func updateAllSelectState() {
         isChecked = itemCheckedStates.allSatisfy { $0 }
+    }
+    
+    func returnItemByChallanId() {
+        let selectedProducts = challanDetail.products?.enumerated()
+                    .filter { index, _ in itemCheckedStates[index] }
+                    .map { $0.element }
+        let selectedProductIDs = selectedProducts?.compactMap { $0.iTEM_MASTER_ID } ?? []
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "challan_id": "\(challanDetail.temp_id ?? "")",
+            "products" : selectedProductIDs]
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.returnItemByChallanId,
+            method: .post,
+            param: parameters,
+            model: RemoveData.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        ToastManager.shared.show(message: model.message ?? "Success")
+                    } else {
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    print("API Error: \(error)")
+                }
+            }
+        }
     }
 }

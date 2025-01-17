@@ -84,9 +84,14 @@ struct ItemDetailCell: View {
                                 .frame(width: 40)
                             
                             Button(action: {
-                                itemCounts += 1
-                                addRemoveData()
-                                onCountChanged(itemCounts)
+                                if let itemDesc = itemDesc,
+                                   let availableCount = Int(itemDesc),
+                                   itemCounts < availableCount {
+                                    itemCounts += 1
+                                    addRemoveData()
+                                    onCountChanged(itemCounts)
+                                }
+                                
                                 NotificationCenter.default.post(
                                     name: .updateValueNotification,
                                     object: nil,
@@ -112,7 +117,7 @@ struct ItemDetailCell: View {
                     .foregroundColor(.primary)
                 
                 if let itemDesc = itemDesc {
-                    Text(itemDesc)
+                    Text("Items Available: \(itemDesc)")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.red)
                 }
