@@ -45,7 +45,8 @@ struct CartList : Codable {
     let sR_NUMBER : String?
     let iTEM_THUMBNAIL : String?
     var items_in_cart : Int?
-
+    var currently_available : String?
+    
     enum CodingKeys: String, CodingKey {
         case iTEM_MASTER_ID = "ITEM_MASTER_ID"
         case id = "id"
@@ -56,6 +57,7 @@ struct CartList : Codable {
         case sR_NUMBER = "SR_NUMBER"
         case iTEM_THUMBNAIL = "ITEM_THUMBNAIL"
         case items_in_cart = "items_in_cart"
+        case currently_available = "currently_available"
     }
 
     init(from decoder: Decoder) throws {
@@ -69,6 +71,7 @@ struct CartList : Codable {
         sR_NUMBER = try values.decodeIfPresent(String.self, forKey: .sR_NUMBER)
         iTEM_THUMBNAIL = try values.decodeIfPresent(String.self, forKey: .iTEM_THUMBNAIL)
         items_in_cart = try values.decodeIfPresent(Int.self, forKey: .items_in_cart)
+        currently_available = try values.decodeIfPresent(String.self, forKey: .currently_available)
     }
 
 }

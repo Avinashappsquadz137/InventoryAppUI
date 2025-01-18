@@ -14,6 +14,7 @@
 		C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */; };
 		C724F5A02D3A595B00C01873 /* SubmitChallanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724F59F2D3A595B00C01873 /* SubmitChallanView.swift */; };
 		C724F5A22D3A5ACE00C01873 /* SubmitChallanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724F5A12D3A5ACE00C01873 /* SubmitChallanModel.swift */; };
+		C724F5A72D3A90C500C01873 /* CreateChallanDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724F5A62D3A90C500C01873 /* CreateChallanDetails.swift */; };
 		C72A5E482D32417500B73D29 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E472D32417500B73D29 /* RequestData.swift */; };
 		C72A5E4A2D326C0400B73D29 /* CrewMemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */; };
 		C72A5E4D2D32711600B73D29 /* ShowScannedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E4C2D32711600B73D29 /* ShowScannedItemsView.swift */; };
@@ -59,6 +60,7 @@
 		C718C1E02D0C3A52008A1EFC /* GetAllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllCartList.swift; sourceTree = "<group>"; };
 		C724F59F2D3A595B00C01873 /* SubmitChallanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitChallanView.swift; sourceTree = "<group>"; };
 		C724F5A12D3A5ACE00C01873 /* SubmitChallanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitChallanModel.swift; sourceTree = "<group>"; };
+		C724F5A62D3A90C500C01873 /* CreateChallanDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallanDetails.swift; sourceTree = "<group>"; };
 		C72A5E472D32417500B73D29 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
 		C72A5E492D326C0400B73D29 /* CrewMemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMemberModel.swift; sourceTree = "<group>"; };
 		C72A5E4C2D32711600B73D29 /* ShowScannedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowScannedItemsView.swift; sourceTree = "<group>"; };
@@ -136,8 +138,8 @@
 		C718C1DD2D0C37C1008A1EFC /* CartList */ = {
 			isa = PBXGroup;
 			children = (
-				C76EFB8D2D227FD400B51955 /* QRScannerView */,
 				C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */,
+				C724F5A62D3A90C500C01873 /* CreateChallanDetails.swift */,
 			);
 			path = CartList;
 			sourceTree = "<group>";
@@ -242,6 +244,7 @@
 		C7868D7B2D0AC75000D09D41 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C76EFB8D2D227FD400B51955 /* QRScannerView */,
 				C7344C542D38DFC800D1E030 /* MainViewItemByDate */,
 				C7868D722D0AC54700D09D41 /* MainViewVC.swift */,
 				C7868DA12D0AE5BC00D09D41 /* ItemDetailCell.swift */,
@@ -483,6 +486,7 @@
 				C72A5E4D2D32711600B73D29 /* ShowScannedItemsView.swift in Sources */,
 				C78EE08F2D37B348007ADBB8 /* ReturnChallanItemCell.swift in Sources */,
 				C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */,
+				C724F5A72D3A90C500C01873 /* CreateChallanDetails.swift in Sources */,
 				C78354962D312FA400959FEA /* ViewModifier.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */,
 				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
@@ -655,6 +659,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.InventoryApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -687,6 +693,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.InventoryApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

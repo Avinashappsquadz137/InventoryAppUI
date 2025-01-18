@@ -12,12 +12,11 @@ struct AllCartList: View {
     @EnvironmentObject var dateSelectionVM: OpenViewModel
     @State private var items: [CartList] = []
     @State private var isLoading = true
-    @State private var showDateilScreen = false
-    @State private var scannedText = ""
     @State private var checkedStates: [String] = []
-    @State private var isFromDatePickerVisible: Bool = false
-    @State private var isToDatePickerVisible: Bool = false
     @State private var value: Int = 0
+    
+    @State private var showDateilScreen = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -27,14 +26,14 @@ struct AllCartList: View {
                             .padding()
                     } else {
                         HStack {
-                            Text("FROM : \(formattedDate(dateSelectionVM.fromDate))")
+                            Text("\(formattedDate(dateSelectionVM.fromDate))")
                                 .font(.headline)
                                 .padding(10)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.blue.opacity(0.1))
                                 .foregroundColor(.blue)
                                 .cornerRadius(8)
-                            Text("TO : \(formattedDate(dateSelectionVM.toDate))")
+                            Text("\(formattedDate(dateSelectionVM.toDate))")
                                 .font(.headline)
                                 .padding(10)
                                 .frame(maxWidth: .infinity)
@@ -48,7 +47,7 @@ struct AllCartList: View {
                                 itemMasterId: item.iTEM_MASTER_ID,
                                 itemName: item.iTEM_NAME ?? "Unknown",
                                 itemDetail: "Brand: \(item.bRAND ?? "Unknown"), Model: \(item.mODEL_NO ?? "Unknown")",
-                                itemDesc: "",
+                                itemDesc: item.currently_available,
                                 itemCounts: .constant(item.items_in_cart ?? 0),
                                 isAddToCartButtonVisible: .constant(item.items_in_cart ?? 0),
                                 isCheckboxVisible: true,
@@ -58,7 +57,7 @@ struct AllCartList: View {
                                     if let itemID = item.iTEM_MASTER_ID {
                                         let updatedCount = (item.items_in_cart ?? 0) + value
                                         if updatedCount > 0 {
-                                          //  updateItemCount(itemID: itemID, newCount: updatedCount)
+                                            //updateItemCount(itemID: itemID, newCount: updatedCount)
                                         }
                                     }
                                 },
@@ -90,7 +89,7 @@ struct AllCartList: View {
                     HStack {
                         
                         Button(action: {
-                            
+                            showDateilScreen = true
                         }) {
                             Text("Continue")
                                 .font(.headline)
@@ -104,6 +103,9 @@ struct AllCartList: View {
                     .padding(5)
                 }
             }
+            .fullScreenCover(isPresented: $showDateilScreen) {
+                CreateChallanDetails(checkedStates: checkedStates)
+            }
         }
         .onAppear {
             getMemberDetail()
@@ -116,7 +118,10 @@ struct AllCartList: View {
     }
     
     func getMemberDetail() {
-        let parameters: [String: Any] = ["emp_code": "1"]
+        let parameters: [String: Any] = ["emp_code": "1",
+//       "to_date": "\(formattedDate(dateSelectionVM.toDate))",
+//        "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"
+        ]
         
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.allcartlist,
@@ -170,34 +175,36 @@ struct AllCartList: View {
 //        }
 //    }
     
-//    func updateItemCount(itemID: String, newCount: Int) {
-//        if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == itemID }) {
-//            items[index].items_in_cart = newCount
-//        }
-//        let parameters: [String: Any] = [
-//            "emp_code": "1",
-//            "ITEM_NAME" : itemID,
-//            "items_in_cart": "\(newCount)"
-//        ]
-//        ApiClient.shared.callmethodMultipart(
-//            apiendpoint: Constant.addtocart,
-//            method: .post,
-//            param: parameters,
-//            model: AddRemoveData.self
-//        ) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let model):
-//                    if let data = model.data {
-//                        print("Fetched items: \(data)")
-//                    } else {
-//                        print("No data received")
-//                    }
-//                case .failure(let error):
-//                    print("API Error: \(error)")
-//                }
-//            }
-//        }
-//    }
+    func updateItemCount(itemID: String, newCount: Int) {
+        if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == itemID }) {
+            items[index].items_in_cart = newCount
+        }
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "ITEM_NAME" : itemID,
+            "items_in_cart": "\(newCount)",
+            "to_date": "\(formattedDate(dateSelectionVM.toDate))",
+            "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"
+        ]
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.addtocart,
+            method: .post,
+            param: parameters,
+            model: AddRemoveData.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        print("Fetched items: \(data)")
+                    } else {
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    print("API Error: \(error)")
+                }
+            }
+        }
+    }
     
 }

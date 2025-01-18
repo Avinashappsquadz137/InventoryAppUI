@@ -63,3 +63,45 @@ struct CrewMember : Codable {
     }
 
 }
+
+
+struct TransportCategory : Codable {
+    let error : String?
+    let data : [Transport]?
+    let status : Bool?
+    let message : String?
+
+    enum CodingKeys: String, CodingKey {
+
+        case error = "error"
+        case data = "data"
+        case status = "status"
+        case message = "message"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        error = try values.decodeIfPresent(String.self, forKey: .error)
+        data = try values.decodeIfPresent([Transport].self, forKey: .data)
+        status = try values.decodeIfPresent(Bool.self, forKey: .status)
+        message = try values.decodeIfPresent(String.self, forKey: .message)
+    }
+
+}
+struct Transport : Codable {
+    let id : String?
+    let transport_name : String?
+
+    enum CodingKeys: String, CodingKey {
+
+        case id = "id"
+        case transport_name = "transport_name"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decodeIfPresent(String.self, forKey: .id)
+        transport_name = try values.decodeIfPresent(String.self, forKey: .transport_name)
+    }
+
+}
