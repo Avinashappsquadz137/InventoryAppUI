@@ -17,9 +17,12 @@ struct ShowScannedItemsCells: View {
     @State var itemName: String
     @State var itemQuantity: String
     @State var itemCategory: String
-  
+    
     @State var itemPerPrice: String
     @State private var scanCount = 0
+    
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var onUpdateTotalRent: (Int) -> Void
     
@@ -68,17 +71,17 @@ struct ShowScannedItemsCells: View {
                     TextField("Rent Per Items", text: $textFieldValue)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
-                    Text("Include GST")
-                        .font(.headline)
-                    Button(action: {
-                        isChecked.toggle()
-                        print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
-                    }) {
-                        Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
-                            .font(.system(size: 30))
-                            .foregroundColor(isChecked ? .green : .gray)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                    //                    Text("Include GST")
+                    //                        .font(.headline)
+                    //                    Button(action: {
+                    //                        isChecked.toggle()
+                    //                        print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
+                    //                    }) {
+                    //                        Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
+                    //                            .font(.system(size: 30))
+                    //                            .foregroundColor(isChecked ? .green : .gray)
+                    //                    }
+                    //                    .buttonStyle(PlainButtonStyle())
                 }
                 Button(action: {
                     print("Button tapped with text: \(textFieldValue)")
@@ -101,16 +104,32 @@ struct ShowScannedItemsCells: View {
         .background(Color(.systemGray6))
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Wrong Product"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         .fullScreenCover(isPresented: $isShowingScanner) {
-                    QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
-                        .onDisappear {
-                            // Increment scan count on successful scan
-                            if !scannedText.isEmpty {
+            QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
+                .onDisappear {
+                    if !scannedText.isEmpty {
+                        let components = scannedText.split(separator: "_")
+                        if components.count > 1 {
+                            let extractedValue = String(components[1])
+                            print("Scanned text: \(extractedValue), Total scans: \(scanCount)")
+                            if extractedValue == itemCategory {
                                 scanCount += 1
-                                print("Scanned text: \(scannedText), Total scans: \(scanCount)")
-                                scannedText = "" // Reset scanned text if necessary
+                            }
+                            if extractedValue != itemCategory {
+                                alertMessage = "This is the wrong product! Expected: \(itemCategory), but scanned: \(extractedValue)."
+                                showAlert = true
                             }
                         }
+                        scannedText = ""
+                    }
                 }
+        }
     }
 }

@@ -33,13 +33,12 @@ struct QRScannerView: View {
                         .frame(width: 300, height: 300) // Adjust the scanner frame
                         .border(Color.gray, width: 2) // Optional border for the scanner frame
                     }
-                    
-                    // Add Item button displayed beneath the scanner frame
                     if showAddButton {
                         Button(action: {
                             // Handle "Add Item" button tap
                             print("Scanned Text: \(scannedText)")
                             addQRItemDetail()
+                            isShowingScanner = false
                         }) {
                             Text("Add Item")
                                 .padding()
@@ -50,7 +49,6 @@ struct QRScannerView: View {
                         .padding(.top, 20)
                     }
                 } else {
-                    // Message if the scanner is unavailable
                     Text("Scanner not available or supported")
                         .padding()
                         .background(Color.red.opacity(0.8))

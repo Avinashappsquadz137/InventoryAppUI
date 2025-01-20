@@ -28,9 +28,9 @@ struct MAinTabbarVC: View {
                     rightButtonImage: "bell",
                    // rightButtonAction: { print("bell clicked") },
                     presentSideMenu: $presentSideMenu,
-                    trailingButtonImage: selectedView == 0 ? "qrcode.viewfinder" : nil,
+                    trailingButtonImage: selectedView == 2 ? "qrcode.viewfinder" : nil,
                     trailingButtonAction: {
-                        if selectedView == 0 {
+                        if selectedView == 2 {
                             if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
                                 isShowingScanner = true
                                 print("Scanner available")
