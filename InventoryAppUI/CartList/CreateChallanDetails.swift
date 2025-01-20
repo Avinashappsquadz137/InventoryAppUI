@@ -168,6 +168,12 @@ struct CreateChallanDetails: View {
                     if let data = model.data {
                         print("Fetched items: \(data)")
                         ToastManager.shared.show(message: model.message ?? "")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            if let window = UIApplication.shared.windows.first {
+                                window.rootViewController = UIHostingController(rootView: MAinTabbarVC())
+                                window.makeKeyAndVisible()
+                            }
+                        }
                     } else {
                         print("No data received")
                     }
@@ -202,7 +208,7 @@ struct DetailsFieldCell: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-            } else if data == "Eway Bill Date" {
+            } else if data == "Inventory Loading Date" {
                 DatePicker(
                     "Select \(data)",
                     selection: Binding(

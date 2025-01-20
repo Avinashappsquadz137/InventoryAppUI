@@ -9,12 +9,13 @@ import SwiftUI
 import VisionKit
 
 struct AllCartList: View {
-    @EnvironmentObject var dateSelectionVM: OpenViewModel
+  
     @State private var items: [CartList] = []
     @State private var isLoading = true
     @State private var checkedStates: [String] = []
     @State private var value: Int = 0
-    
+    @State private var allCartList: GetAllCartList? = nil
+
     @State private var showDateilScreen = false
     
     var body: some View {
@@ -25,23 +26,25 @@ struct AllCartList: View {
                         ProgressView("Loading...")
                             .padding()
                     } else {
+                        if let toDate = allCartList?.to_date, let fromDate = allCartList?.from_date {
                         HStack {
-                            Text("\(formattedDate(dateSelectionVM.fromDate))")
+                            Text("\(fromDate)")
                                 .font(.headline)
                                 .padding(10)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.blue.opacity(0.1))
                                 .foregroundColor(.blue)
                                 .cornerRadius(8)
-                            Text("\(formattedDate(dateSelectionVM.toDate))")
+                            Text("\(toDate)")
                                 .font(.headline)
                                 .padding(10)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.green.opacity(0.1))
                                 .foregroundColor(.green)
                                 .cornerRadius(8)
-                        }
-                        .padding(5)
+                        }.padding(5)
+                    }
+                        
                         List(items, id: \.id) { item in
                             ItemDetailCell(
                                 itemMasterId: item.iTEM_MASTER_ID,
@@ -57,7 +60,7 @@ struct AllCartList: View {
                                     if let itemID = item.iTEM_MASTER_ID {
                                         let updatedCount = (item.items_in_cart ?? 0) + value
                                         if updatedCount > 0 {
-                                            //updateItemCount(itemID: itemID, newCount: updatedCount)
+                                            updateItemCount(itemID: itemID, newCount: updatedCount)
                                         }
                                     }
                                 },
@@ -118,13 +121,10 @@ struct AllCartList: View {
     }
     
     func getMemberDetail() {
-        let parameters: [String: Any] = ["emp_code": "1",
-//       "to_date": "\(formattedDate(dateSelectionVM.toDate))",
-//        "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"
-        ]
+        let parameters: [String: Any] = ["emp_code": "1"]
         
         ApiClient.shared.callmethodMultipart(
-            apiendpoint: Constant.allcartlist,
+            apiendpoint: Constant.allcartlistByDate,
             method: .post,
             param: parameters,
             model: GetAllCartList.self
@@ -137,6 +137,7 @@ struct AllCartList: View {
                     if let data = model.data {
                         self.items = data
                         self.checkedStates = data.compactMap { $0.iTEM_MASTER_ID }
+                        self.allCartList = model
                         print("Fetched items: \(data)")
                     } else {
                         print("No data received")
@@ -149,42 +150,18 @@ struct AllCartList: View {
         }
     }
     
-//    func itemAvailabilityByDate() {
-//        let parameters: [String: Any] = [
-//            "emp_code": "1",
-//            "to_date": "\(formattedDate(dateSelectionVM.toDate))",
-//            "item_list": checkedStates.compactMap { $0 },
-//            "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"]
-//        ApiClient.shared.callmethodMultipart(
-//            apiendpoint: Constant.itemAvailabilityByDate,
-//            method: .post,
-//            param: parameters,
-//            model: ItemAvailabilityModel.self
-//        ) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let model):
-//                    if model.data != nil {
-//                    } else {
-//                        print("No data received")
-//                    }
-//                case .failure(let error):
-//                    print("API Error: \(error)")
-//                }
-//            }
-//        }
-//    }
-    
     func updateItemCount(itemID: String, newCount: Int) {
         if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == itemID }) {
             items[index].items_in_cart = newCount
         }
+         let toDate = allCartList?.to_date
+        let fromDate = allCartList?.from_date
         let parameters: [String: Any] = [
             "emp_code": "1",
             "ITEM_NAME" : itemID,
             "items_in_cart": "\(newCount)",
-            "to_date": "\(formattedDate(dateSelectionVM.toDate))",
-            "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"
+            "to_date": toDate ?? "",
+            "from_date" : fromDate ?? ""
         ]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.addtocart,
