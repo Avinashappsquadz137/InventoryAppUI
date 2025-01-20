@@ -37,7 +37,7 @@ struct SubmitChallanView: View {
             set: { if !$0 { selectedPDF = nil } }
         )) {
             if let challanDetail = selectedPDF?.cHALLAN_DETAIL,
-               let orderPDFURL = URL(string: "\(Constant.BASEURL)\(challanDetail)") {
+               let orderPDFURL = URL(string: "\(Constant.BASEURL)/Files/\(challanDetail)") {
                 SubmitView(orderPDF: orderPDFURL)
             }
         }

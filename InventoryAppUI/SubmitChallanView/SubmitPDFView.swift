@@ -17,34 +17,23 @@ struct SubmitView: View {
         VStack(spacing: 20) {
             if let pdfURL = orderPDF {
                 Button(action: {
-                    showDocument = true
+                    Task {
+                        await downloadPDF()
+                        showDocument = true
+                    }
                 }) {
-                    Text("View PDF")
+                    Text("View/Download PDF")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.green)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
                 .sheet(isPresented: $showDocument) {
                     DocumentPreviewView(fileURL: pdfURL)
                 }
+                .disabled(isDownloading)
             }
-            
-            // Button to download the PDF
-            Button(action: {
-                Task {
-                    await downloadPDF()
-                }
-            }) {
-                Text("Download PDF")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .disabled(isDownloading)
         }
         .padding()
     }
