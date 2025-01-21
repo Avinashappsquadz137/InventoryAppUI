@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CreateChallanDetails: View {
     
-
     @State private var textFieldValues: [String] = Array(repeating: "", count: 13)
     @State private var teamVehicle: [String] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
@@ -19,11 +18,8 @@ struct CreateChallanDetails: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedDate: Date = Date()
     let checkedStates: [String]
- 
-//    let arrar = ["emp_code","items_in_cart","client_name","location","company_name_and_address","gst_no","state","pincode","contactPerson","mobileNo","showStartDate","showEndDate","inventoryLoadingDate","vehicle","vehicleNo"]
+    
     let data = ["Client Name","Location","Company Name & Address","GST No", "State","Pincode","Contact Person","Mobile No","Show Start Date","Show End Date","Inventory Loading Date","Vehicle","Vehicle No"]
-
-    let userDefaultsKey = "TextFieldValues"
     
     var body: some View {
         NavigationStack {
@@ -36,7 +32,6 @@ struct CreateChallanDetails: View {
                                 get: { textFieldValues[index] },
                                 set: { newValue in
                                     textFieldValues[index] = newValue
-                                    saveTextFieldValues()
                                 }
                             ),
                             index: index,
@@ -66,7 +61,6 @@ struct CreateChallanDetails: View {
                 .padding(10)
             }
             .onAppear {
-                loadTextFieldValues()
                 getTransportCategory()
             }
             .modifier(ViewModifiers())
@@ -86,22 +80,24 @@ struct CreateChallanDetails: View {
             }.overlay(ToastView())
         }
     }
-    func saveTextFieldValues() {
-        UserDefaults.standard.set(textFieldValues, forKey: userDefaultsKey)
-    }
-    func loadTextFieldValues() {
-        if let savedValues = UserDefaults.standard.array(forKey: userDefaultsKey) as? [String], savedValues.count == data.count {
-            textFieldValues = savedValues
-        }
-    }
     func validateTextFields(completion: (_ isValid: Bool, _ collectedData: [String]) -> Void) {
-        let allFieldsFilled = !textFieldValues.contains(where: { $0.isEmpty })
-        if allFieldsFilled {
+        let missingFields = textFieldValues.enumerated().compactMap { (index, value) -> String? in
+            let fieldName = data[index]
+            
+            if fieldName == "Show Start Date" || fieldName == "Show End Date" {
+                return nil // Skip validation as they're auto-filled
+            }
+            return value.isEmpty ? fieldName : nil
+        }
+        
+        if missingFields.isEmpty {
             completion(true, textFieldValues)
         } else {
-            completion(false, [])
+            print("The following fields are missing: \(missingFields.joined(separator: ", "))")
+            completion(false, missingFields)
         }
     }
+    
     func getTransportCategory() {
         var dict = [String: Any]()
         dict["emp_code"] = "1"
@@ -119,7 +115,7 @@ struct CreateChallanDetails: View {
             }
         }
     }
-
+    
     func createOrderByCartItem() {
         var dict = [String: Any]()
         dict["emp_code"] = "1"
@@ -143,9 +139,9 @@ struct CreateChallanDetails: View {
             case "Mobile No":
                 dict["mobileNo"] = textFieldValues[index]
             case "Show Start Date":
-                dict["showStartDate"] = textFieldValues[index]
+                dict["showStartDate"] = "\(formattedDate(UserDefaultsManager.shared.getFromDate() ?? Date()))"
             case "Show End Date":
-                dict["showEndDate"] = textFieldValues[index]
+                dict["showEndDate"] = "\(formattedDate(UserDefaultsManager.shared.getToDate() ?? Date()))"
             case "Inventory Loading Date":
                 dict["inventoryLoadingDate"] = textFieldValues[index]
             case "Vehicle":
@@ -178,7 +174,7 @@ struct CreateChallanDetails: View {
                         print("No data received")
                     }
                 case .failure(let error):
-            
+                    
                     print("API Error: \(error)")
                 }
             }
@@ -226,6 +222,51 @@ struct DetailsFieldCell: View {
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(CompactDatePickerStyle())
+            }else if data == "Show Start Date" {
+                let defaultStartDate = UserDefaultsManager.shared.getFromDate() ?? Date()
+                DatePicker(
+                    "\(data)",
+                    selection: Binding(
+                        get: {
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd"
+                            return formatter.date(from: textFieldValue) ?? defaultStartDate
+                        },
+                        set: { newValue in
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd"
+                            textFieldValue = formatter.string(from: newValue)
+                        }
+                    ),
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(CompactDatePickerStyle())
+                .disabled(true)
+                
+            }else if data == "Show End Date" {
+                let defaultEndDate = UserDefaultsManager.shared.getToDate() ?? Date()
+                DatePicker(
+                    "\(data)",
+                    selection: Binding(
+                        get: {
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd"
+                            return formatter.date(from: textFieldValue) ?? defaultEndDate
+                        },
+                        set: { newValue in
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd"
+                            textFieldValue = formatter.string(from: newValue)
+                        }
+                    ),
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(CompactDatePickerStyle())
+                .disabled(true)
+            } else if data == "Mobile No" || data ==  "Pincode"{
+                TextField("Enter \(data)", text: $textFieldValue)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.numberPad)
             }else {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
