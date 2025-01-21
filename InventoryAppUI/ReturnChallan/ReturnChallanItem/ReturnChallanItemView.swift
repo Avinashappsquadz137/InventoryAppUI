@@ -35,7 +35,7 @@ struct ReturnChallanItemView: View {
                         .font(.headline)
                     Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
                         .font(.system(size: 30))
-                        .foregroundColor(isChecked ? .green : .gray)
+                        .foregroundColor(isChecked ? .blue : .gray)
                 }
                 .padding(5)
             }

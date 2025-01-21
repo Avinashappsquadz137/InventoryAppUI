@@ -9,8 +9,8 @@ import SwiftUI
 struct MainViewVC: View {
     @State private var items: [Datas] = []
     @State private var isLoading = true
-    @State private var addedToCart: [Bool] = [] // Track "Add to Cart" state for each item
-    @State private var itemCounts: [Int] = []  // Track counts for each item
+    @State private var addedToCart: [Bool] = []
+    @State private var itemCounts: [Int] = []  
     @State private var searchText: String = ""
     
     var filteredItems: [Datas] {

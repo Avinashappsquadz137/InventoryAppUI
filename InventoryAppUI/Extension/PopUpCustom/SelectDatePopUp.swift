@@ -58,8 +58,8 @@ struct SelectDatePopUp: View {
                     .font(.headline)
                     .padding(10)
                     .frame(maxWidth: .infinity)
-                    .background(Color.green.opacity(0.1))
-                    .foregroundColor(.green)
+                    .background(Color.blue.opacity(0.1))
+                    .foregroundColor(.blue)
                     .cornerRadius(8)
             }
 
@@ -71,7 +71,7 @@ struct SelectDatePopUp: View {
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
-                .background(Color.green.opacity(0.1))
+                .background(Color.blue.opacity(0.1))
                 .cornerRadius(8)
                 .padding(10)
             }
@@ -98,7 +98,7 @@ struct SelectDatePopUp: View {
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.green)
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }

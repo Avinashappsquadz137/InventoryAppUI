@@ -9,9 +9,8 @@ import SwiftUI
 
 
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
-let lightGreenColor = Color(red: 21.0/255.0, green: 183.0/255.0, blue: 177.0/255.0, opacity: 1.0)
-let lightblueColor = Color(red: 85.0/255.0, green: 84.0/255.0, blue: 166.0/255.0, opacity: 1.0)
 
+let lightblueColor = Color(red: 85.0/255.0, green: 84.0/255.0, blue: 166.0/255.0, opacity: 1.0)
 let royalBlue = Color(red: 65.0/255.0, green: 105.0/255.0, blue: 225.0/255.0, opacity: 1.0)
 
 
@@ -21,32 +20,17 @@ func formattedDate(_ date: Date) -> String {
     formatter.dateFormat = "yyyy-MM-dd"  
     return formatter.string(from: date)
 }
- func setNavigationBarAppearance() {
-       let appearance = UINavigationBarAppearance()
-       appearance.configureWithOpaqueBackground()
-       appearance.backgroundColor = .white
-       appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-       appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black] 
-       
-       UINavigationBar.appearance().standardAppearance = appearance
-       UINavigationBar.appearance().scrollEdgeAppearance = appearance
-   }
-
-
-class OpenViewModel: ObservableObject {
-    @Published var fromDate: Date
-    @Published var toDate: Date
-       
-       init(fromDate: Date, toDate: Date) {
-           self.fromDate = fromDate
-           self.toDate = toDate
-       }
-       
-       func updateFromDate(to date: Date) {
-           self.fromDate = date
-       }
-
-       func updateToDate(to date: Date) {
-           self.toDate = date
-       }
+ 
+func formattedDate(from dateString: String, fromFormat: String, toFormat: String) -> String? {
+    let inputFormatter = DateFormatter()
+    inputFormatter.dateFormat = fromFormat
+    
+    let outputFormatter = DateFormatter()
+    outputFormatter.dateFormat = toFormat
+    
+    if let date = inputFormatter.date(from: dateString) {
+        return outputFormatter.string(from: date)
+    } else {
+        return nil
+    }
 }

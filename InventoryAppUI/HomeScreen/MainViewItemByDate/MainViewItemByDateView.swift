@@ -9,7 +9,6 @@ import SwiftUI
 import VisionKit
 
 struct MainViewItemByDateView: View {
-    @EnvironmentObject var dateSelectionVM: OpenViewModel
     @State private var item: [Items] = []
     @State private var isFromDatePickerVisible: Bool = false
     @State private var isToDatePickerVisible: Bool = false
@@ -23,15 +22,20 @@ struct MainViewItemByDateView: View {
     @State private var addedToCart: [Bool] = []
     @State private var searchText: String = ""
     
+    @State private var isDateSelected = false
+    
+    @State var fromDate: Date = UserDefaultsManager.shared.getFromDate() ?? Date()
+    @State var toDate: Date = UserDefaultsManager.shared.getToDate() ?? Date()
+    
     var filteredItems: [Items] {
-           if searchText.isEmpty {
-               return item
-           } else {
-               return item.filter {
-                   $0.iTEM_NAME?.localizedCaseInsensitiveContains(searchText) ?? false
-               }
-           }
-       }
+        if searchText.isEmpty {
+            return item
+        } else {
+            return item.filter {
+                $0.iTEM_NAME?.localizedCaseInsensitiveContains(searchText) ?? false
+            }
+        }
+    }
     
     var body: some View {
         ZStack{
@@ -54,18 +58,18 @@ struct MainViewItemByDateView: View {
                 }
                 .padding(10)
                 Spacer()
-                if item.isEmpty {
-                    Text("Select Date For Items")
-                        .font(.title)
-                        .bold()
-                    Button(action: {
-                        showPopup = true
-                    }) {
-                        Image(systemName: "calendar.badge.plus")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 100))
-                    }
-                }else {
+//                if item.isEmpty {
+//                    Text("Select Date For Items")
+//                        .font(.title)
+//                        .bold()
+//                    Button(action: {
+//                        showPopup = true
+//                    }) {
+//                        Image(systemName: "calendar.badge.plus")
+//                            .foregroundColor(.blue)
+//                            .font(.system(size: 100))
+//                    }
+//                }else {
                     List(filteredItems.indices, id: \.self) { index in
                         ItemDetailCell(
                             itemMasterId: filteredItems[index].iTEM_MASTER_ID,
@@ -92,7 +96,14 @@ struct MainViewItemByDateView: View {
                             hideDeleteButton: true, onDelete: {}, onCheckUncheck: {}
                         )}
                     .listStyle(PlainListStyle())
-                }
+                    .onTapGesture {
+                        if isDateSelected {
+                            showPopup = false
+                        }else {
+                            showPopup = true
+                        }
+                    }
+                //}
                 Spacer()
             }
             if showPopup {
@@ -105,24 +116,36 @@ struct MainViewItemByDateView: View {
                     SelectDatePopUp(
                         showPopup: $showPopup,
                         onSubmit: {
-                           
+                            saveDatesToUserDefaults()
                             getItemByDateDetail()
+                            isDateSelected = true
                         }, checkedStates: checkedStates.map { $0 },
-                        fromDate: $dateSelectionVM.fromDate,
-                        toDate: $dateSelectionVM.toDate
+                        fromDate: $fromDate,
+                        toDate: $toDate
                     )
+                    
                 }
                 .transition(.opacity)
                 .animation(.easeInOut, value: showPopup)
             }
         }
+        .onAppear {
+            getItemByDateDetail()
+        }
         
     }
+    
+    
+    func saveDatesToUserDefaults() {
+        UserDefaultsManager.shared.saveFromDate(fromDate)
+        UserDefaultsManager.shared.saveToDate(toDate)
+    }
+    
     func getItemByDateDetail() {
         let parameters: [String: Any] = [
             "emp_code": "1",
-            "to_date": "\(dateSelectionVM.toDate)",
-            "from_date" : "\(dateSelectionVM.fromDate)"]
+            "to_date": "\(formattedDate(toDate))",
+            "from_date" : "\(formattedDate(fromDate))"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.getItemByDate,
             method: .post,

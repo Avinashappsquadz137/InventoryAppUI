@@ -27,12 +27,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 struct SplashView: View {
     @State private var isActive = false
-    @StateObject var dateSelectionVM = OpenViewModel(fromDate: Date(), toDate: Date())
     var body: some View {
         if isActive {
             MAinTabbarVC()
                 .overlay(ToastView())
-                .environmentObject(dateSelectionVM)
         } else {
             ZStack {
                 Color.white.ignoresSafeArea()

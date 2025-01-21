@@ -15,7 +15,6 @@ struct ItemDetailCell: View {
     @Binding var isAddToCartButtonVisible: Int 
     @State private var isChecked: Bool = true
     var isCheckboxVisible: Bool
-    @EnvironmentObject var dateSelectionVM: OpenViewModel
     let itemImageURL: String?
     var onAddToCart: () -> Void
     var onCountChanged: (Int) -> Void
@@ -99,7 +98,7 @@ struct ItemDetailCell: View {
                                 )
                             }) {
                                 Image(systemName: "plus.circle")
-                                    .foregroundColor(.green)
+                                    .foregroundColor(.blue)
                                     .font(.system(size: 30))
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -117,7 +116,7 @@ struct ItemDetailCell: View {
                     .foregroundColor(.primary)
                 
                 if let itemDesc = itemDesc {
-                    Text("Items Available: \(itemDesc)")
+                    Text("Available: \(itemDesc)")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.red)
                 }
@@ -127,13 +126,16 @@ struct ItemDetailCell: View {
                         Button(action: {
                             deleteCartItem()
                         }) {
-                            Text("DELETE")
-                                .font(.headline)
-                                .padding(8)
-                                .frame(maxWidth: 100)
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
+                            Image(systemName: "trash")
+                                .font(.system(size: 20))
+                                .foregroundColor(.red)
+//                            Text("DELETE")
+//                                .font(.headline)
+//                                .padding(8)
+//                                .frame(maxWidth: 100)
+//                                .background(Color.red)
+//                                .foregroundColor(.white)
+//                                .cornerRadius(8)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
@@ -147,7 +149,7 @@ struct ItemDetailCell: View {
                 }) {
                     Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
                         .font(.system(size: 30))
-                        .foregroundColor(isChecked ? .green : .gray)
+                        .foregroundColor(isChecked ? .blue : .gray)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -163,8 +165,8 @@ struct ItemDetailCell: View {
             "emp_code": "1",
             "ITEM_NAME" : itemMasterId ?? "",
             "items_in_cart": "\(itemCounts)",
-            "to_date": "\(formattedDate(dateSelectionVM.toDate))",
-            "from_date" : "\(formattedDate(dateSelectionVM.fromDate))"
+            "to_date": "\(UserDefaultsManager.shared.getToDate() ?? Date())",
+            "from_date" : "\(UserDefaultsManager.shared.getFromDate() ?? Date())"
         ]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.addtocart,

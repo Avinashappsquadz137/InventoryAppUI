@@ -15,7 +15,7 @@ struct ViewModifiers: ViewModifier {
             }
     }
     
-    private func setNavigationBarAppearance() {
+     func setNavigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white

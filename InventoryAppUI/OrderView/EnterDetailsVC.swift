@@ -59,7 +59,7 @@ struct EnterDetailsVC: View {
                         }
                     }
                     .padding()
-                    .background(Color.green)
+                    .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
                     
