@@ -146,12 +146,26 @@ struct TextFieldCell: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
             if data == "Team Member" {
-                Picker("Select Team Member", selection: $textFieldValue) {
-                    ForEach(teamMembers, id: \.self) { member in
-                        Text(member).tag(member)
+                NavigationLink(
+                    destination: MultiSelectView(
+                        teamMembers: teamMembers,
+                        selectedMembers: Binding(
+                            get: { multiSelectValues[index] ?? [] },
+                            set: { newSelection in
+                                multiSelectValues[index] = newSelection
+                                textFieldValue = newSelection.joined(separator: ", ")
+                            }
+                        )
+                    )
+                ) {
+                    HStack {
+                        Text(textFieldValue.isEmpty ? "Select Team Members" : textFieldValue)
+                            .foregroundColor(textFieldValue.isEmpty ? .gray : .primary)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
                     }
                 }
-                .pickerStyle(MenuPickerStyle())
             } else if data == "Eway Bill Date" {
                 DatePicker(
                     "Select \(data)",
@@ -179,3 +193,31 @@ struct TextFieldCell: View {
     }
 }
 
+struct MultiSelectView: View {
+    let teamMembers: [String]
+    @Binding var selectedMembers: [String]
+    
+    var body: some View {
+        List {
+            ForEach(teamMembers, id: \.self) { member in
+                HStack {
+                    Text(member)
+                    Spacer()
+                    if selectedMembers.contains(member) {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.blue)
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    if selectedMembers.contains(member) {
+                        selectedMembers.removeAll { $0 == member }
+                    } else {
+                        selectedMembers.append(member)
+                    }
+                }
+            }
+        }
+        .navigationTitle("Select Team Members")
+    }
+}
