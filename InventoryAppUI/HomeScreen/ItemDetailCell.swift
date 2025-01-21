@@ -165,8 +165,8 @@ struct ItemDetailCell: View {
             "emp_code": "1",
             "ITEM_NAME" : itemMasterId ?? "",
             "items_in_cart": "\(itemCounts)",
-            "to_date": "\(UserDefaultsManager.shared.getToDate() ?? Date())",
-            "from_date" : "\(UserDefaultsManager.shared.getFromDate() ?? Date())"
+            "to_date": "\(formattedDate(UserDefaultsManager.shared.getToDate() ?? Date()))",
+            "from_date" : "\(formattedDate(UserDefaultsManager.shared.getFromDate() ?? Date()))"
         ]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.addtocart,
