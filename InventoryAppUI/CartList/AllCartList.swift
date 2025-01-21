@@ -9,13 +9,13 @@ import SwiftUI
 import VisionKit
 
 struct AllCartList: View {
-  
+    
     @State private var items: [CartList] = []
     @State private var isLoading = true
     @State private var checkedStates: [String] = []
     @State private var value: Int = 0
     @State private var allCartList: GetAllCartList? = nil
-
+    
     @State private var showDateilScreen = false
     
     var body: some View {
@@ -27,23 +27,23 @@ struct AllCartList: View {
                             .padding()
                     } else {
                         if let toDate = allCartList?.to_date, let fromDate = allCartList?.from_date {
-                        HStack {
-                            Text("\(fromDate)")
-                                .font(.headline)
-                                .padding(10)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.blue.opacity(0.1))
-                                .foregroundColor(.blue)
-                                .cornerRadius(8)
-                            Text("\(toDate)")
-                                .font(.headline)
-                                .padding(10)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.green.opacity(0.1))
-                                .foregroundColor(.green)
-                                .cornerRadius(8)
-                        }.padding(5)
-                    }
+                            HStack {
+                                Text("\(fromDate)")
+                                    .font(.headline)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue.opacity(0.1))
+                                    .foregroundColor(.blue)
+                                    .cornerRadius(8)
+                                Text("\(toDate)")
+                                    .font(.headline)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue.opacity(0.1))
+                                    .foregroundColor(.blue)
+                                    .cornerRadius(8)
+                            }.padding(5)
+                        }
                         
                         List(items, id: \.id) { item in
                             ItemDetailCell(
@@ -90,17 +90,18 @@ struct AllCartList: View {
                         .listStyle(PlainListStyle())
                     }
                     HStack {
-                        
-                        Button(action: {
-                            showDateilScreen = true
-                        }) {
-                            Text("Continue")
-                                .font(.headline)
-                                .padding(10)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                        if !items.isEmpty {
+                            Button(action: {
+                                showDateilScreen = true
+                            }) {
+                                Text("Continue")
+                                    .font(.headline)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
                         }
                     }
                     .padding(5)
@@ -154,7 +155,7 @@ struct AllCartList: View {
         if let index = items.firstIndex(where: { $0.iTEM_MASTER_ID == itemID }) {
             items[index].items_in_cart = newCount
         }
-         let toDate = allCartList?.to_date
+        let toDate = allCartList?.to_date
         let fromDate = allCartList?.from_date
         let parameters: [String: Any] = [
             "emp_code": "1",
