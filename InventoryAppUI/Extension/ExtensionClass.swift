@@ -17,7 +17,7 @@ let royalBlue = Color(red: 65.0/255.0, green: 105.0/255.0, blue: 225.0/255.0, op
 
 func formattedDate(_ date: Date) -> String {
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"  
+    formatter.dateFormat = "dd-MM-yyyy"  //yyyy-MM-dd
     return formatter.string(from: date)
 }
  

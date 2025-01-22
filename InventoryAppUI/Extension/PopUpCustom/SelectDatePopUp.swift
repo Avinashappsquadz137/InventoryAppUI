@@ -40,7 +40,16 @@ struct SelectDatePopUp: View {
             if isFromDatePickerVisible {
                 DatePicker(
                     "",
-                    selection: $fromDate,
+                    selection: Binding(
+                        get: { fromDate },
+                        set: { newValue in
+                            fromDate = newValue
+                            if toDate < fromDate {
+                                toDate = fromDate
+                            }
+                            isFromDatePickerVisible = false
+                        }
+                    ),
                     in: Date()...,
                     displayedComponents: [.date]
                 )
@@ -62,11 +71,21 @@ struct SelectDatePopUp: View {
                     .foregroundColor(.blue)
                     .cornerRadius(8)
             }
-
+            
             if isToDatePickerVisible {
                 DatePicker(
                     "",
-                    selection: $toDate,
+                    selection: Binding(
+                        get: { toDate },
+                        set: { newValue in
+                            toDate = newValue
+                            if toDate < fromDate {
+                                fromDate = toDate
+                            }
+                            isToDatePickerVisible = false
+                           
+                        }
+                    ),
                     in: fromDate...,
                     displayedComponents: [.date]
                 )
@@ -75,7 +94,7 @@ struct SelectDatePopUp: View {
                 .cornerRadius(8)
                 .padding(10)
             }
-
+            
             HStack(spacing: 15) {
                 Button(action: {
                     showPopup = false
@@ -110,7 +129,4 @@ struct SelectDatePopUp: View {
         .cornerRadius(12)
         .shadow(radius: 10)
     }
-    
-  
-    
 }

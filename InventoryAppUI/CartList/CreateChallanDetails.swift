@@ -267,6 +267,14 @@ struct DetailsFieldCell: View {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
+                    .onChange(of: textFieldValue) { newValue in
+                        let filtered = newValue.filter { $0.isNumber }
+                        if filtered.count > 10 {
+                            textFieldValue = String(filtered.prefix(10))
+                        } else {
+                            textFieldValue = filtered
+                        }
+                    }
             }else {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
