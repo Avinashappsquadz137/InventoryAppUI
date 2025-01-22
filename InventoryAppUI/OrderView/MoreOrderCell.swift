@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MoreOrderCell: View {
     let clientName: String
@@ -30,17 +31,30 @@ struct MoreOrderCell: View {
             Spacer()
             HStack {
                 if source == "SubmitChallanView" {
-                    Button(action: openDetails) {
+                    VStack{
+                        Spacer()
+                        Button(action: openDetails) {
+                            Text("OPEN PDF")
+                                .font(.callout)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 16)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        Spacer()
+                        Button(action: {
+                            navigateToGoogleMaps(address: "\(clientLocation)")
+                            
+                        }){
+                            Image(systemName: "mappin.and.ellipse.circle")
+                                .font(.system(size: 30))
+                                .foregroundColor(.blue)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                         
-                        Text("OPEN PDF")
-                            .font(.callout)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 16)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }else {
                     Button(action: openDetails) {
                         
@@ -60,5 +74,31 @@ struct MoreOrderCell: View {
         .background(Color(.systemGray6))
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5)
+    }
+    func navigateToGoogleMaps(address: String, startAddress: String = "Sanskar Tv Info Noida") {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            guard error == nil, let placemark = placemarks?.first,
+                  let destinationLocation = placemark.location else {
+                print("Geocoding failed: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            let destinationLatitude = destinationLocation.coordinate.latitude
+            let destinationLongitude = destinationLocation.coordinate.longitude
+
+            // Google Maps URL scheme
+            let googleMapsURL = "comgooglemaps://?daddr=\(destinationLatitude),\(destinationLongitude)&saddr=\(startAddress)&directionsmode=driving"
+
+            if let url = URL(string: googleMapsURL), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            } else {
+                print("Google Maps app is not installed. Opening in browser.")
+                let browserURL = "https://www.google.com/maps/dir/?api=1&destination=\(destinationLatitude),\(destinationLongitude)&origin=\(startAddress)&travelmode=driving"
+                if let url = URL(string: browserURL) {
+                    UIApplication.shared.open(url)
+                }
+            }
+        }
     }
 }
