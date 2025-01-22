@@ -18,6 +18,9 @@ struct AllCartList: View {
     
     @State private var showDateilScreen = false
     
+    @State private var itemToDelete: CartList? = nil
+    @State private var showDeleteConfirmation: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -58,18 +61,23 @@ struct AllCartList: View {
                                 onAddToCart: {},
                                 onCountChanged: { newCount in
                                     if let itemID = item.iTEM_MASTER_ID {
-                                        let updatedCount = (item.items_in_cart ?? 0) + value
-                                        if updatedCount > 0 {
-                                            updateItemCount(itemID: itemID, newCount: updatedCount)
+                                        if item.currently_available == String(item.items_in_cart ?? 0) {
+                                            let updatedCount = (item.items_in_cart ?? 0) - 1
+                                            if updatedCount > 0 {
+                                                updateItemCount(itemID: itemID, newCount: updatedCount)
+                                            }
+                                        }else {
+                                            let updatedCount = (item.items_in_cart ?? 0) + value
+                                            if updatedCount > 0 {
+                                                updateItemCount(itemID: itemID, newCount: updatedCount)
+                                            }
                                         }
                                     }
                                 },
                                 hideDeleteButton: false,
                                 onDelete: {
-                                    if let index = items.firstIndex(where: { $0.id == item.id }) {
-                                        items.remove(at: index)
-                                    }
-                                    getMemberDetail()
+                                    itemToDelete = item
+                                    showDeleteConfirmation = true
                                 },
                                 onCheckUncheck : {
                                     if items.firstIndex(where: { $0.iTEM_MASTER_ID == item.iTEM_MASTER_ID }) != nil {
@@ -107,6 +115,22 @@ struct AllCartList: View {
                     .padding(5)
                 }
             }
+            .alert(isPresented: $showDeleteConfirmation) {
+                Alert(
+                    title: Text("Are you sure?"),
+                    message: Text("Do you want to delete \(itemToDelete?.iTEM_NAME ?? "this item") from the cart?"),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let item = itemToDelete {
+                            deleteCartItem(item: item)
+                            getMemberDetail()
+                        }
+                    },
+                    secondaryButton: .cancel {
+                        itemToDelete = nil 
+                    }
+                )
+            }
+
             .fullScreenCover(isPresented: $showDateilScreen) {
                 CreateChallanDetails(checkedStates: checkedStates)
             }
@@ -121,6 +145,38 @@ struct AllCartList: View {
         }
     }
     
+    func deleteCartItem(item: CartList) {
+        let parameters: [String: Any] = [
+            "emp_code": "1",
+            "product_id": "\(item.iTEM_MASTER_ID ?? "")"
+        ]
+
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.deleteCartItem,
+            method: .post,
+            param: parameters,
+            model: RemoveData.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if (model.data != nil) { // Check API response success
+                        ToastManager.shared.show(message: model.message ?? "Item deleted successfully")
+                        if let index = items.firstIndex(where: { $0.id == item.id }) {
+                            items.remove(at: index) // Remove item locally
+                        }
+                    } else {
+                        ToastManager.shared.show(message: model.message ?? "Failed to delete item")
+                    }
+                case .failure(let error):
+                    print("API Error: \(error)")
+                    ToastManager.shared.show(message: "Error deleting item")
+                }
+                itemToDelete = nil // Reset the deletion state
+            }
+        }
+    }
+
     func getMemberDetail() {
         let parameters: [String: Any] = ["emp_code": "1"]
         

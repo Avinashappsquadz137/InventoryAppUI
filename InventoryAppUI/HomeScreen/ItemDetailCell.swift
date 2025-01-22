@@ -89,13 +89,14 @@ struct ItemDetailCell: View {
                                     itemCounts += 1
                                     addRemoveData()
                                     onCountChanged(itemCounts)
+                                    NotificationCenter.default.post(
+                                        name: .updateValueNotification,
+                                        object: nil,
+                                        userInfo: ["value": +1]
+                                    )
                                 }
                                 
-                                NotificationCenter.default.post(
-                                    name: .updateValueNotification,
-                                    object: nil,
-                                    userInfo: ["value": +1]
-                                )
+                               
                             }) {
                                 Image(systemName: "plus.circle")
                                     .foregroundColor(.blue)
@@ -124,7 +125,8 @@ struct ItemDetailCell: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            deleteCartItem()
+                            onDelete()
+                           // deleteCartItem()
                         }) {
                             Image(systemName: "trash")
                                 .font(.system(size: 20))
@@ -204,7 +206,7 @@ struct ItemDetailCell: View {
                     if let data = model.data {
                         ToastManager.shared.show(message: model.message ?? "Success")
                         print("Fetched items: \(data)")
-                        onDelete()
+                        //onDelete()
                     } else {
                         print("No data received")
                     }
