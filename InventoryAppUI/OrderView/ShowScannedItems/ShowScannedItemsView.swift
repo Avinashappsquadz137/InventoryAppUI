@@ -44,6 +44,7 @@ struct ShowScannedItemsView: View {
             }
             .padding(16)
         }
+        .overlay(ToastView())
         .navigationTitle("Scan Items")
     }
         
@@ -53,7 +54,22 @@ struct ShowScannedItemsView: View {
             dict["temp_id"] = "\(order.tempID)"
             dict["item_qr_string"] = ["1378_125_1722507307310","1409_125_1722507307380","1460_129_1722507307495","1461_129_1722507307498"]
             dict["emp_code"] = "SANS-00290"
-            dict["RENTAMOUNT"] = "\(totalRent)"
+        
+            
+            var rentDetails: [String: Int] = [:]
+                for item in order.items {
+                    let rentPerItem = Int(textFieldValues.first ?? "0") ?? 0 // Replace with actual rent per item logic
+                    let quantity = Int(item.quantity) ?? 0
+                    let totalRent = rentPerItem * quantity
+                    rentDetails[item.itemName] = totalRent
+                }
+
+                // Convert the rentDetails dictionary to JSON string
+                if let jsonData = try? JSONSerialization.data(withJSONObject: rentDetails, options: []),
+                   let jsonString = String(data: jsonData, encoding: .utf8) {
+                    dict["RENTAMOUNT"] = "\(jsonString)"
+                }
+            
             for (index, field) in data.enumerated() {
                 switch field {
                 case "Consignee":
