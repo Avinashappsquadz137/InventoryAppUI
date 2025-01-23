@@ -26,6 +26,10 @@ struct LoginView: View {
                 Circle()
                     .scale(1.36)
                     .foregroundColor(.white)
+                    .overlay(
+                        MotionAnimationView()
+                            .clipShape(Circle().scale(2))
+                    )
                 VStack {
                     Text("Login Inventory")
                         .font(.largeTitle)

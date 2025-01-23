@@ -7,62 +7,107 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8DAEC56F-FECB-4651-BD57-30BCD60210A1"
+            uuid = "471B137D-C636-4736-AA77-B249B1EA453E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "InventoryAppUI/CartList/AllCartList.swift"
+            filePath = "InventoryAppUI/CartList/CreateChallanDetails.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "8DAEC56F-FECB-4651-BD57-30BCD60210A1 - 75b069d8d600f41c"
+                  uuid = "471B137D-C636-4736-AA77-B249B1EA453E - f0890375c0675313"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in InventoryAppUI.AllCartList.body.getter : some"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.List&lt;Swift.Never, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, InventoryAppUI.DetailsFieldCell&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in InventoryAppUI.CreateChallanDetails.body.getter : some"
                   moduleName = "InventoryAppUI"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107"
-                  offsetFromSymbolStart = "528">
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "684">
                </Location>
                <Location
-                  uuid = "8DAEC56F-FECB-4651-BD57-30BCD60210A1 - e152e3085287b5c4"
+                  uuid = "471B137D-C636-4736-AA77-B249B1EA453E - 94c3d0e1dc8ebb87"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; InventoryAppUI.CreateChallanDetails in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in InventoryAppUI.AllCartList.body.getter : some"
+                  symbolName = "closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.List&lt;Swift.Never, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, InventoryAppUI.DetailsFieldCell&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in InventoryAppUI.CreateChallanDetails.body.getter : some"
                   moduleName = "InventoryAppUI"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "176">
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "804">
                </Location>
                <Location
-                  uuid = "8DAEC56F-FECB-4651-BD57-30BCD60210A1 - e152e3085287b5e5"
+                  uuid = "471B137D-C636-4736-AA77-B249B1EA453E - 94c3d0e1dc8eb866"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; InventoryAppUI.CreateChallanDetails in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in InventoryAppUI.AllCartList.body.getter : some"
+                  symbolName = "closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.List&lt;Swift.Never, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, InventoryAppUI.DetailsFieldCell&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in InventoryAppUI.CreateChallanDetails.body.getter : some"
                   moduleName = "InventoryAppUI"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107"
-                  offsetFromSymbolStart = "176">
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "804">
+               </Location>
+               <Location
+                  uuid = "471B137D-C636-4736-AA77-B249B1EA453E - e13e97470daf4724"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.List&lt;Swift.Never, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, InventoryAppUI.DetailsFieldCell&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in InventoryAppUI.CreateChallanDetails.body.getter : some"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "471B137D-C636-4736-AA77-B249B1EA453E - 94c3d0e1dc8eb866"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.List&lt;Swift.Never, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, InventoryAppUI.DetailsFieldCell&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in InventoryAppUI.CreateChallanDetails.body.getter : some"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "552">
+               </Location>
+               <Location
+                  uuid = "471B137D-C636-4736-AA77-B249B1EA453E - e13e97470daf4724"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.cornerRadius(_: CoreGraphics.CGFloat, antialiased: Swift.Bool) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.List&lt;Swift.Never, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, InventoryAppUI.DetailsFieldCell&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.overlay&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0 in InventoryAppUI.CreateChallanDetails.body.getter : some"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "104">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -70,175 +115,251 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E04FA39E-27C0-48C6-9AE1-B6DF133EBD26"
+            uuid = "C8E676DE-E7B9-413A-A2D3-E02E3F94B598"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "InventoryAppUI/CartList/AllCartList.swift"
+            filePath = "InventoryAppUI/CartList/CreateChallanDetails.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "E04FA39E-27C0-48C6-9AE1-B6DF133EBD26 - a5559540f77ac45d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #4 () -&gt; () in closure #2 (InventoryAppUI.CartList) -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt;&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in InventoryAppUI.AllCartList.body.getter : some"
-                  moduleName = "InventoryAppUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "280">
-               </Location>
-               <Location
-                  uuid = "E04FA39E-27C0-48C6-9AE1-B6DF133EBD26 - fdf534b1762f5b80"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (InventoryAppUI.CartList) -&gt; Swift.Bool in closure #4 () -&gt; () in closure #2 (InventoryAppUI.CartList) -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt;&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in InventoryAppUI.AllCartList.body.getter : some"
-                  moduleName = "InventoryAppUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "56">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F5656E6A-8A60-4D08-948B-66A0495C2410"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InventoryAppUI/CartList/AllCartList.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "F5656E6A-8A60-4D08-948B-66A0495C2410 - 4e32d8492a3a311e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Int) -&gt; () in closure #2 (InventoryAppUI.CartList) -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt;&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in InventoryAppUI.AllCartList.body.getter : some"
-                  moduleName = "InventoryAppUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "58"
-                  endingLineNumber = "58"
-                  offsetFromSymbolStart = "152">
-               </Location>
-               <Location
-                  uuid = "F5656E6A-8A60-4D08-948B-66A0495C2410 - 4e32d8492a3a311e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Int) -&gt; () in closure #2 (InventoryAppUI.CartList) -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.listStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ListStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.padding(CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0)&gt;&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.fullScreenCover&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, onDismiss: Swift.Optional&lt;() -&gt; ()&gt;, content: () -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in InventoryAppUI.AllCartList.body.getter : some"
-                  moduleName = "InventoryAppUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "58"
-                  endingLineNumber = "58"
-                  offsetFromSymbolStart = "128">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E28AE57D-0D93-446E-8410-755918EC171E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InventoryAppUI/CartList/AllCartList.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "getMemberDetail()"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "createOrderByCartItem()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E28AE57D-0D93-446E-8410-755918EC171E - 8f5b7d0493b52160"
+                  uuid = "C8E676DE-E7B9-413A-A2D3-E02E3F94B598 - f2e5645d9dd3438d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetAllCartList, Swift.Error&gt;) -&gt; () in InventoryAppUI.AllCartList.getMemberDetail() -&gt; ()"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetAllCartList, Swift.Error&gt;) -&gt; () in InventoryAppUI.CreateChallanDetails.createOrderByCartItem() -&gt; ()"
                   moduleName = "InventoryAppUI"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "224">
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "360">
                </Location>
                <Location
-                  uuid = "E28AE57D-0D93-446E-8410-755918EC171E - 8f5b7d0493b52160"
+                  uuid = "C8E676DE-E7B9-413A-A2D3-E02E3F94B598 - f2e5645d9dd3438d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetAllCartList, Swift.Error&gt;) -&gt; () in InventoryAppUI.AllCartList.getMemberDetail() -&gt; ()"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetAllCartList, Swift.Error&gt;) -&gt; () in InventoryAppUI.CreateChallanDetails.createOrderByCartItem() -&gt; ()"
                   moduleName = "InventoryAppUI"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "452">
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "396">
                </Location>
                <Location
-                  uuid = "E28AE57D-0D93-446E-8410-755918EC171E - 8f5b7d0493b52160"
+                  uuid = "C8E676DE-E7B9-413A-A2D3-E02E3F94B598 - f2e5645d9dd3438d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetAllCartList, Swift.Error&gt;) -&gt; () in InventoryAppUI.AllCartList.getMemberDetail() -&gt; ()"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetAllCartList, Swift.Error&gt;) -&gt; () in InventoryAppUI.CreateChallanDetails.createOrderByCartItem() -&gt; ()"
                   moduleName = "InventoryAppUI"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "572">
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "1484">
                </Location>
                <Location
-                  uuid = "E28AE57D-0D93-446E-8410-755918EC171E - da9cd885f0bbe32f"
+                  uuid = "C8E676DE-E7B9-413A-A2D3-E02E3F94B598 - d15d7e84030db4fe"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (InventoryAppUI.CartList) -&gt; Swift.Optional&lt;Swift.String&gt; in closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetAllCartList, Swift.Error&gt;) -&gt; () in InventoryAppUI.AllCartList.getMemberDetail() -&gt; ()"
+                  symbolName = "InventoryAppUI.CreateChallanDetails.createOrderByCartItem() -&gt; ()"
                   moduleName = "InventoryAppUI"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/AllCartList.swift"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "7188">
+               </Location>
+               <Location
+                  uuid = "C8E676DE-E7B9-413A-A2D3-E02E3F94B598 - d15d7e84030db33c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.CreateChallanDetails.createOrderByCartItem() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "7188">
+               </Location>
+               <Location
+                  uuid = "C8E676DE-E7B9-413A-A2D3-E02E3F94B598 - d15d7e84030db33c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.CreateChallanDetails.createOrderByCartItem() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/CartList/CreateChallanDetails.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "7048">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2F4E53A2-714F-4297-B3FE-78E0C5AE798C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InventoryAppUI/OrderView/MoreOrderCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "746D7351-167D-41DC-A2C2-61EEE8DB9761"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InventoryAppUI/OrderView/ShowScannedItems/ShowScannedItemsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "addSaveChallanmaster()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "746D7351-167D-41DC-A2C2-61EEE8DB9761 - 8cde84a81e5a9ab5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.ShowScannedItemsView.addSaveChallanmaster() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/OrderView/ShowScannedItems/ShowScannedItemsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "3092">
+               </Location>
+               <Location
+                  uuid = "746D7351-167D-41DC-A2C2-61EEE8DB9761 - 8cde84a81e5a9ab5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.ShowScannedItemsView.addSaveChallanmaster() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/OrderView/ShowScannedItems/ShowScannedItemsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "3072">
+               </Location>
+               <Location
+                  uuid = "746D7351-167D-41DC-A2C2-61EEE8DB9761 - 8cde84a81e5a9954"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.ShowScannedItemsView.addSaveChallanmaster() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/OrderView/ShowScannedItems/ShowScannedItemsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "3088">
+               </Location>
+               <Location
+                  uuid = "746D7351-167D-41DC-A2C2-61EEE8DB9761 - 8cde84a81e5a9954"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.ShowScannedItemsView.addSaveChallanmaster() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/OrderView/ShowScannedItems/ShowScannedItemsView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "3104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7E909A70-21CF-41F8-A1AF-C76208CB449E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InventoryAppUI/HomeScreen/ItemDetailCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "49CF5B2A-CEB7-447E-96DB-D4BFC955693A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InventoryAppUI/MainView/LoginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "autheticateUser(username:password:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3A433D66-389C-406F-A6DD-F6F4FF3BA062"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InventoryAppUI/OrderView/ShowScannedItems/ShowScannedItemsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "addSaveChallanmaster()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
