@@ -17,7 +17,9 @@ class UserDefaultsManager {
 
     private let fromDateKey = "fromDate"
     private let toDateKey = "toDate"
-
+    private let isLoggedInKey = "isLoggedIn"
+    
+    
     func saveFromDate(_ date: Date) {
         UserDefaults.standard.set(date, forKey: fromDateKey)
     }
@@ -33,4 +35,13 @@ class UserDefaultsManager {
     func getToDate() -> Date? {
         return UserDefaults.standard.object(forKey: toDateKey) as? Date
     }
+    
+    func setLoggedIn(_ loggedIn: Bool) {
+        UserDefaults.standard.set(loggedIn, forKey: isLoggedInKey)
+    }
+    
+    func isLoggedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: isLoggedInKey)
+    }
+    
 }

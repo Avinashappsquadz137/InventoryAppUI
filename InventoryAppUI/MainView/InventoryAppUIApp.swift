@@ -26,11 +26,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 
 struct SplashView: View {
+    let isLoggedIn = UserDefaultsManager.shared.isLoggedIn()
     @State private var isActive = false
     var body: some View {
         if isActive {
-            MAinTabbarVC()
-                .overlay(ToastView())
+            if isLoggedIn {
+                MAinTabbarVC()
+                    .overlay(ToastView())
+            } else {
+                LoginView()
+            }
         } else {
             ZStack {
                 Color.white.ignoresSafeArea()

@@ -108,6 +108,7 @@ struct MAinTabbarVC: View {
         .fullScreenCover(isPresented: $isShowingScanner) {
             QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
         }
+        .navigationBarBackButtonHidden(true)
     }
     
 }

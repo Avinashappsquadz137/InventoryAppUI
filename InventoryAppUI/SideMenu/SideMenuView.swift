@@ -39,6 +39,7 @@ enum SideMenuRowType: Int, CaseIterable{
     case chat
     case profile
     case dateSelect
+    case logOut
     
     var title: String{
         switch self {
@@ -52,6 +53,8 @@ enum SideMenuRowType: Int, CaseIterable{
             return "SAVED"
         case .dateSelect:
             return "DATE SELECT"
+        case .logOut :
+            return "LOG OUT"
         }
     }
     
@@ -67,6 +70,8 @@ enum SideMenuRowType: Int, CaseIterable{
             return "saved"
         case .dateSelect:
             return "ic_controls"
+        case .logOut:
+            return "imgLogOut"
         }
     }
 }
@@ -96,7 +101,9 @@ struct SideMenuView: View {
                         RowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconName, title: row.title){
                             if row == .dateSelect {
                                 isSubMenuVisible.toggle() // Toggle submenu visibility
-                            } else {
+                            } else if  row == .logOut {
+                                logout()
+                            }else {
                                 selectedSideMenuTab = row.rawValue
                                 isSubMenuVisible = false // Hide submenu if another row is selected
                                 presentSideMenu.toggle()
@@ -192,5 +199,14 @@ struct SideMenuView: View {
         .background(
             LinearGradient(colors: [isSelected ? .blue.opacity(0.5) : .white, .white], startPoint: .leading, endPoint: .trailing)
         )
+    }
+    func logout() {
+        UserDefaultsManager.shared.setLoggedIn(false)
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if let window = UIApplication.shared.windows.first {
+                window.rootViewController = UIHostingController(rootView: LoginView())
+                window.makeKeyAndVisible()
+            }
+        }
     }
 }
