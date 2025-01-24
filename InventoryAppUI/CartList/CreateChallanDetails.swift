@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateChallanDetails: View {
     
     @State private var textFieldValues: [String] = Array(repeating: "", count: 13)
-    @State private var teamVehicle: [String] = []
+    @State private var teamVehicle: [Transport] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
     @State private var tempID: String?
     @State private var alertMessage: String = ""
@@ -105,7 +105,8 @@ struct CreateChallanDetails: View {
             switch result {
             case .success(let model):
                 if let data = model.data {
-                    self.teamVehicle = model.data?.compactMap { $0.transport_name } ?? []
+                    self.teamVehicle = data
+               
                     print("Fetched items: \(data)")
                 } else {
                     print("No data received")
@@ -189,7 +190,7 @@ struct DetailsFieldCell: View {
     let data: String
     @Binding var textFieldValue: String
     let index: Int
-    @Binding var teamVehicle: [String]
+    @Binding var teamVehicle: [Transport]
     @Binding var multiSelectValues: [Int: [String]]
     
     var body: some View {
@@ -199,11 +200,14 @@ struct DetailsFieldCell: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             if data == "Vehicle" {
                 Picker("Select Vehicle", selection: $textFieldValue) {
-                    ForEach(teamVehicle, id: \.self) { member in
-                        Text(member).tag(member)
+                    ForEach(teamVehicle, id: \.id) { vehicle in
+                        Text(vehicle.transport_name ?? "Unknown").tag(vehicle.id ?? "")
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
+                .onChange(of: textFieldValue) { newValue in
+        
+                }
             } else if data == "Inventory Loading Date" {
                 DatePicker(
                     "Select \(data)",
