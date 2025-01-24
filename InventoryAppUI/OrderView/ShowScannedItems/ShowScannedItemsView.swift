@@ -12,23 +12,35 @@ struct ShowScannedItemsView: View {
     let order: ItemDetail
     @Binding var textFieldValues: [String]
     @Binding var multiSelectValues: [Int: [String]] 
+    @State  var scannedText = ""
+    @State private var scannedItems: [String] = []
     let teamMembers: [CrewMember]
     let data: [String]
     @State private var totalRent = 0
-    
+    @State private var itemPrices: [String: String] = [:] 
     var body: some View {
         VStack{
             List(order.items, id: \.itemName) { item in
                 ShowScannedItemsCells(
-                    textFieldValue: "",
-                    itemName: item.itemName,
+                    textFieldValue: Binding(
+                        get: { itemPrices[item.itemName] ?? "" },
+                        set: { itemPrices[item.itemName] = $0 }
+                    ),
+                    scannedText: $scannedText, itemName: item.itemName,
                     itemQuantity: item.quantity,
                     itemCategory: item.category,
                     itemPerPrice: "",
                     onUpdateTotalRent: { rent in
-                        totalRent += rent // Accumulate total rent
+                        totalRent += rent 
                     }
                 )
+                .onChange(of: scannedText) { newValue in
+                    if !newValue.isEmpty, !scannedItems.contains(newValue) {
+                        scannedItems.append(newValue)
+                        scannedText = ""
+                    }
+                    print("Scanned Items: \(scannedItems)")
+                }
             }
             Spacer()
             Button(action: {
@@ -52,17 +64,19 @@ struct ShowScannedItemsView: View {
             var dict = [String: Any]()
             dict["challan_status"] = "0"
             dict["temp_id"] = "\(order.tempID)"
-            dict["item_qr_string"] = ["1378_125_1722507307310","1409_125_1722507307380","1460_129_1722507307495","1461_129_1722507307498"]
-            dict["emp_code"] = "SANS-00290"
+            dict["item_qr_string"] = scannedItems
+            dict["emp_code"] = "1"
         
             
             var rentDetails: [String: Int] = [:]
-                for item in order.items {
-                    let rentPerItem = Int(textFieldValues.first ?? "0") ?? 0 // Replace with actual rent per item logic
-                    let quantity = Int(item.quantity) ?? 0
-                    let totalRent = rentPerItem * quantity
-                    rentDetails[item.itemName] = totalRent
-                }
+                    totalRent = 0
+                    for item in order.items {
+                        let rentPerItem = Int(itemPrices[item.itemName] ?? "0") ?? 0
+                        let quantity = Int(item.quantity) ?? 0
+                        let itemTotalRent = rentPerItem * quantity
+                        rentDetails[item.itemName] = itemTotalRent
+                        totalRent += itemTotalRent
+                    }
 
                 // Convert the rentDetails dictionary to JSON string
                 if let jsonData = try? JSONSerialization.data(withJSONObject: rentDetails, options: []),

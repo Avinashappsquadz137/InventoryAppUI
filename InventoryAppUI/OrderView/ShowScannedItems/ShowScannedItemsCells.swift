@@ -10,9 +10,10 @@ import VisionKit
 
 struct ShowScannedItemsCells: View {
     
-    @State var textFieldValue: String
+    @Binding var textFieldValue: String
     @State var isShowingScanner = false
-    @State private var scannedText = ""
+    @Binding var scannedText : String
+    @State private var scannedItems: [String] = []
     @State private var isChecked: Bool = false
     @State var itemName: String
     @State var itemQuantity: String
@@ -71,17 +72,6 @@ struct ShowScannedItemsCells: View {
                     TextField("Rent Per Items", text: $textFieldValue)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
-                    //                    Text("Include GST")
-                    //                        .font(.headline)
-                    //                    Button(action: {
-                    //                        isChecked.toggle()
-                    //                        print("Checkbox tapped: \(isChecked ? "Checked" : "Unchecked")")
-                    //                    }) {
-                    //                        Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
-                    //                            .font(.system(size: 30))
-                    //                            .foregroundColor(isChecked ? .blue : .gray)
-                    //                    }
-                    //                    .buttonStyle(PlainButtonStyle())
                 }
                 Button(action: {
                     print("Button tapped with text: \(textFieldValue)")
@@ -121,6 +111,7 @@ struct ShowScannedItemsCells: View {
                             print("Scanned text: \(extractedValue), Total scans: \(scanCount)")
                             if extractedValue == itemCategory {
                                 scanCount += 1
+                                scannedItems.append(scannedText)
                             }
                             if extractedValue != itemCategory {
                                 alertMessage = "This is the wrong product! Expected: \(itemCategory), but scanned: \(extractedValue)."
