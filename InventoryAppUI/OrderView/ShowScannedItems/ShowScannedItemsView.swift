@@ -11,7 +11,7 @@ struct ShowScannedItemsView: View {
     
     let order: ItemDetail
     @Binding var textFieldValues: [String]
-  
+    @Binding var multiSelectValues: [Int: [String]] 
     let teamMembers: [CrewMember]
     let data: [String]
     @State private var totalRent = 0
@@ -87,7 +87,9 @@ struct ShowScannedItemsView: View {
                 case "Eway Bill Date":
                     dict["eway_bill_date"] = textFieldValues[index]
                 case "Team Member":
-                    dict["team_member"] = [teamMembers]
+                    if let selectedTeamMembers = multiSelectValues.first(where: { $0.key == index })?.value {
+                        dict["team_member"] = selectedTeamMembers
+                    }
                 case "Transport Id":
                     dict["transport_id"] = textFieldValues[index]
 

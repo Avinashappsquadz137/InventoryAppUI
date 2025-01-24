@@ -93,7 +93,7 @@ struct EnterDetailsVC: View {
                 }
             }.overlay(ToastView())
             NavigationLink(
-                destination: ShowScannedItemsView(order: order,textFieldValues: $textFieldValues, teamMembers: teamMembers, data: data),
+                destination: ShowScannedItemsView(order: order,textFieldValues: $textFieldValues, multiSelectValues: $multiSelectValues, teamMembers: teamMembers, data: data),
                 isActive: $navigateToScannedItemsView,
                 label: { EmptyView() }
             )
