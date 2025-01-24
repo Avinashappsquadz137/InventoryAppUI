@@ -12,7 +12,7 @@ struct ShowScannedItemsView: View {
     let order: ItemDetail
     @Binding var textFieldValues: [String]
   
-    let teamMembers: [String]
+    let teamMembers: [CrewMember]
     let data: [String]
     @State private var totalRent = 0
     
@@ -87,7 +87,7 @@ struct ShowScannedItemsView: View {
                 case "Eway Bill Date":
                     dict["eway_bill_date"] = textFieldValues[index]
                 case "Team Member":
-                    dict["team_member"] = [textFieldValues[index]]
+                    dict["team_member"] = [teamMembers]
                 case "Transport Id":
                     dict["transport_id"] = textFieldValues[index]
 

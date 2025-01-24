@@ -12,7 +12,7 @@ struct EnterDetailsVC: View {
     
     @State private var navigateToScannedItemsView = false
     @State private var textFieldValues: [String] = Array(repeating: "", count: 9)
-    @State private var teamMembers: [String] = []
+    @State private var teamMembers: [CrewMember] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
     @State private var tempID: String?
     @State private var alertMessage: String = ""
@@ -125,7 +125,8 @@ struct EnterDetailsVC: View {
         ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getCrewMember, method: .post, param: [:], model: CrewMemberModel.self){ result in
             switch result {
             case .success(let model):
-                self.teamMembers = model.data?.compactMap { $0.emp_name } ?? []
+                self.teamMembers = model.data ?? []
+              //  self.teamMembers = model.data?.compactMap { $0.emp_name } ?? []
             case .failure(let error):
                 print(error)
             }
@@ -137,7 +138,8 @@ struct TextFieldCell: View {
     let data: String
     @Binding var textFieldValue: String
     let index: Int
-    @Binding var teamMembers: [String]
+    //@Binding var teamMembers: [String]
+    @Binding var teamMembers: [CrewMember]
     @Binding var multiSelectValues: [Int: [String]]
     
     var body: some View {
@@ -194,26 +196,28 @@ struct TextFieldCell: View {
 }
 
 struct MultiSelectView: View {
-    let teamMembers: [String]
+    let teamMembers: [CrewMember]
     @Binding var selectedMembers: [String]
     
     var body: some View {
         List {
-            ForEach(teamMembers, id: \.self) { member in
+            ForEach(teamMembers, id: \.id) { member in
                 HStack {
-                    Text(member)
+                    Text(member.emp_name ?? "Unknown")
                     Spacer()
-                    if selectedMembers.contains(member) {
+                    if selectedMembers.contains(member.id ?? "") {
                         Image(systemName: "checkmark")
                             .foregroundColor(.blue)
                     }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    if selectedMembers.contains(member) {
-                        selectedMembers.removeAll { $0 == member }
-                    } else {
-                        selectedMembers.append(member)
+                    if let memberId = member.id {
+                        if selectedMembers.contains(memberId) {
+                            selectedMembers.removeAll { $0 == memberId }
+                        } else {
+                            selectedMembers.append(memberId)
+                        }
                     }
                 }
             }

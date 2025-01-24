@@ -30,7 +30,7 @@ struct LoginView: View {
                         MotionAnimationView()
                             .clipShape(Circle().scale(2))
                     )
-                VStack {
+                VStack(alignment: .center) {
                     Spacer()
                     Text("Login Inventory")
                         .font(.largeTitle)
@@ -60,6 +60,16 @@ struct LoginView: View {
                                 .background(Color.blue)
                                 .cornerRadius(10)
                         }
+                    HStack {
+                           Spacer()
+                           Button(action: {
+                              
+                           }) {
+                               Text("Forget Password")
+                           }
+                       }
+                    .padding()
+                
                     NavigationLink(
                         destination: MAinTabbarVC(),
                         isActive: $showingLoginScreen
