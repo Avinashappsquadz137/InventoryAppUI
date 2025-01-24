@@ -39,6 +39,7 @@ enum SideMenuRowType: Int, CaseIterable{
     case chat
     case profile
     case dateSelect
+    case privacyPolicy
     case logOut
     
     var title: String{
@@ -53,6 +54,8 @@ enum SideMenuRowType: Int, CaseIterable{
             return "SAVED"
         case .dateSelect:
             return "DATE SELECT"
+        case .privacyPolicy:
+            return "PRIVACY & POLICY"
         case .logOut :
             return "LOG OUT"
         }
@@ -70,6 +73,8 @@ enum SideMenuRowType: Int, CaseIterable{
             return "saved"
         case .dateSelect:
             return "ic_controls"
+        case .privacyPolicy:
+            return "ImgPrivacyPolicy"
         case .logOut:
             return "imgLogOut"
         }
@@ -82,6 +87,7 @@ struct SideMenuView: View {
     @Binding var selectedSideMenuTab: Int
     @Binding var presentSideMenu: Bool
     @State private var isSubMenuVisible: Bool = false
+    @State private var showWebView: Bool = false
     
     var body: some View {
         HStack {
@@ -103,7 +109,12 @@ struct SideMenuView: View {
                                 isSubMenuVisible.toggle() // Toggle submenu visibility
                             } else if  row == .logOut {
                                 logout()
-                            }else {
+                            }else if row == .privacyPolicy {
+                                //showWebView = true
+                                if let url = URL(string: "https://github.com/Avinashgupta137") {
+                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                }
+                            } else {
                                 selectedSideMenuTab = row.rawValue
                                 isSubMenuVisible = false // Hide submenu if another row is selected
                                 presentSideMenu.toggle()
@@ -128,13 +139,19 @@ struct SideMenuView: View {
             Spacer()
         }
         .background(.clear)
+//        .navigationTitle("")
+//        .navigationBarHidden(true)
+//        .sheet(isPresented: $showWebView) { // Present WebView as a sheet
+//            WebView(url: URL(string: "https://github.com/Avinashgupta137")!)
+//                .navigationTitle("Privacy & Policy")
+//        }
     }
     
     func ProfileImageView() -> some View{
         VStack(alignment: .center){
             HStack{
                 Spacer()
-                Image("profile-image")
+                Image("inventory-management")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 100, height: 100)
@@ -156,20 +173,20 @@ struct SideMenuView: View {
         }
     }
     func SubMenuView() -> some View {
-            VStack(alignment: .leading, spacing: 10) {
-                Button("Sub Option 1") {
-                    print("Sub Option 1 selected")
-                }
-                .padding(.vertical, 10)
-
-                Button("Sub Option 2") {
-                    print("Sub Option 2 selected")
-                }
-                .padding(.vertical, 10)
+        VStack(alignment: .leading, spacing: 10) {
+            Button("Sub Option 1") {
+                print("Sub Option 1 selected")
             }
-            .font(.system(size: 14))
-            .foregroundColor(.black)
+            .padding(.vertical, 10)
+            
+            Button("Sub Option 2") {
+                print("Sub Option 2 selected")
+            }
+            .padding(.vertical, 10)
         }
+        .font(.system(size: 14))
+        .foregroundColor(.black)
+    }
     func RowView(isSelected: Bool, imageName: String, title: String, hideDivider: Bool = false, action: @escaping (()->())) -> some View{
         Button{
             action()
