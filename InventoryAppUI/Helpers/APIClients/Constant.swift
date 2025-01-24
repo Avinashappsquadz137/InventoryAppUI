@@ -7,9 +7,31 @@
 
 import UIKit
 
+class ApiRequest {
+    static let shared = ApiRequest()
+    
+    enum BuildType {
+        case dev
+        case pro
+    }
+    
+    struct Url {
+        static var buildType: BuildType = .pro
+        
+        static var serverURL: String {
+            switch buildType {
+            case .dev:
+                return "https://store.totalbhakti.com/tmedia/"
+            case .pro:
+                return "https://store.totalbhakti.com/tmedia/"
+            }
+        }
+    }
+}
+
 struct Constant {
 
-    static let BASEURL                     = "https://store.totalbhakti.com/tmedia/"
+    static let BASEURL                     = ApiRequest.Url.serverURL
     static let bookingBase                 = "http://bms.sanskargroup.in/sans-api/rest/apiServices"
     
     static let getAllItem                  = "api_panel/get_all_item"

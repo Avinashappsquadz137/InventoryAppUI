@@ -31,6 +31,7 @@ struct LoginView: View {
                             .clipShape(Circle().scale(2))
                     )
                 VStack {
+                    Spacer()
                     Text("Login Inventory")
                         .font(.largeTitle)
                         .bold()
@@ -66,6 +67,21 @@ struct LoginView: View {
                         EmptyView()
                     }
                     
+                    Spacer()
+                   
+                    if ApiRequest.Url.buildType == .dev {
+                        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+                        Text("DEV - version - \(appVersion)")
+                            .foregroundColor(.red)
+                            .padding(.bottom, 10)
+                    } else if ApiRequest.Url.buildType == .pro {
+                        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+                        Text("version - \(appVersion)")
+                            .font(.callout)
+                            .foregroundColor(.black)
+                            .padding(.bottom, 10)
+                    }
+                   
                 }.padding()
                 
                 
