@@ -13,7 +13,7 @@ struct InventoryAppUIApp: App {
     var body: some Scene {
         WindowGroup {
             SplashView()
-            
+                .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
@@ -33,8 +33,10 @@ struct SplashView: View {
             if isLoggedIn {
                 MAinTabbarVC()
                     .overlay(ToastView())
+                    .navigationViewStyle(StackNavigationViewStyle())
             } else {
                 LoginView()
+                    .navigationViewStyle(StackNavigationViewStyle())
             }
         } else {
             ZStack {

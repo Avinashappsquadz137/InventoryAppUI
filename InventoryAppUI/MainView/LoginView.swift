@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var worngUserName = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
+    let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
     
     var body: some View {
         NavigationView {
@@ -21,14 +22,16 @@ struct LoginView: View {
                 Color.blue
                     .ignoresSafeArea()
                 Circle()
-                    .scale(1.7)
+                    //.scale(1.7)
+                    .scale(isPad ? 1.5 : 1.7)
                     .foregroundColor(.white.opacity(0.15))
                 Circle()
-                    .scale(1.36)
+                    //.scale(1.36)
+                    .scale(isPad ? 1.2 : 1.36)
                     .foregroundColor(.white)
                     .overlay(
                         MotionAnimationView()
-                            .clipShape(Circle().scale(2))
+                            .clipShape(Circle().scale(isPad ? 4 : 2))
                     )
                 VStack(alignment: .center) {
                     Spacer()
@@ -60,16 +63,6 @@ struct LoginView: View {
                                 .background(Color.blue)
                                 .cornerRadius(10)
                         }
-                    HStack {
-                           Spacer()
-                           Button(action: {
-                              
-                           }) {
-                               Text("Forget Password")
-                           }
-                       }
-                    .padding()
-                
                     NavigationLink(
                         destination: MAinTabbarVC(),
                         isActive: $showingLoginScreen
@@ -78,20 +71,17 @@ struct LoginView: View {
                     }
                     
                     Spacer()
-                   
+                    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
                     if ApiRequest.Url.buildType == .dev {
-                        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-                        Text("DEV - version - \(appVersion)")
-                            .foregroundColor(.red)
-                            .padding(.bottom, 10)
-                    } else if ApiRequest.Url.buildType == .pro {
-                        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-                        Text("version - \(appVersion)")
-                            .font(.callout)
+                        Text("DEV - Version - \(appVersion)")
                             .foregroundColor(.black)
-                            .padding(.bottom, 10)
+                            .padding(.bottom, isPad ? 20 : 10)
+                    } else if ApiRequest.Url.buildType == .pro {
+//                        Text("Version - \(appVersion)")
+//                            .font(.callout)
+//                            .foregroundColor(.black)
+//                            .padding(.bottom, isPad ? 20 : 10)
                     }
-                   
                 }.padding()
                 
                 

@@ -88,6 +88,7 @@ struct SideMenuView: View {
     @Binding var presentSideMenu: Bool
     @State private var isSubMenuVisible: Bool = false
     @State private var showWebView: Bool = false
+    let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
     
     var body: some View {
         HStack {
@@ -100,42 +101,41 @@ struct SideMenuView: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     ProfileImageView()
-                        .frame(height: 140)
-                        .padding(.bottom, 30)
-                    
-                    ForEach(SideMenuRowType.allCases, id: \.self){ row in
-                        RowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconName, title: row.title){
-                            if row == .dateSelect {
-                                isSubMenuVisible.toggle() // Toggle submenu visibility
-                            } else if  row == .logOut {
-                                logout()
-                            }else if row == .privacyPolicy {
-                                //showWebView = true
-                                if let url = URL(string: "https://github.com/Avinashgupta137") {
-                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        .frame(height: isPad ? 250 : 140)
+                        .padding(.bottom, isPad ? 60 : 30)
+                    ScrollView {
+                        ForEach(SideMenuRowType.allCases, id: \.self){ row in
+                            RowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconName, title: row.title){
+                                if row == .dateSelect {
+                                    isSubMenuVisible.toggle() // Toggle submenu visibility
+                                } else if  row == .logOut {
+                                    logout()
+                                }else if row == .privacyPolicy {
+                                    //showWebView = true
+                                    if let url = URL(string: "https://github.com/Avinashgupta137") {
+                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                    }
+                                } else {
+                                    selectedSideMenuTab = row.rawValue
+                                    isSubMenuVisible = false // Hide submenu if another row is selected
+                                    presentSideMenu.toggle()
                                 }
-                            } else {
-                                selectedSideMenuTab = row.rawValue
-                                isSubMenuVisible = false // Hide submenu if another row is selected
-                                presentSideMenu.toggle()
                             }
-                        } 
-                        if row == .dateSelect && isSubMenuVisible {
-                            SubMenuView()
-                                .padding(.leading, 40) // Indent submenu
+                            if row == .dateSelect && isSubMenuVisible {
+                                SubMenuView()
+                                    .padding(.leading, 40) // Indent submenu
+                            }
                         }
+                        
+                        Spacer()
                     }
-                    
-                    Spacer()
                 }
-                .padding(.top, 100)
-                .frame(width: 270)
+                .padding(.top, isPad ? 150 : 100)
+                .frame(width: isPad ? 400 : 270)
                 .background(
                     Color.white
                 )
             }
-            
-            
             Spacer()
         }
         .background(.clear)
@@ -154,21 +154,21 @@ struct SideMenuView: View {
                 Image("inventory-management")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
+                    .frame(width: isPad ? 200 : 100, height:  isPad ? 200 : 100)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 50)
-                            .stroke(.green.opacity(0.5), lineWidth: 10)
+                        RoundedRectangle(cornerRadius: isPad ? 100 : 50)
+                            .stroke(.green.opacity(0.5), lineWidth: isPad ? 20 : 10)
                     )
-                    .cornerRadius(50)
+                    .cornerRadius(isPad ? 100 : 50)
                 Spacer()
             }
             
             Text("AVINASH GUPTA")
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: isPad ? 24 : 18, weight: .bold))
                 .foregroundColor(.black)
             
             Text("IOS Developer")
-                .font(.system(size: 14, weight: .semibold))
+                .font(.system(size: isPad ? 18 : 14, weight: .semibold))
                 .foregroundColor(.black.opacity(0.5))
         }
     }
@@ -206,7 +206,7 @@ struct SideMenuView: View {
                     }
                     .frame(width: 30, height: 30)
                     Text(title)
-                        .font(.system(size: 14, weight: .regular))
+                        .font(.system(size: isPad ? 18 : 14, weight: .semibold))
                         .foregroundColor(isSelected ? .black : .gray)
                     Spacer()
                 }

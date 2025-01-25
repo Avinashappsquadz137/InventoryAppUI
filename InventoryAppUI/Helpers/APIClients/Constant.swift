@@ -16,7 +16,7 @@ class ApiRequest {
     }
     
     struct Url {
-        static var buildType: BuildType = .pro
+        static var buildType: BuildType = .dev
         
         static var serverURL: String {
             switch buildType {

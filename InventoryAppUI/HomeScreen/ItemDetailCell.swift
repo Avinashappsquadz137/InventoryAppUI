@@ -21,23 +21,31 @@ struct ItemDetailCell: View {
     var hideDeleteButton: Bool
     var onDelete: () -> Void
     var onCheckUncheck : () -> Void
+    let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
     
     var body: some View {
         HStack(spacing: 10) {
-            VStack {
+            VStack (alignment: .center){
                 AsyncImage(url: URL(string: itemImageURL ?? "")) { image in
                     image.resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .frame(
+                            maxWidth: isPad ? 300 : .infinity, 
+                            maxHeight: isPad ? 300 : 150
+                        )
                         .cornerRadius(8)
                 } placeholder: {
                     Image(systemName: "photo")
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .frame(
+                            maxWidth: isPad ? 300 : .infinity,
+                            maxHeight: isPad ? 300 : 150
+                        )
                         .foregroundColor(.gray)
                         .cornerRadius(8)
                 }
+                
                 VStack {
                     if isAddToCartButtonVisible == 0 {
                         Button(action: {
@@ -49,7 +57,7 @@ struct ItemDetailCell: View {
                             Text("Add To Cart")
                                 .font(.headline)
                                 .padding(10)
-                                .frame(maxWidth: 150)
+                                .frame(maxWidth: isPad ? 300 : 150)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
