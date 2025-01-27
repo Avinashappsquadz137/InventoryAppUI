@@ -32,7 +32,7 @@ class ApiRequest {
 struct Constant {
 
     static let BASEURL                     = ApiRequest.Url.serverURL
-    
+    static let bookingBase                 = "http://bms.sanskargroup.in/sans-api/rest/apiServices"
     static let getlogin                    = "api_panel/login"
     static let getAllItem                  = "api_panel/get_all_item"
     static let allcartlistByDate           = "api_panel/all_cart_list_by_date"
