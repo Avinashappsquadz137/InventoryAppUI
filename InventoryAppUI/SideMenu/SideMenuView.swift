@@ -38,7 +38,7 @@ enum SideMenuRowType: Int, CaseIterable{
     case favorite
     case chat
     case profile
-    case dateSelect
+    case repairProduct
     case privacyPolicy
     case logOut
     
@@ -52,8 +52,8 @@ enum SideMenuRowType: Int, CaseIterable{
             return "CARTS"
         case .profile:
             return "SAVED"
-        case .dateSelect:
-            return "DATE SELECT"
+        case .repairProduct:
+            return "REPAIR PRODUCT"
         case .privacyPolicy:
             return "PRIVACY & POLICY"
         case .logOut :
@@ -71,8 +71,8 @@ enum SideMenuRowType: Int, CaseIterable{
             return "cart"
         case .profile:
             return "saved"
-        case .dateSelect:
-            return "ic_controls"
+        case .repairProduct:
+            return "imgrepair_Product"
         case .privacyPolicy:
             return "ImgPrivacyPolicy"
         case .logOut:
@@ -88,6 +88,7 @@ struct SideMenuView: View {
     @Binding var presentSideMenu: Bool
     @State private var isSubMenuVisible: Bool = false
     @State private var showWebView: Bool = false
+    @State private var showLogoutAlert: Bool = false
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
     
     var body: some View {
@@ -106,10 +107,8 @@ struct SideMenuView: View {
                     ScrollView {
                         ForEach(SideMenuRowType.allCases, id: \.self){ row in
                             RowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconName, title: row.title){
-                                if row == .dateSelect {
-                                    isSubMenuVisible.toggle() // Toggle submenu visibility
-                                } else if  row == .logOut {
-                                    logout()
+                                 if  row == .logOut {
+                                     showLogoutAlert = true
                                 }else if row == .privacyPolicy {
                                     //showWebView = true
                                     if let url = URL(string: "https://github.com/Avinashgupta137") {
@@ -121,10 +120,10 @@ struct SideMenuView: View {
                                     presentSideMenu.toggle()
                                 }
                             }
-                            if row == .dateSelect && isSubMenuVisible {
-                                SubMenuView()
-                                    .padding(.leading, 40) // Indent submenu
-                            }
+//                            if row == .dateSelect && isSubMenuVisible {
+//                                SubMenuView()
+//                                    .padding(.leading, 40) // Indent submenu
+//                            }
                         }
                         
                         Spacer()
@@ -139,7 +138,17 @@ struct SideMenuView: View {
             Spacer()
         }
         .background(.clear)
-//        .navigationTitle("")
+        .alert(isPresented: $showLogoutAlert) { // Logout confirmation alert
+            Alert(
+                title: Text("Are you sure?"),
+                message: Text("Do you really want to log out?"),
+                primaryButton: .destructive(Text("Log Out")) {
+                    logout()
+                },
+                secondaryButton: .cancel()
+            )
+        }
+        //        .navigationTitle("")
 //        .navigationBarHidden(true)
 //        .sheet(isPresented: $showWebView) { // Present WebView as a sheet
 //            WebView(url: URL(string: "https://github.com/Avinashgupta137")!)

@@ -95,13 +95,25 @@ struct MAinTabbarVC: View {
                     .tabItem {
                         Image.init("ic_controls", tintColor: .clear)
                         Text("RETURN")
+                    }.tag(5)
+                    
+                    NavigationView {
+                        RepairProductMainView()
+                            .onAppear {
+                                navigationTitle = "REPAIR PRODUCT"
+                            }
+                    }
+                    .tabItem {
+                        Image.init("imgrepair_Product", tintColor: .clear)
+                            .font(.system(size: 20, weight: .regular))
+                        Text("REPAIR PRODUCT")
                     }.tag(4)
                 }
                 
                 .onAppear(){
                     UITabBar.appearance().backgroundColor = UIColor(lightGreyColor)
                 }
-                .accentColor(lightblueColor)
+                .accentColor(.blue)
             }
             SideMenu(isShowing: $presentSideMenu, content: AnyView(SideMenuView(selectedSideMenuTab: $selectedView, presentSideMenu: $presentSideMenu)))
         }

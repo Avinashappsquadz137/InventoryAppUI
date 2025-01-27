@@ -25,6 +25,7 @@
 		C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB8E2D227FE600B51955 /* QRScannerView.swift */; };
 		C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB932D22C1DA00B51955 /* SideMenuView.swift */; };
 		C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */; };
+		C7743C2D2D4751F100E59588 /* RepairProductMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7743C2C2D4751F100E59588 /* RepairProductMainView.swift */; };
 		C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */; };
 		C78354962D312FA400959FEA /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78354952D312FA400959FEA /* ViewModifier.swift */; };
 		C78354992D31398700959FEA /* ReturnChallanByID.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78354982D31398700959FEA /* ReturnChallanByID.swift */; };
@@ -74,6 +75,7 @@
 		C76EFB8E2D227FE600B51955 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		C76EFB932D22C1DA00B51955 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatePopUp.swift; sourceTree = "<group>"; };
+		C7743C2C2D4751F100E59588 /* RepairProductMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairProductMainView.swift; sourceTree = "<group>"; };
 		C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterDetailsVC.swift; sourceTree = "<group>"; };
 		C78354952D312FA400959FEA /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
 		C78354982D31398700959FEA /* ReturnChallanByID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanByID.swift; sourceTree = "<group>"; };
@@ -200,6 +202,14 @@
 				C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */,
 			);
 			path = PopUpCustom;
+			sourceTree = "<group>";
+		};
+		C7743C2B2D4751BF00E59588 /* RepairProduct */ = {
+			isa = PBXGroup;
+			children = (
+				C7743C2C2D4751F100E59588 /* RepairProductMainView.swift */,
+			);
+			path = RepairProduct;
 			sourceTree = "<group>";
 		};
 		C78354942D312F9100959FEA /* ViewModifier */ = {
@@ -362,6 +372,7 @@
 				C76EFB922D22C1BE00B51955 /* SideMenu */,
 				C783549A2D313C2600959FEA /* OrderView */,
 				C784D9582D30019600D83DE6 /* ReturnChallan */,
+				C7743C2B2D4751BF00E59588 /* RepairProduct */,
 				C7868D7A2D0AC73D00D09D41 /* TabBar */,
 				C724F59D2D3A56D700C01873 /* SubmitChallanView */,
 				C7DC34792D0AB20400FAC786 /* Assets.xcassets */,
@@ -523,6 +534,7 @@
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
 				C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */,
 				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
+				C7743C2D2D4751F100E59588 /* RepairProductMainView.swift in Sources */,
 				C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */,
 				C7A5A5D42D424BD200E4EC96 /* MotionAnimationView.swift in Sources */,
 				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
