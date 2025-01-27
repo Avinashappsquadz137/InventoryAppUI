@@ -26,6 +26,7 @@
 		C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB932D22C1DA00B51955 /* SideMenuView.swift */; };
 		C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */; };
 		C7743C2D2D4751F100E59588 /* RepairProductMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7743C2C2D4751F100E59588 /* RepairProductMainView.swift */; };
+		C7743C322D47B19A00E59588 /* GetLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7743C312D47B19A00E59588 /* GetLoginModel.swift */; };
 		C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */; };
 		C78354962D312FA400959FEA /* ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78354952D312FA400959FEA /* ViewModifier.swift */; };
 		C78354992D31398700959FEA /* ReturnChallanByID.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78354982D31398700959FEA /* ReturnChallanByID.swift */; };
@@ -76,6 +77,7 @@
 		C76EFB932D22C1DA00B51955 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		C76F1ED22D106A05000D0ADC /* SelectDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDatePopUp.swift; sourceTree = "<group>"; };
 		C7743C2C2D4751F100E59588 /* RepairProductMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairProductMainView.swift; sourceTree = "<group>"; };
+		C7743C312D47B19A00E59588 /* GetLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLoginModel.swift; sourceTree = "<group>"; };
 		C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterDetailsVC.swift; sourceTree = "<group>"; };
 		C78354952D312FA400959FEA /* ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifier.swift; sourceTree = "<group>"; };
 		C78354982D31398700959FEA /* ReturnChallanByID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanByID.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */,
 				C7344C572D38E3AB00D1E030 /* GetItemByDateModel.swift */,
 				C724F5A12D3A5ACE00C01873 /* SubmitChallanModel.swift */,
+				C7743C312D47B19A00E59588 /* GetLoginModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */,
 				C724F5A72D3A90C500C01873 /* CreateChallanDetails.swift in Sources */,
 				C78354962D312FA400959FEA /* ViewModifier.swift in Sources */,
+				C7743C322D47B19A00E59588 /* GetLoginModel.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */,
 				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
 				C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */,

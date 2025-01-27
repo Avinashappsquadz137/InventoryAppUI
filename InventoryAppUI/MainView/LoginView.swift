@@ -52,17 +52,17 @@ struct LoginView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
-                       
-                        Button(action: {
-                            autheticateUser(username : userName, password : passWord)
-                        }) {
-                            Text("Login")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, maxHeight: 50)
-                                .background(Color.blue)
-                                .cornerRadius(10)
-                        }
+                    
+                    Button(action: {
+                        getlogin(username: userName, password: passWord)
+                    }) {
+                        Text("Login")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, maxHeight: 50)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                    }
                     NavigationLink(
                         destination: MAinTabbarVC(),
                         isActive: $showingLoginScreen
@@ -76,33 +76,37 @@ struct LoginView: View {
                         Text("DEV - Version - \(appVersion)")
                             .foregroundColor(.black)
                             .padding(.bottom, isPad ? 20 : 10)
-                    } else if ApiRequest.Url.buildType == .pro {
-//                        Text("Version - \(appVersion)")
-//                            .font(.callout)
-//                            .foregroundColor(.black)
-//                            .padding(.bottom, isPad ? 20 : 10)
                     }
                 }.padding()
-                
-                
             }.navigationBarHidden(true)
         }
     }
     
-    func autheticateUser(username : String , password : String){
-        if username.lowercased() == "avinash123"{
-            worngUserName = 0
-            if password.lowercased() == "12345" {
-                wrongPassword = 0
-                showingLoginScreen = true
-                UserDefaultsManager.shared.setLoggedIn(true)
-            }else {
-                wrongPassword = 2
+    func getlogin(username : String , password : String) {
+        let parameters: [String: Any] = ["Password": "\(password)","Mobile" : "\(username)"]
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.getlogin,
+            method: .post,
+            param: parameters,
+            model: GetLoginModel.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        showingLoginScreen = true
+                        UserDefaultsManager.shared.setLoggedIn(true)
+                        print("Fetched items: \(data)")
+                    } else {
+                        wrongPassword = 2
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    wrongPassword = 2
+                    print("API Error: \(error)")
+                }
             }
-        }else {
-            worngUserName = 2
         }
-        
     }
 }
 
