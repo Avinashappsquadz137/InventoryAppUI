@@ -35,6 +35,10 @@
 		C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D9562D2FDAC700D83DE6 /* UserDefultS.swift */; };
 		C784D95A2D30020700D83DE6 /* ReturnChallanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D9592D30020700D83DE6 /* ReturnChallanView.swift */; };
 		C784D95C2D3002C800D83DE6 /* ReturnChallanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */; };
+		C785E6CD2D48D62C00992E9B /* RepairProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C785E6CC2D48D62C00992E9B /* RepairProductCell.swift */; };
+		C785E6CF2D48DAF500992E9B /* RepairListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C785E6CE2D48DAF500992E9B /* RepairListModel.swift */; };
+		C785E6D12D48E46100992E9B /* AddProductRepairDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C785E6D02D48E46100992E9B /* AddProductRepairDetail.swift */; };
+		C785E6D42D48ECC400992E9B /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C785E6D32D48ECC400992E9B /* ImagePickerView.swift */; };
 		C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D722D0AC54700D09D41 /* MainViewVC.swift */; };
 		C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */; };
 		C7868D772D0AC66600D09D41 /* SubmitPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D762D0AC66600D09D41 /* SubmitPDFView.swift */; };
@@ -86,6 +90,10 @@
 		C784D9562D2FDAC700D83DE6 /* UserDefultS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefultS.swift; sourceTree = "<group>"; };
 		C784D9592D30020700D83DE6 /* ReturnChallanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanView.swift; sourceTree = "<group>"; };
 		C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanCell.swift; sourceTree = "<group>"; };
+		C785E6CC2D48D62C00992E9B /* RepairProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairProductCell.swift; sourceTree = "<group>"; };
+		C785E6CE2D48DAF500992E9B /* RepairListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairListModel.swift; sourceTree = "<group>"; };
+		C785E6D02D48E46100992E9B /* AddProductRepairDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductRepairDetail.swift; sourceTree = "<group>"; };
+		C785E6D32D48ECC400992E9B /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		C7868D722D0AC54700D09D41 /* MainViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewVC.swift; sourceTree = "<group>"; };
 		C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAinTabbarVC.swift; sourceTree = "<group>"; };
 		C7868D762D0AC66600D09D41 /* SubmitPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPDFView.swift; sourceTree = "<group>"; };
@@ -209,7 +217,10 @@
 		C7743C2B2D4751BF00E59588 /* RepairProduct */ = {
 			isa = PBXGroup;
 			children = (
+				C785E6D22D48ECAF00992E9B /* ImagePickerMainView */,
 				C7743C2C2D4751F100E59588 /* RepairProductMainView.swift */,
+				C785E6CC2D48D62C00992E9B /* RepairProductCell.swift */,
+				C785E6D02D48E46100992E9B /* AddProductRepairDetail.swift */,
 			);
 			path = RepairProduct;
 			sourceTree = "<group>";
@@ -250,6 +261,14 @@
 				C784D95B2D3002C800D83DE6 /* ReturnChallanCell.swift */,
 			);
 			path = ReturnChallan;
+			sourceTree = "<group>";
+		};
+		C785E6D22D48ECAF00992E9B /* ImagePickerMainView */ = {
+			isa = PBXGroup;
+			children = (
+				C785E6D32D48ECC400992E9B /* ImagePickerView.swift */,
+			);
+			path = ImagePickerMainView;
 			sourceTree = "<group>";
 		};
 		C7868D7A2D0AC73D00D09D41 /* TabBar */ = {
@@ -294,6 +313,7 @@
 				C7344C572D38E3AB00D1E030 /* GetItemByDateModel.swift */,
 				C724F5A12D3A5ACE00C01873 /* SubmitChallanModel.swift */,
 				C7743C312D47B19A00E59588 /* GetLoginModel.swift */,
+				C785E6CE2D48DAF500992E9B /* RepairListModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,16 +551,20 @@
 				C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */,
 				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
 				C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */,
+				C785E6CD2D48D62C00992E9B /* RepairProductCell.swift in Sources */,
 				C7344C562D38E05000D1E030 /* MainViewItemByDateView.swift in Sources */,
+				C785E6CF2D48DAF500992E9B /* RepairListModel.swift in Sources */,
 				C718C1E12D0C3A52008A1EFC /* GetAllCartList.swift in Sources */,
 				C784D95C2D3002C800D83DE6 /* ReturnChallanCell.swift in Sources */,
 				C78EE08D2D37B33D007ADBB8 /* ReturnChallanItemView.swift in Sources */,
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
 				C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */,
 				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
+				C785E6D12D48E46100992E9B /* AddProductRepairDetail.swift in Sources */,
 				C7743C2D2D4751F100E59588 /* RepairProductMainView.swift in Sources */,
 				C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */,
 				C7A5A5D42D424BD200E4EC96 /* MotionAnimationView.swift in Sources */,
+				C785E6D42D48ECC400992E9B /* ImagePickerView.swift in Sources */,
 				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,
 				C76C8ED62D36A29500F3A8E3 /* EnterChallanIDModal.swift in Sources */,

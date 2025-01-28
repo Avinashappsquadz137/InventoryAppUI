@@ -48,6 +48,7 @@ struct Constant {
     static let getInventoryDetail          = "api_panel/get_inventory_detail"
     static let createOrderByCartItem       = "api_panel/create_order_by_cart_item"
     static let getTransportCategory        = "api_panel/get_transport_category"
+    static let getAllItemRepairList        = "api_panel/get_all_item_repair_list"
 
 }
 
