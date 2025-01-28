@@ -57,12 +57,12 @@ struct MAinTabbarVC: View {
                     NavigationView {
                         SubmitChallanView()
                             .onAppear {
-                                navigationTitle = "FAVOURITE"
+                                navigationTitle = "ORDERS"
                             }
                     }
                     .tabItem {
                         Image.init("ic_favourite_tabbar", tintColor: .clear)
-                        Text("FAVOURITE")
+                        Text("ORDERS")
                     }.tag(1)
                     
                     NavigationView {
@@ -79,12 +79,12 @@ struct MAinTabbarVC: View {
                     NavigationView {
                         OrderView()
                             .onAppear {
-                                navigationTitle = "SAVED"
+                                navigationTitle = "SUBMIT"
                             }
                     }
                     .tabItem {
                         Image.init("saved", tintColor: .clear)
-                        Text("SAVED")
+                        Text("SUBMIT")
                     }.tag(3)
                     NavigationView {
                         ReturnChallanView()
@@ -97,17 +97,17 @@ struct MAinTabbarVC: View {
                         Text("RETURN")
                     }.tag(5)
                     
-                    NavigationView {
-                        RepairProductMainView()
-                            .onAppear {
-                                navigationTitle = "REPAIR PRODUCT"
-                            }
-                    }
-                    .tabItem {
-                        Image.init("imgrepair_Product", tintColor: .clear)
-                            .font(.system(size: 20, weight: .regular))
-                        Text("REPAIR PRODUCT")
-                    }.tag(4)
+//                    NavigationView {
+//                        RepairProductMainView()
+//                            .onAppear {
+//                                navigationTitle = "REPAIR PRODUCT"
+//                            }
+//                    }
+//                    .tabItem {
+//                        Image.init("imgrepair_Product", tintColor: .clear)
+//                            .font(.system(size: 20, weight: .regular))
+//                        Text("REPAIR PRODUCT")
+//                    }.tag(5)
                 }
                 
                 .onAppear(){

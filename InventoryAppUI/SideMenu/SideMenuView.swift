@@ -47,11 +47,11 @@ enum SideMenuRowType: Int, CaseIterable{
         case .home:
             return "HOME"
         case .favorite:
-            return "FAVOURITE"
+            return "ORDERS"
         case .chat:
             return "CARTS"
         case .profile:
-            return "SAVED"
+            return "SUBMIT"
         case .repairProduct:
             return "REPAIR PRODUCT"
         case .privacyPolicy:
@@ -109,7 +109,11 @@ struct SideMenuView: View {
                             RowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconName, title: row.title){
                                  if  row == .logOut {
                                      showLogoutAlert = true
-                                }else if row == .privacyPolicy {
+                                 }else if row == .repairProduct {
+                                     isSubMenuVisible = false
+                                     navigateToScreenOutsideMenu()
+                                     
+                                 }else if row == .privacyPolicy {
                                     //showWebView = true
                                     if let url = URL(string: "https://github.com/Avinashgupta137") {
                                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -231,6 +235,14 @@ struct SideMenuView: View {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if let window = UIApplication.shared.windows.first {
                 window.rootViewController = UIHostingController(rootView: LoginView())
+                window.makeKeyAndVisible()
+            }
+        }
+    }
+    func navigateToScreenOutsideMenu() {
+        DispatchQueue.main.async {
+            if let window = UIApplication.shared.windows.first {
+                window.rootViewController = UIHostingController(rootView: RepairProductMainView())
                 window.makeKeyAndVisible()
             }
         }
