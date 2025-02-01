@@ -50,6 +50,7 @@
 		C7868DB42D0AF92800D09D41 /* GetAllItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */; };
 		C787F9F12D43B92A00F2A8FC /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C787F9F02D43B92A00F2A8FC /* WebView.swift */; };
 		C78CDE182D4E22080084762D /* WaveAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78CDE172D4E22080084762D /* WaveAnimations.swift */; };
+		C78CDE1A2D4E3C940084762D /* GetItemRepairByIdModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78CDE192D4E3C940084762D /* GetItemRepairByIdModel.swift */; };
 		C78EE08D2D37B33D007ADBB8 /* ReturnChallanItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78EE08C2D37B33D007ADBB8 /* ReturnChallanItemView.swift */; };
 		C78EE08F2D37B348007ADBB8 /* ReturnChallanItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78EE08E2D37B348007ADBB8 /* ReturnChallanItemCell.swift */; };
 		C7A5A5D12D420A4400E4EC96 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5A5D02D420A4400E4EC96 /* LoginView.swift */; };
@@ -106,6 +107,7 @@
 		C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllItemModel.swift; sourceTree = "<group>"; };
 		C787F9F02D43B92A00F2A8FC /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		C78CDE172D4E22080084762D /* WaveAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveAnimations.swift; sourceTree = "<group>"; };
+		C78CDE192D4E3C940084762D /* GetItemRepairByIdModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetItemRepairByIdModel.swift; sourceTree = "<group>"; };
 		C78EE08C2D37B33D007ADBB8 /* ReturnChallanItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanItemView.swift; sourceTree = "<group>"; };
 		C78EE08E2D37B348007ADBB8 /* ReturnChallanItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanItemCell.swift; sourceTree = "<group>"; };
 		C7A5A5D02D420A4400E4EC96 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				C724F5A12D3A5ACE00C01873 /* SubmitChallanModel.swift */,
 				C7743C312D47B19A00E59588 /* GetLoginModel.swift */,
 				C785E6CE2D48DAF500992E9B /* RepairListModel.swift */,
+				C78CDE192D4E3C940084762D /* GetItemRepairByIdModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				C7743C322D47B19A00E59588 /* GetLoginModel.swift in Sources */,
 				C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */,
 				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
+				C78CDE1A2D4E3C940084762D /* GetItemRepairByIdModel.swift in Sources */,
 				C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */,
 				C785E6CD2D48D62C00992E9B /* RepairProductCell.swift in Sources */,
 				C7344C562D38E05000D1E030 /* MainViewItemByDateView.swift in Sources */,

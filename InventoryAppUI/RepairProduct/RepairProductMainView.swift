@@ -24,11 +24,12 @@ struct RepairProductMainView: View {
                                       brandName: product.bRAND ?? "",
                                       modelNo: product.mODEL_NO ?? "",
                                       sLNo: product.iTEM_MASTER_ID ?? "",
-                                      itemImageURL: "\(Constant.BASEURL)/\(product.iTEM_THUMBNAIL ?? "")" , onEditTapped: {
+                                      itemImageURL: "\(Constant.BASEURL)/\(product.iTEM_THUMBNAIL ?? "")",
+                                      repairStatus: product.rEPAIR_STATUS ?? "" , onEditTapped: {
                         selectedProduct = product
                         showingLoginScreen = true
                     },
-                                      onEyeTapped: {
+                        onEyeTapped: {
                         toggleExpansion(for: product.iTEM_MASTER_ID ?? "")
                     })
                     if expandedCells.contains(product.iTEM_MASTER_ID ?? "") {
@@ -38,11 +39,24 @@ struct RepairProductMainView: View {
                             Text("Price: $\(product.iTEM_MASTER_ID ?? "N/A")")
                             Text("Repair Date: \(product.bRAND ?? "N/A")")
                             Text("Remarks: \(product.iTEM_NAME ?? "N/A")")
+                            
+                            Button(action: {
+                                readyForItemAvailable(repairID: product.iTEM_REPAIR_ID ?? "",
+                                                      itemID: product.iTEM_MASTER_ID ?? "")
+                            }) {
+                                Text("Confirm Availability")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
                         }
                         .padding()
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(10)
-                        .transition(.opacity) // Smooth animation
+                        .transition(.opacity)
                     }
                 }
                 .listRowInsets(EdgeInsets())
@@ -83,6 +97,30 @@ struct RepairProductMainView: View {
             expandedCells.remove(id)
         } else {
             expandedCells.insert(id)
+        }
+    }
+    
+    
+    func readyForItemAvailable(repairID : String ,itemID : String) {
+        var dict = [String: Any]()
+        dict["emp_code"] = "1"
+        dict["repair_id"] = repairID
+        dict["item_id"] = itemID
+        
+        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.readyForItemAvailable, method: .post, param: dict, model: RepairListModel.self){ result in
+            switch result {
+            case .success(let model):
+                if let data = model.data {
+                    DispatchQueue.main.async {
+                        
+                    }
+                    print("Fetched items: \(data)")
+                } else {
+                    print("No data received")
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     

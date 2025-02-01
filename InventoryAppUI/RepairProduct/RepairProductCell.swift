@@ -13,10 +13,22 @@ struct RepairProductCell: View {
     let modelNo: String
     let sLNo: String
     let itemImageURL : String
-    
+    let repairStatus : String
+   
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
     let onEditTapped: () -> Void
     let onEyeTapped: () -> Void
+    
+    var statusColor: Color {
+           switch repairStatus.lowercased() {
+           case "repaired":
+               return .green
+           case "pending":
+               return .red
+           default:
+               return .gray
+           }
+       }
     
     var body: some View {
         HStack {
@@ -54,6 +66,9 @@ struct RepairProductCell: View {
                 Text("SL No: \(sLNo)")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.primary)
+                Text("STATUS: \(repairStatus)")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(statusColor)
             }
             .padding(.leading, 10)
             Spacer()
@@ -76,7 +91,6 @@ struct RepairProductCell: View {
             }
         }
         .padding(10)
-        //        .background(RoundedRectangle(cornerRadius: 12).fill(Color.white).shadow(radius: 5))
     }
 }
 struct RepairProductCell_Previews: PreviewProvider {
@@ -86,7 +100,7 @@ struct RepairProductCell_Previews: PreviewProvider {
             brandName: "Apple",
             modelNo: "MacBook Pro 16\"",
             sLNo: "ABC123456",
-            itemImageURL: "https://via.placeholder.com/150",
+            itemImageURL: "https://via.placeholder.com/150", repairStatus: "pending",
             onEditTapped: { print("Edit tapped") }, onEyeTapped: { print("Eye tapped") }
         )
         .previewLayout(.sizeThatFits)

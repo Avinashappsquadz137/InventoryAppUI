@@ -26,6 +26,13 @@ struct AddProductRepairDetail: View {
     @State private var isPickingForDamage: Bool = true
     @State private var isCamera: Bool = false
     
+    @State private var itemRepair: [ItemRepairById] = []
+
+    init(product: RepairList?) {
+        self.product = product
+        getItemRepairById()
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -107,6 +114,28 @@ struct AddProductRepairDetail: View {
         }
     }
     
+    func getItemRepairById() {
+        var dict = [String: Any]()
+        dict["emp_code"] = "1"
+        dict["repair_id"] = product?.iTEM_REPAIR_ID
+        
+        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getItemRepairById, method: .post, param: dict, model: GetItemRepairByIdModel.self){ result in
+            switch result {
+            case .success(let model):
+                if let data = model.data {
+                    DispatchQueue.main.async {
+                        self.itemRepair = [data]
+                    }
+                    print("Fetched items: \(data)")
+                } else {
+                    print("No data received")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func submitRepairDetails() {
         var dict = [String: Any]()
         dict["emp_code"] = "1"
@@ -117,6 +146,7 @@ struct AddProductRepairDetail: View {
         dict["issue_date"] = formattedDate(issueDate)
         dict["repair_date"] = formattedDate(repairingDate)
         dict["remarks"] = remarks
+        dict["repair_id"] = product?.iTEM_REPAIR_ID
         
         var images: [String: Data] = [:]
         
@@ -134,7 +164,7 @@ struct AddProductRepairDetail: View {
             print("Failed to convert receipt image to data")
         }
         print(dict)
-        ApiClient.shared.callHttpMethod(apiendpoint: Constant.addItemRepairDetail, method: .post, param: dict, model: RepairListModel.self,isMultipart: true, images: images){ result in
+        ApiClient.shared.callHttpMethod(apiendpoint: Constant.updateItemRepairDetail, method: .post, param: dict, model: RepairListModel.self,isMultipart: true, images: images){ result in
             switch result {
             case .success(let model):
                 if let data = model.data {
