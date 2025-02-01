@@ -49,6 +49,7 @@
 		C7868DB22D0AF7DD00D09D41 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DB12D0AF7DC00D09D41 /* APIManager.swift */; };
 		C7868DB42D0AF92800D09D41 /* GetAllItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */; };
 		C787F9F12D43B92A00F2A8FC /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C787F9F02D43B92A00F2A8FC /* WebView.swift */; };
+		C78CDE182D4E22080084762D /* WaveAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78CDE172D4E22080084762D /* WaveAnimations.swift */; };
 		C78EE08D2D37B33D007ADBB8 /* ReturnChallanItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78EE08C2D37B33D007ADBB8 /* ReturnChallanItemView.swift */; };
 		C78EE08F2D37B348007ADBB8 /* ReturnChallanItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78EE08E2D37B348007ADBB8 /* ReturnChallanItemCell.swift */; };
 		C7A5A5D12D420A4400E4EC96 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A5A5D02D420A4400E4EC96 /* LoginView.swift */; };
@@ -104,6 +105,7 @@
 		C7868DB12D0AF7DC00D09D41 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		C7868DB32D0AF92800D09D41 /* GetAllItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllItemModel.swift; sourceTree = "<group>"; };
 		C787F9F02D43B92A00F2A8FC /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		C78CDE172D4E22080084762D /* WaveAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveAnimations.swift; sourceTree = "<group>"; };
 		C78EE08C2D37B33D007ADBB8 /* ReturnChallanItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanItemView.swift; sourceTree = "<group>"; };
 		C78EE08E2D37B348007ADBB8 /* ReturnChallanItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnChallanItemCell.swift; sourceTree = "<group>"; };
 		C7A5A5D02D420A4400E4EC96 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -337,6 +339,14 @@
 			path = APIClients;
 			sourceTree = "<group>";
 		};
+		C78CDE162D4E21EE0084762D /* WaveAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				C78CDE172D4E22080084762D /* WaveAnimations.swift */,
+			);
+			path = WaveAnimation;
+			sourceTree = "<group>";
+		};
 		C78EE08B2D37B31F007ADBB8 /* ReturnChallanItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +359,7 @@
 		C7A5A5CF2D4209F300E4EC96 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				C78CDE162D4E21EE0084762D /* WaveAnimation */,
 				C7A5A5D22D424BB500E4EC96 /* MotionAnimationView */,
 				C7DC34752D0AB20300FAC786 /* InventoryAppUIApp.swift */,
 				C7A5A5D02D420A4400E4EC96 /* LoginView.swift */,
@@ -566,6 +577,7 @@
 				C7A5A5D42D424BD200E4EC96 /* MotionAnimationView.swift in Sources */,
 				C785E6D42D48ECC400992E9B /* ImagePickerView.swift in Sources */,
 				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
+				C78CDE182D4E22080084762D /* WaveAnimations.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,
 				C76C8ED62D36A29500F3A8E3 /* EnterChallanIDModal.swift in Sources */,
 				C783549C2D313C5800959FEA /* MoreOrderCell.swift in Sources */,
@@ -716,6 +728,7 @@
 				INFOPLIST_FILE = InventoryAppUI/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan QR codes.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to navigate to the client's location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to choose a photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -752,6 +765,7 @@
 				INFOPLIST_FILE = InventoryAppUI/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan QR codes.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to navigate to the client's location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to choose a photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

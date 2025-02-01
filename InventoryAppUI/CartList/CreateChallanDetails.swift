@@ -167,7 +167,7 @@ struct CreateChallanDetails: View {
                         ToastManager.shared.show(message: model.message ?? "")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                             if let window = UIApplication.shared.windows.first {
-                                window.rootViewController = UIHostingController(rootView: MAinTabbarVC())
+                                window.rootViewController = UIHostingController(rootView: MAinTabbarVC().environment(\.colorScheme, .light))
                                 window.makeKeyAndVisible()
                             }
                         }

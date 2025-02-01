@@ -97,21 +97,9 @@ struct MAinTabbarVC: View {
                         Text("RETURN")
                     }.tag(5)
                     
-//                    NavigationView {
-//                        RepairProductMainView()
-//                            .onAppear {
-//                                navigationTitle = "REPAIR PRODUCT"
-//                            }
-//                    }
-//                    .tabItem {
-//                        Image.init("imgrepair_Product", tintColor: .clear)
-//                            .font(.system(size: 20, weight: .regular))
-//                        Text("REPAIR PRODUCT")
-//                    }.tag(5)
                 }
-                
                 .onAppear(){
-                    UITabBar.appearance().backgroundColor = UIColor(lightGreyColor)
+                    UITabBar.appearance().backgroundColor = UIColor(.lightGreyColor)
                 }
                 .accentColor(.blue)
             }
@@ -161,18 +149,18 @@ struct NavBar: View {
                     .font(.system(size: 30, weight: .regular))
             }
             
-            .accentColor(royalBlue)
+            .accentColor(.royalBlue)
             Spacer()
             Text(title)
                 .font(.system(size: 24, weight: .bold))
-                .foregroundColor(Color("Text_whiteBlack"))
+          
             Spacer()
             if let trailingImage = trailingButtonImage, let trailingAction = trailingButtonAction {
                 Button(action: trailingAction) {
                     Image(systemName: trailingImage)
                         .font(.system(size: 30, weight: .regular))
                 }
-                .accentColor(royalBlue)
+                .accentColor(.royalBlue)
             }
             
 //            Button(action: rightButtonAction) {

@@ -11,8 +11,10 @@ struct RepairProductMainView: View {
     
     @State private var repairListItems : [RepairList] = []
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @State private var showingLoginScreen = false
     @State private var selectedProduct: RepairList?
+    @State private var expandedCells: Set<String> = []
     
     var body: some View {
         NavigationStack {
@@ -25,37 +27,62 @@ struct RepairProductMainView: View {
                                       itemImageURL: "\(Constant.BASEURL)/\(product.iTEM_THUMBNAIL ?? "")" , onEditTapped: {
                         selectedProduct = product
                         showingLoginScreen = true
+                    },
+                                      onEyeTapped: {
+                        toggleExpansion(for: product.iTEM_MASTER_ID ?? "")
                     })
-                    .listRowInsets(EdgeInsets())
-                    .padding(5)
+                    if expandedCells.contains(product.iTEM_MASTER_ID ?? "") {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("More Details:")
+                                .font(.headline)
+                            Text("Price: $\(product.iTEM_MASTER_ID ?? "N/A")")
+                            Text("Repair Date: \(product.bRAND ?? "N/A")")
+                            Text("Remarks: \(product.iTEM_NAME ?? "N/A")")
+                        }
+                        .padding()
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(10)
+                        .transition(.opacity) // Smooth animation
+                    }
                 }
-                
-                NavigationLink(
-                    destination: AddProductRepairDetail(product: selectedProduct),
-                    isActive: $showingLoginScreen
-                ) {
-                    EmptyView()
-                }
-                .onAppear {
-                    getAllItemRepairList()
-                }
-                .modifier(ViewModifiers())
-                .navigationTitle("Repair Products")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            redirectToMainTabbar()
-                        }) {
-                            HStack {
-                                Image(systemName: "chevron.left")
-                                Text("Back")
-                            }
+                .listRowInsets(EdgeInsets())
+                .padding(5)
+            }
+            
+            NavigationLink(
+                destination: AddProductRepairDetail(product: selectedProduct),
+                isActive: $showingLoginScreen
+            ) {
+                EmptyView()
+            }
+            .onAppear {
+                getAllItemRepairList()
+            }
+            .modifier(ViewModifiers())
+            .navigationTitle("Repair Products")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        redirectToMainTabbar()
+                        dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
                         }
                     }
                 }
-                .overlay(ToastView())
             }
+            .overlay(ToastView())
+        }
+    }
+    
+    func toggleExpansion(for id: String) {
+        if expandedCells.contains(id) {
+            expandedCells.remove(id)
+        } else {
+            expandedCells.insert(id)
         }
     }
     
@@ -81,7 +108,7 @@ struct RepairProductMainView: View {
     func redirectToMainTabbar() {
         DispatchQueue.main.async {
             if let window = UIApplication.shared.windows.first {
-                window.rootViewController = UIHostingController(rootView: MAinTabbarVC())
+                window.rootViewController = UIHostingController(rootView: MAinTabbarVC().environment(\.colorScheme, .light))
                 window.makeKeyAndVisible()
             }
         }

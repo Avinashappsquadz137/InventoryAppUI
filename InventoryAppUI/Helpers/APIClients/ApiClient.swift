@@ -25,6 +25,119 @@ class ApiClient: NSObject {
         }
     }
     
+    func callHttpMethod<T: Decodable>(
+        apiendpoint: String,
+        method: ApiMethod,
+        param: [String: Any],
+        model: T.Type,
+        isMultipart: Bool = false, // Flag for multipart requests
+        images: [String: Data] = [:], // Image data dictionary
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
+        let fullUrl = (Constant.BASEURL + apiendpoint).trimmingCharacters(in: .whitespacesAndNewlines)
+        print("API Endpoint: \(fullUrl)\nParams: \(param)\nMethod: \(method)")
+        
+        var apiMethod: HTTPMethod = .get
+        switch method {
+        case .get: apiMethod = .get
+        case .post: apiMethod = .post
+        case .put: apiMethod = .put
+        case .delete: apiMethod = .delete
+        }
+        
+        let headers = setHeader()
+        
+        if isMultipart {
+            // Using Alamofire for multipart requests
+            AF.upload(
+                multipartFormData: { multipartFormData in
+                    // Append text parameters
+                    for (key, value) in param {
+                        if let stringValue = value as? String {
+                            multipartFormData.append(Data(stringValue.utf8), withName: key)
+                        }
+                    }
+                    
+                    // Append images
+                    for (key, imageData) in images {
+                        multipartFormData.append(imageData, withName: key, fileName: "\(key).jpg", mimeType: "image/jpeg")
+                    }
+                },
+                to: fullUrl,
+                method: .post,
+                headers: headers
+            )
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    self.handleResponse(data: data, model: model, completion: completion)
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            // Regular request handling
+            let encoding: ParameterEncoding = apiMethod == .post ? JSONEncoding.default : URLEncoding.queryString
+            let request = AF.request(fullUrl, method: apiMethod, parameters: param, encoding: encoding, headers: headers)
+            
+            self.addRequest(request)
+            request.response { response in
+                self.removeRequest(request)
+                guard let data = response.data else {
+                    let error = NSError(domain: "No Data", code: 500, userInfo: nil)
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let error = response.error {
+                    print("Error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                    return
+                }
+                
+                self.handleResponse(data: data, model: model, completion: completion)
+            }
+        }
+    }
+
+    private func createMultipartBody(parameters: [String: Any], boundary: String) -> Data {
+        var body = Data()
+
+        for (key, value) in parameters {
+            if let dataValue = value as? Data { // Binary data (e.g., image, file)
+                let filename = "\(key).jpg" // Adjust extension based on the data type
+                body.append("--\(boundary)\r\n".data(using: .utf8)!)
+                body.append("Content-Disposition: form-data; name=\"\(key)\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
+                body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+                body.append(dataValue)
+                body.append("\r\n".data(using: .utf8)!)
+            } else if let stringValue = value as? String { // Text parameters
+                body.append("--\(boundary)\r\n".data(using: .utf8)!)
+                body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+                body.append("\(stringValue)\r\n".data(using: .utf8)!)
+            }
+        }
+
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        return body
+    }
+
+    
+    private func handleResponse<T: Decodable>(
+        data: Data,
+        model: T.Type,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
+        do {
+            let decodedResponse = try JSONDecoder().decode(model, from: data)
+            completion(.success(decodedResponse))
+        } catch {
+            print("Decoding error: \(error.localizedDescription)")
+            completion(.failure(error))
+        }
+    }
+    
     
     func cancelAllRequests() {
         for request in ongoingRequests {

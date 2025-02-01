@@ -234,7 +234,7 @@ struct SideMenuView: View {
         UserDefaultsManager.shared.setLoggedIn(false)
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if let window = UIApplication.shared.windows.first {
-                window.rootViewController = UIHostingController(rootView: LoginView())
+                window.rootViewController = UIHostingController(rootView: LoginView().environment(\.colorScheme, .light))
                 window.makeKeyAndVisible()
             }
         }
@@ -242,8 +242,9 @@ struct SideMenuView: View {
     func navigateToScreenOutsideMenu() {
         DispatchQueue.main.async {
             if let window = UIApplication.shared.windows.first {
-                window.rootViewController = UIHostingController(rootView: RepairProductMainView())
+                window.rootViewController = UIHostingController(rootView: RepairProductMainView().environment(\.colorScheme, .light))
                 window.makeKeyAndVisible()
+                
             }
         }
     }

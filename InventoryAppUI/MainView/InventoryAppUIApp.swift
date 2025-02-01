@@ -10,10 +10,16 @@ import SwiftUI
 @main
 struct InventoryAppUIApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    init() {
+        UIApplication.shared.windows.forEach { window in
+            window.overrideUserInterfaceStyle = .light
+        }
+    }
     var body: some Scene {
         WindowGroup {
             SplashView()
                 .navigationViewStyle(StackNavigationViewStyle())
+                .environment(\.colorScheme, .light)
         }
     }
 }
@@ -34,9 +40,11 @@ struct SplashView: View {
                 MAinTabbarVC()
                     .overlay(ToastView())
                     .navigationViewStyle(StackNavigationViewStyle())
+                    .environment(\.colorScheme, .light)
             } else {
                 LoginView()
                     .navigationViewStyle(StackNavigationViewStyle())
+                    .environment(\.colorScheme, .light)
             }
         } else {
             ZStack {

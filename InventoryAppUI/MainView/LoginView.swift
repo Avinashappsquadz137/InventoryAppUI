@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var userName = ""
-    @State private var passWord = ""
+    @State private var userName = "9818524882"
+    @State private var passWord = "87654321"
     @State private var worngUserName = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
@@ -19,12 +19,12 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.blue
+                Color.brightOrange
                     .ignoresSafeArea()
                 Circle()
                     //.scale(1.7)
                     .scale(isPad ? 1.5 : 1.7)
-                    .foregroundColor(.white.opacity(0.15))
+                    .foregroundColor(.white.opacity(0.2))
                 Circle()
                     //.scale(1.36)
                     .scale(isPad ? 1.2 : 1.36)
@@ -42,14 +42,14 @@ struct LoginView: View {
                     TextField("Enter Username",text: $userName)
                         .padding()
                         .frame(height: 50)
-                        .background(Color.black.opacity(0.05))
+                        .background(Color.black.opacity(0.09))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(worngUserName))
                     
                     SecureField("Enter Password",text: $passWord)
                         .padding()
                         .frame(height: 50)
-                        .background(Color.black.opacity(0.05))
+                        .background(Color.black.opacity(0.09))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
                     
@@ -60,7 +60,7 @@ struct LoginView: View {
                             .font(.headline)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, maxHeight: 50)
-                            .background(Color.blue)
+                            .background(Color.brightOrange)
                             .cornerRadius(10)
                     }
                     NavigationLink(

@@ -16,6 +16,7 @@ struct RepairProductCell: View {
     
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
     let onEditTapped: () -> Void
+    let onEyeTapped: () -> Void
     
     var body: some View {
         HStack {
@@ -56,17 +57,39 @@ struct RepairProductCell: View {
             }
             .padding(.leading, 10)
             Spacer()
-            
-            Button(action: {
-                onEditTapped()
-            }) {
-                Image(systemName: "pencil")
-                    .font(.system(size: 30))
-                    .foregroundColor(.blue)
+            VStack(spacing : 20){
+                Button(action: {
+                    onEditTapped()
+                }) {
+                    Image(systemName: "pencil")
+                        .font(.system(size: 30))
+                        .foregroundColor(.blue)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Button(action: onEyeTapped) {
+                    Image(systemName: "eye")
+                        .font(.system(size: 20))
+                        .foregroundColor(.blue)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
-            .buttonStyle(PlainButtonStyle())
         }
         .padding(10)
         //        .background(RoundedRectangle(cornerRadius: 12).fill(Color.white).shadow(radius: 5))
+    }
+}
+struct RepairProductCell_Previews: PreviewProvider {
+    static var previews: some View {
+        RepairProductCell(
+            categoryName: "Laptop",
+            brandName: "Apple",
+            modelNo: "MacBook Pro 16\"",
+            sLNo: "ABC123456",
+            itemImageURL: "https://via.placeholder.com/150",
+            onEditTapped: { print("Edit tapped") }, onEyeTapped: { print("Eye tapped") }
+        )
+        .previewLayout(.sizeThatFits)
+        .padding()
     }
 }

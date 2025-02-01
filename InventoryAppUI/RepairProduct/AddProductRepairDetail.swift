@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import UIKit
 
 struct AddProductRepairDetail: View {
     
@@ -107,9 +108,50 @@ struct AddProductRepairDetail: View {
     }
     
     func submitRepairDetails() {
-        // Implement submission logic here
-        print("Submitting Repair Details")
+        var dict = [String: Any]()
+        dict["emp_code"] = "1"
+        dict["product_id"] = product?.iTEM_MASTER_ID ?? "" 
+        dict["repair_address"] = repairAddress
+        dict["phone_no"] = mobileNumber
+        dict["repair_price"] = price
+        dict["issue_date"] = formattedDate(issueDate)
+        dict["repair_date"] = formattedDate(repairingDate)
+        dict["remarks"] = remarks
+        
+        var images: [String: Data] = [:]
+        
+        if let damageImageData = selectedImageDamage?.jpegData(compressionQuality: 0.7) {
+            print("Damage image data size: \(damageImageData.count) bytes")
+            images["thumbnail"] = damageImageData
+        } else {
+            print("Failed to convert damage image to data")
+        }
+
+        if let receiptImageData = selectedImageReceiptBill?.jpegData(compressionQuality: 0.7) {
+            print("Receipt image data size: \(receiptImageData.count) bytes")
+            images["receipt_bill"] = receiptImageData
+        } else {
+            print("Failed to convert receipt image to data")
+        }
+        print(dict)
+        ApiClient.shared.callHttpMethod(apiendpoint: Constant.addItemRepairDetail, method: .post, param: dict, model: RepairListModel.self,isMultipart: true, images: images){ result in
+            switch result {
+            case .success(let model):
+                if let data = model.data {
+                    DispatchQueue.main.async {
+                        
+                    }
+                    print("Fetched items: \(data)")
+                } else {
+                    print("No data received")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
+    
+    
 }
 
 struct SectionHeader: View {

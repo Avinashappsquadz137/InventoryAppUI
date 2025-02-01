@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MotionAnimationView: View {
-    @State private var randomCircle : Int = Int.random(in: 6...12)
+    @State private var randomCircle : Int = Int.random(in: 8...12)
     @State private var isAnimating: Bool = false
     
     //RANDOM CORDINATE
@@ -36,7 +36,7 @@ struct MotionAnimationView: View {
         ZStack {
             ForEach(0...randomCircle,id: \.self) { item in
                 Circle()
-                    .foregroundColor(.blue)
+                    .foregroundColor(.brightOrange)
                     .opacity(0.25)
                     .frame(width: randomSize())
                     .position(x:randomCoordinate(),y: randomCoordinate())
