@@ -81,13 +81,14 @@ struct RepairProductCell: View {
                         .foregroundColor(.blue)
                 }
                 .buttonStyle(PlainButtonStyle())
-                
-                Button(action: onEyeTapped) {
-                    Image(systemName: "eye")
-                        .font(.system(size: 20))
-                        .foregroundColor(.blue)
+                if repairStatus.lowercased() == "pending" {
+                    Button(action: onEyeTapped) {
+                        Image(systemName: "eye")
+                            .font(.system(size: 20))
+                            .foregroundColor(.blue)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .buttonStyle(PlainButtonStyle())
             }
         }
         .padding(10)
