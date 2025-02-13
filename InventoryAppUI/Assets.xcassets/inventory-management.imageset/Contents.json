@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "inventory-management.png",
+      "filename" : "logoTM.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "logoTM@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "logoTM@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

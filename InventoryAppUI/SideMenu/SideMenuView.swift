@@ -167,7 +167,7 @@ struct SideMenuView: View {
         VStack(alignment: .center){
             HStack{
                 Spacer()
-                Image("inventory-management")
+                Image(systemName: "person.circle.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: isPad ? 200 : 100, height:  isPad ? 200 : 100)

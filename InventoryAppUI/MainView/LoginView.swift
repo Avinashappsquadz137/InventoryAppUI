@@ -35,9 +35,10 @@ struct LoginView: View {
                     )
                 VStack(alignment: .center) {
                     Spacer()
-                    Text("Login Inventory")
-                        .font(.largeTitle)
-                        .bold()
+                    Image("inventory-management")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: isPad ? 200 : 80, height:  isPad ? 200 : 70)
                         .padding()
                     TextField("Enter Username",text: $userName)
                         .padding()
