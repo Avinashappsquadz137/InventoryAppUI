@@ -61,7 +61,7 @@ struct ShowScannedItemsCells: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 80, height: 80)
-                        .foregroundColor(scanCount < (Int(itemQuantity) ?? 0) ? .blue : .gray)
+                        .foregroundColor(scanCount < (Int(itemQuantity) ?? 0) ? .brightOrange : .gray)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .disabled(scanCount >= (Int(itemQuantity) ?? 0))
@@ -83,7 +83,7 @@ struct ShowScannedItemsCells: View {
                         .font(.headline)
                         .padding(10)
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.brightOrange)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }

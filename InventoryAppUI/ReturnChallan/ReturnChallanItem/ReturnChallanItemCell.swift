@@ -49,7 +49,7 @@ struct ReturnChallanItemCell: View {
                 }) {
                     Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
                         .font(.system(size: 30))
-                        .foregroundColor(isChecked ? .blue : .gray)
+                        .foregroundColor(isChecked ? .brightOrange : .gray)
                 }
                 .buttonStyle(PlainButtonStyle())
         }

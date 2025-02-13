@@ -51,7 +51,7 @@ struct MainViewItemByDateView: View {
                             showPopup = true
                         }) {
                             Image(systemName: "calendar.badge.plus")
-                                .foregroundColor(.blue)
+                                .foregroundColor(.brightOrange)
                                 .font(.system(size: 30))
                         }
                     }
@@ -66,7 +66,7 @@ struct MainViewItemByDateView: View {
 //                        showPopup = true
 //                    }) {
 //                        Image(systemName: "calendar.badge.plus")
-//                            .foregroundColor(.blue)
+//                            .foregroundColor(.brightOrange)
 //                            .font(.system(size: 100))
 //                    }
 //                }else {

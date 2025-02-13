@@ -18,7 +18,8 @@ class UserDefaultsManager {
     private let fromDateKey = "fromDate"
     private let toDateKey = "toDate"
     private let isLoggedInKey = "isLoggedIn"
-    
+    private let isUserName =  "isUserName"
+    private let emailKey = "userEmail"
     
     func saveFromDate(_ date: Date) {
         UserDefaults.standard.set(date, forKey: fromDateKey)
@@ -44,4 +45,20 @@ class UserDefaultsManager {
         return UserDefaults.standard.bool(forKey: isLoggedInKey)
     }
     
+    func setUserName(_ userName: String) {
+        UserDefaults.standard.set(userName, forKey: isUserName)
+    }
+    
+    func getUserName() -> String {
+        return UserDefaults.standard.string(forKey: isUserName) ?? ""
+    }
+   
+    func setEmail(_ email: String) {
+        UserDefaults.standard.set(email, forKey: emailKey)
+    }
+
+    func getEmail() -> String {
+        return UserDefaults.standard.string(forKey: emailKey) ?? ""
+    }
+
 }

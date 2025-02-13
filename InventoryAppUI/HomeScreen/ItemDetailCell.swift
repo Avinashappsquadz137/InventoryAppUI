@@ -58,7 +58,7 @@ struct ItemDetailCell: View {
                                 .font(.headline)
                                 .padding(10)
                                 .frame(maxWidth: isPad ? 300 : 150)
-                                .background(Color.blue)
+                                .background(Color.brightOrange)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                         }
@@ -107,7 +107,7 @@ struct ItemDetailCell: View {
                                
                             }) {
                                 Image(systemName: "plus.circle")
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.brightOrange)
                                     .font(.system(size: 30))
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -159,7 +159,7 @@ struct ItemDetailCell: View {
                 }) {
                     Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
                         .font(.system(size: 30))
-                        .foregroundColor(isChecked ? .blue : .gray)
+                        .foregroundColor(isChecked ? .brightOrange : .gray)
                 }
                 .buttonStyle(PlainButtonStyle())
             }

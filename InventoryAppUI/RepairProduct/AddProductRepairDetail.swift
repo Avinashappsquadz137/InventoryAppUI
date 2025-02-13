@@ -98,7 +98,7 @@ struct AddProductRepairDetail: View {
                             .font(.headline)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, minHeight: 50)
-                            .background(Color.blue)
+                            .background(Color.brightOrange)
                             .cornerRadius(8)
                     }
                 }
@@ -231,8 +231,8 @@ struct ImageUploadSection: View {
                     }
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 50)
-                    .foregroundColor(.blue)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                    .foregroundColor(.brightOrange)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.brightOrange, lineWidth: 1))
                 }
             }
         }

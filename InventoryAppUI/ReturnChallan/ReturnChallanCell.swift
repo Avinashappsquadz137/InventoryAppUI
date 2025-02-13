@@ -15,7 +15,7 @@ struct ReturnChallanCell: View {
     var body: some View {
         VStack {
             ZStack {
-                Color.blue.opacity(0.2) // Light blue background
+                Color.brightOrange.opacity(0.2) // Light blue background
                     .cornerRadius(8)
                     .frame(width: UIScreen.main.bounds.width / 2 - 20, height: 150)
                 VStack{
@@ -23,7 +23,7 @@ struct ReturnChallanCell: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.brightOrange)
                     Text(title) 
                         .font(.headline)
                 }

@@ -99,12 +99,26 @@ struct MAinTabbarVC: View {
                     
                 }
                 .onAppear(){
-                    UITabBar.appearance().backgroundColor = UIColor(.lightGreyColor)
+                    UITabBar.appearance().backgroundColor = UIColor(.brightOrange)
                 }
-                .accentColor(.blue)
+                .accentColor(.white)
             }
             SideMenu(isShowing: $presentSideMenu, content: AnyView(SideMenuView(selectedSideMenuTab: $selectedView, presentSideMenu: $presentSideMenu)))
         }
+        .onAppear {
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithOpaqueBackground()
+            tabBarAppearance.backgroundColor = UIColor(Color.brightOrange)
+            let itemAppearance = UITabBarItemAppearance()
+            itemAppearance.normal.iconColor = .black
+            itemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+            itemAppearance.selected.iconColor = .white
+            itemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.white]
+            tabBarAppearance.stackedLayoutAppearance = itemAppearance
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
+
         .fullScreenCover(isPresented: $isShowingScanner) {
             QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
         }
@@ -148,8 +162,7 @@ struct NavBar: View {
                 Image(systemName: leftButtonImage)
                     .font(.system(size: 30, weight: .regular))
             }
-            
-            .accentColor(.royalBlue)
+            .accentColor(.black)
             Spacer()
             Text(title)
                 .font(.system(size: 24, weight: .bold))
@@ -160,7 +173,7 @@ struct NavBar: View {
                     Image(systemName: trailingImage)
                         .font(.system(size: 30, weight: .regular))
                 }
-                .accentColor(.royalBlue)
+                .accentColor(.brightOrange)
             }
             
 //            Button(action: rightButtonAction) {
@@ -170,7 +183,7 @@ struct NavBar: View {
 //            .accentColor(royalBlue)
         }
         .padding(16)
-        .background(Color.white)
+        .background(Color.brightOrange)
         .shadow(radius: 10)
     }
 }

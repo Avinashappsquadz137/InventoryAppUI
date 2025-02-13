@@ -78,14 +78,14 @@ struct RepairProductCell: View {
                 }) {
                     Image(systemName: "pencil")
                         .font(.system(size: 30))
-                        .foregroundColor(.blue)
+                        .foregroundColor(.brightOrange)
                 }
                 .buttonStyle(PlainButtonStyle())
-                if repairStatus.lowercased() == "pending" {
+                if repairStatus.lowercased() == "repaired" {
                     Button(action: onEyeTapped) {
                         Image(systemName: "eye")
                             .font(.system(size: 20))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.brightOrange)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }

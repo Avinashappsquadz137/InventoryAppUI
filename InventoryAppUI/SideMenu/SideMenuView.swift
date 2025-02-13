@@ -91,6 +91,9 @@ struct SideMenuView: View {
     @State private var showLogoutAlert: Bool = false
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
     
+    let username: String = UserDefaultsManager.shared.getUserName().uppercased()
+    let email: String = UserDefaultsManager.shared.getEmail().uppercased()
+    
     var body: some View {
         HStack {
             
@@ -98,7 +101,7 @@ struct SideMenuView: View {
                 Rectangle()
                     .fill(.white)
                     .frame(width: 270)
-                    .shadow(color: .blue.opacity(0.1), radius: 5, x: 0, y: 3)
+                    .shadow(color: Color.brightOrange.opacity(0.1), radius: 5, x: 0, y: 3)
                 
                 VStack(alignment: .leading, spacing: 0) {
                     ProfileImageView()
@@ -170,17 +173,17 @@ struct SideMenuView: View {
                     .frame(width: isPad ? 200 : 100, height:  isPad ? 200 : 100)
                     .overlay(
                         RoundedRectangle(cornerRadius: isPad ? 100 : 50)
-                            .stroke(.green.opacity(0.5), lineWidth: isPad ? 20 : 10)
+                            .stroke(Color.brightOrange.opacity(0.5), lineWidth: isPad ? 20 : 10)
                     )
                     .cornerRadius(isPad ? 100 : 50)
                 Spacer()
             }
             
-            Text("AVINASH GUPTA")
+            Text(username)
                 .font(.system(size: isPad ? 24 : 18, weight: .bold))
                 .foregroundColor(.black)
             
-            Text("IOS Developer")
+            Text(email)
                 .font(.system(size: isPad ? 18 : 14, weight: .semibold))
                 .foregroundColor(.black.opacity(0.5))
         }
@@ -207,7 +210,7 @@ struct SideMenuView: View {
             VStack(alignment: .leading){
                 HStack(spacing: 20){
                     Rectangle()
-                        .fill(isSelected ? .blue : .white)
+                        .fill(isSelected ? Color.brightOrange : .white)
                         .frame(width: 5)
                     
                     ZStack{
@@ -227,7 +230,7 @@ struct SideMenuView: View {
         }
         .frame(height: 50)
         .background(
-            LinearGradient(colors: [isSelected ? .blue.opacity(0.5) : .white, .white], startPoint: .leading, endPoint: .trailing)
+            LinearGradient(colors: [isSelected ? Color.brightOrange.opacity(0.5) : .white, .white], startPoint: .leading, endPoint: .trailing)
         )
     }
     func logout() {

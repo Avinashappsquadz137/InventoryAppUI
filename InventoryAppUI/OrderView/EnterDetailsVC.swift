@@ -59,7 +59,7 @@ struct EnterDetailsVC: View {
                         }
                     }
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.brightOrange)
                     .foregroundColor(.white)
                     .cornerRadius(8)
                     
@@ -207,7 +207,7 @@ struct MultiSelectView: View {
                     Spacer()
                     if selectedMembers.contains(member.id ?? "") {
                         Image(systemName: "checkmark")
-                            .foregroundColor(.blue)
+                            .foregroundColor(.brightOrange)
                     }
                 }
                 .contentShape(Rectangle())

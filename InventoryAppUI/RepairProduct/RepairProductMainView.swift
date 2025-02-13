@@ -48,7 +48,7 @@ struct RepairProductMainView: View {
                                     .font(.system(size: 14, weight: .bold))
                                     .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.blue)
+                                    .background(Color.brightOrange)
                                     .foregroundColor(.white)
                                     .cornerRadius(8)
                             }

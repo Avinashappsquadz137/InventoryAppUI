@@ -42,7 +42,7 @@ struct QRScannerView: View {
                         }) {
                             Text("Add Item")
                                 .padding()
-                                .background(Color.blue)
+                                .background(Color.brightOrange)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                         }

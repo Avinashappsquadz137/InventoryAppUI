@@ -33,7 +33,7 @@ struct ReturnChallanByID: View {
                         .font(.headline)
                         .padding(10)
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.brightOrange)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
@@ -80,7 +80,7 @@ struct ReturnChallanByID: View {
                                 .font(.headline)
                                 .padding(10)
                                 .frame(maxWidth: .infinity)
-                                .background(texteWayBill.isEmpty || textVehicleNo.isEmpty ? Color.blue.opacity(0.3) : Color.blue)
+                                .background(texteWayBill.isEmpty || textVehicleNo.isEmpty ? Color.brightOrange.opacity(0.3) : Color.brightOrange)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }

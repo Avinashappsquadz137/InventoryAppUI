@@ -54,7 +54,7 @@ struct CreateChallanDetails: View {
                     .font(.headline)
                     .padding(10)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color.brightOrange)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }

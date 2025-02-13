@@ -96,6 +96,8 @@ struct LoginView: View {
                     if let data = model.data {
                         showingLoginScreen = true
                         UserDefaultsManager.shared.setLoggedIn(true)
+                        UserDefaultsManager.shared.setUserName(data.username ?? "")
+                        UserDefaultsManager.shared.setEmail(data.email ?? "")
                         print("Fetched items: \(data)")
                     } else {
                         wrongPassword = 2

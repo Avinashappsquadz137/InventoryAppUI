@@ -25,7 +25,7 @@ struct SubmitView: View {
                     Text("View/Download PDF")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.brightOrange)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }

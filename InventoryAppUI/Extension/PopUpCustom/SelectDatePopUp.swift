@@ -32,8 +32,8 @@ struct SelectDatePopUp: View {
                     .font(.headline)
                     .padding(10)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue.opacity(0.1))
-                    .foregroundColor(.blue)
+                    .background(Color.brightOrange.opacity(0.1))
+                    .foregroundColor(.brightOrange)
                     .cornerRadius(8)
             }
 
@@ -54,7 +54,7 @@ struct SelectDatePopUp: View {
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
-                .background(Color.blue.opacity(0.1))
+                .background(Color.brightOrange.opacity(0.1))
                 .cornerRadius(8)
                 .padding(10)
             }
@@ -67,8 +67,8 @@ struct SelectDatePopUp: View {
                     .font(.headline)
                     .padding(10)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue.opacity(0.1))
-                    .foregroundColor(.blue)
+                    .background(Color.brightOrange.opacity(0.1))
+                    .foregroundColor(.brightOrange)
                     .cornerRadius(8)
             }
             
@@ -90,7 +90,7 @@ struct SelectDatePopUp: View {
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
-                .background(Color.blue.opacity(0.1))
+                .background(Color.brightOrange.opacity(0.1))
                 .cornerRadius(8)
                 .padding(10)
             }
@@ -117,7 +117,7 @@ struct SelectDatePopUp: View {
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.brightOrange)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }

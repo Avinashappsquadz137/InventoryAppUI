@@ -40,7 +40,7 @@ struct MoreOrderCell: View {
                                 .font(.callout)
                                 .padding(.vertical, 8)
                                 .padding(.horizontal, 16)
-                                .background(Color.blue)
+                                .background(Color.brightOrange)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                         }
@@ -56,7 +56,7 @@ struct MoreOrderCell: View {
                         }){
                             Image(systemName: "mappin.and.ellipse.circle")
                                 .font(.system(size: 30))
-                                .foregroundColor(.blue)
+                                .foregroundColor(.brightOrange)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
@@ -68,7 +68,7 @@ struct MoreOrderCell: View {
                             .font(.callout)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
-                            .background(Color.blue)
+                            .background(Color.brightOrange)
                             .foregroundColor(.white)
                             .cornerRadius(8)
                     }
