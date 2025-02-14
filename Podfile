@@ -7,4 +7,9 @@ target 'InventoryAppUI' do
 
   # Pods for InventoryAppUI
 pod 'Alamofire'
+pod 'Firebase/Core'
+pod 'FirebaseAnalytics'
+pod 'FirebaseCrashlytics'
+pod 'Firebase/Messaging'
+
 end

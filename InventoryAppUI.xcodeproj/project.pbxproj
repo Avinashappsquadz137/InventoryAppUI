@@ -21,6 +21,7 @@
 		C72A5E4F2D32712400B73D29 /* ShowScannedItemsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72A5E4E2D32712400B73D29 /* ShowScannedItemsCells.swift */; };
 		C7344C562D38E05000D1E030 /* MainViewItemByDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7344C552D38E05000D1E030 /* MainViewItemByDateView.swift */; };
 		C7344C582D38E3AB00D1E030 /* GetItemByDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7344C572D38E3AB00D1E030 /* GetItemByDateModel.swift */; };
+		C75DBE582D5F478E00540200 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C75DBE572D5F478E00540200 /* GoogleService-Info.plist */; };
 		C76C8ED62D36A29500F3A8E3 /* EnterChallanIDModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */; };
 		C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB8E2D227FE600B51955 /* QRScannerView.swift */; };
 		C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB932D22C1DA00B51955 /* SideMenuView.swift */; };
@@ -78,6 +79,8 @@
 		C72A5E4E2D32712400B73D29 /* ShowScannedItemsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowScannedItemsCells.swift; sourceTree = "<group>"; };
 		C7344C552D38E05000D1E030 /* MainViewItemByDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewItemByDateView.swift; sourceTree = "<group>"; };
 		C7344C572D38E3AB00D1E030 /* GetItemByDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetItemByDateModel.swift; sourceTree = "<group>"; };
+		C75DBE562D5F3B8C00540200 /* InventoryAppUIDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InventoryAppUIDebug.entitlements; sourceTree = "<group>"; };
+		C75DBE572D5F478E00540200 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterChallanIDModal.swift; sourceTree = "<group>"; };
 		C76EFB8E2D227FE600B51955 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		C76EFB932D22C1DA00B51955 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
@@ -399,6 +402,8 @@
 		C7DC34742D0AB20300FAC786 /* InventoryAppUI */ = {
 			isa = PBXGroup;
 			children = (
+				C75DBE562D5F3B8C00540200 /* InventoryAppUIDebug.entitlements */,
+				C75DBE572D5F478E00540200 /* GoogleService-Info.plist */,
 				C7F0DFAA2D26CC1B000656B8 /* Info.plist */,
 				C7868DAB2D0AF6B600D09D41 /* Helpers */,
 				C7868DA62D0AF37A00D09D41 /* Model */,
@@ -491,6 +496,7 @@
 			files = (
 				C7DC347D2D0AB20400FAC786 /* Preview Assets.xcassets in Resources */,
 				C7DC347A2D0AB20400FAC786 /* Assets.xcassets in Resources */,
+				C75DBE582D5F478E00540200 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +729,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = InventoryAppUI/InventoryAppUIDebug.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"InventoryAppUI/Preview Content\"";
@@ -743,8 +751,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.InventoryApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.InventoryAppUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

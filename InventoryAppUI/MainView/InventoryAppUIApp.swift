@@ -6,15 +6,22 @@
 //
 
 import SwiftUI
-
+import Firebase
+import UserNotifications
+import FirebaseMessaging
+import FirebaseCore
 @main
 struct InventoryAppUIApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     init() {
-        UIApplication.shared.windows.forEach { window in
-            window.overrideUserInterfaceStyle = .light
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            scene.windows.forEach { window in
+                window.overrideUserInterfaceStyle = .light
+            }
         }
     }
+
     var body: some Scene {
         WindowGroup {
             SplashView()
@@ -25,9 +32,87 @@ struct InventoryAppUIApp: App {
 }
 class AppDelegate: NSObject, UIApplicationDelegate {
     
+    let gcmMessageIDKey = "AIzaSyCrCt043HGB2f6DitISAWE1Gy-qYq4jGSs"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+       
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions
+        ) { granted, error in
+            if granted {
+                print("Notification permission granted.")
+            } else {
+                print("Notification permission denied.")
+            }
+        }
+
+        application.registerForRemoteNotifications()
+
+
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM token: \(error)")
+            } else if let token = token {
+                print("FCM Token: \(token)")
+            }
+        }
+
         return true
     }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register for remote notifications: \(error.localizedDescription)")
+    }
+
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async
+      -> UIBackgroundFetchResult {
+      
+      if let messageID = userInfo[gcmMessageIDKey] {
+        print("Message ID: \(messageID)")
+      }
+
+      print(userInfo)
+
+      return UIBackgroundFetchResult.newData
+    }
+}
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        guard let fcmToken = fcmToken else {
+            print("FCM Token is nil")
+            return
+        }
+        print("FCM Token: \(fcmToken)")
+
+    }
+}
+extension AppDelegate: UNUserNotificationCenterDelegate {
+
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              willPresent notification: UNNotification) async
+    -> UNNotificationPresentationOptions {
+    let userInfo = notification.request.content.userInfo
+
+    print("📩 Foreground Notification Data: \(userInfo)")
+
+    return [.alert, .sound, .badge]
+  }
+
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse) async {
+    let userInfo = response.notification.request.content.userInfo
+
+    print("📩 User tapped notification: \(userInfo)")
+  }
 }
 
 
