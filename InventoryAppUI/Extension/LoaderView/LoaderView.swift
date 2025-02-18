@@ -21,6 +21,7 @@ class LoaderView: UIView {
         loader = UIActivityIndicatorView(style: .large)
         loader.center = self.center
         loader.hidesWhenStopped = true
+        loader.color = UIColor(Color.brightOrange)
         self.addSubview(loader)
     }
 

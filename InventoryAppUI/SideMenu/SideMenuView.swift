@@ -118,7 +118,7 @@ struct SideMenuView: View {
                                      
                                  }else if row == .privacyPolicy {
                                     //showWebView = true
-                                    if let url = URL(string: "https://github.com/Avinashgupta137") {
+                                    if let url = URL(string: "https://app.sanskargroup.in/terms.html") {
                                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                                     }
                                 } else {
