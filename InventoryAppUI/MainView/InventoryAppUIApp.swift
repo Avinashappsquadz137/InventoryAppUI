@@ -58,6 +58,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 print("Error fetching FCM token: \(error)")
             } else if let token = token {
                 print("FCM Token: \(token)")
+                UserDefaultsManager.shared.setFCMToken(token)
             }
         }
 
@@ -91,6 +92,7 @@ extension AppDelegate: MessagingDelegate {
             print("FCM Token is nil")
             return
         }
+        UserDefaultsManager.shared.setFCMToken(fcmToken)
         print("FCM Token: \(fcmToken)")
 
     }

@@ -84,7 +84,13 @@ struct LoginView: View {
     }
     
     func getlogin(username : String , password : String) {
-        let parameters: [String: Any] = ["Password": "\(password)","Mobile" : "\(username)"]
+
+        let parameters: [String: Any] = [
+            "Password": password,
+            "Mobile": username,
+            "DeviceID": UIDevice.current.identifierForVendor?.uuidString ?? "",
+            "FCMToken": UserDefaultsManager.shared.getFCMToken()
+        ]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.getlogin,
             method: .post,

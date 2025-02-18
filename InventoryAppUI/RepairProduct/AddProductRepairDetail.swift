@@ -28,10 +28,10 @@ struct AddProductRepairDetail: View {
     
     @State private var itemRepair: [ItemRepairById] = []
 
-    init(product: RepairList?) {
-        self.product = product
-        getItemRepairById()
-    }
+//    init(product: RepairList?) {
+//        self.product = product
+//        getItemRepairById()
+//    }
     
     var body: some View {
         NavigationStack {
@@ -83,14 +83,14 @@ struct AddProductRepairDetail: View {
                             isCamera: $isCamera,
                             isDamage: false
                         )
-                        ImageUploadSection(
-                            title: "Damage Item Photo",
-                            selectedImage: $selectedImageDamage,
-                            isImagePickerPresented: $isImagePickerPresented,
-                            isPickingForDamage: $isPickingForDamage,
-                            isCamera: $isCamera,
-                            isDamage: true
-                        )
+//                        ImageUploadSection(
+//                            title: "Damage Item Photo",
+//                            selectedImage: $selectedImageDamage,
+//                            isImagePickerPresented: $isImagePickerPresented,
+//                            isPickingForDamage: $isPickingForDamage,
+//                            isCamera: $isCamera,
+//                            isDamage: true
+//                        )
                     }
                     
                     Button(action: submitRepairDetails) {
@@ -105,6 +105,9 @@ struct AddProductRepairDetail: View {
                 .padding()
             }
             .navigationTitle("Add Repair Details")
+            .onAppear {
+                getItemRepairById()
+            }
             .sheet(isPresented: $isImagePickerPresented) {
                 ImagePicker(
                     image: isPickingForDamage ? $selectedImageDamage : $selectedImageReceiptBill,
@@ -115,71 +118,104 @@ struct AddProductRepairDetail: View {
     }
     
     func getItemRepairById() {
-        var dict = [String: Any]()
-        dict["emp_code"] = "1"
-        dict["repair_id"] = product?.iTEM_REPAIR_ID
-        
-        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getItemRepairById, method: .post, param: dict, model: GetItemRepairByIdModel.self){ result in
-            switch result {
-            case .success(let model):
-                if let data = model.data {
-                    DispatchQueue.main.async {
-                        self.itemRepair = [data]
+            guard let repairID = product?.iTEM_REPAIR_ID else { return }
+            
+            let dict: [String: Any] = [
+                "emp_code": "1",
+                "repair_id": repairID
+            ]
+            
+            ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getItemRepairById, method: .post, param: dict, model: GetItemRepairByIdModel.self) { result in
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        DispatchQueue.main.async {
+                            self.itemRepair = [data]
+                            self.repairAddress = data.repair_address ?? ""
+                            self.mobileNumber = data.receipt_center_phoneno ?? ""
+                            self.repairCenterPhone = data.receipt_center_phoneno ?? ""
+                            self.price = data.repairing_price ?? ""
+                            self.remarks = data.remarks ?? ""
+                            if let issueDateString = data.issue_date {
+                                self.issueDate = convertToDate(issueDateString) ?? Date()
+                            }
+                            
+                            if let repairingDateString = data.repair_date {
+                                self.repairingDate = convertToDate(repairingDateString) ?? Date()
+                            }
+                            if let receiptBillURL = data.receipt_bill, !receiptBillURL.isEmpty {
+                                loadImage(from: receiptBillURL) { image in
+                                    DispatchQueue.main.async {
+                                        self.selectedImageReceiptBill = image
+                                    }
+                                }
+                            }
+
+                        }
+                    } else {
+                        print("No data received")
                     }
-                    print("Fetched items: \(data)")
-                } else {
-                    print("No data received")
+                case .failure(let error):
+                    print("Error fetching repair details:", error)
                 }
-            case .failure(let error):
-                print(error)
             }
         }
-    }
-    
-    func submitRepairDetails() {
-        var dict = [String: Any]()
-        dict["emp_code"] = "1"
-        dict["product_id"] = product?.iTEM_MASTER_ID ?? "" 
-        dict["repair_address"] = repairAddress
-        dict["phone_no"] = mobileNumber
-        dict["repair_price"] = price
-        dict["issue_date"] = formattedDate(issueDate)
-        dict["repair_date"] = formattedDate(repairingDate)
-        dict["remarks"] = remarks
-        dict["repair_id"] = product?.iTEM_REPAIR_ID
-        
-        var images: [String: Data] = [:]
-        
-        if let damageImageData = selectedImageDamage?.jpegData(compressionQuality: 0.7) {
-            print("Damage image data size: \(damageImageData.count) bytes")
-            images["thumbnail"] = damageImageData
-        } else {
-            print("Failed to convert damage image to data")
+    func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: "\(ApiRequest.Url.serverURL)" + urlString) else {
+            completion(nil)
+            return
         }
 
-        if let receiptImageData = selectedImageReceiptBill?.jpegData(compressionQuality: 0.7) {
-            print("Receipt image data size: \(receiptImageData.count) bytes")
-            images["receipt_bill"] = receiptImageData
-        } else {
-            print("Failed to convert receipt image to data")
-        }
-        print(dict)
-        ApiClient.shared.callHttpMethod(apiendpoint: Constant.updateItemRepairDetail, method: .post, param: dict, model: RepairListModel.self,isMultipart: true, images: images){ result in
-            switch result {
-            case .success(let model):
-                if let data = model.data {
-                    DispatchQueue.main.async {
-                        
-                    }
-                    print("Fetched items: \(data)")
-                } else {
-                    print("No data received")
-                }
-            case .failure(let error):
-                print(error)
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data = data, let image = UIImage(data: data) {
+                completion(image)
+            } else {
+                print("Failed to load image:", error?.localizedDescription ?? "Unknown error")
+                completion(nil)
             }
-        }
+        }.resume()
     }
+
+    func submitRepairDetails() {
+          guard let productID = product?.iTEM_MASTER_ID, let repairID = product?.iTEM_REPAIR_ID else {
+              print("Invalid product or repair ID")
+              return
+          }
+          
+          let dict: [String: Any] = [
+              "emp_code": "1",
+              "product_id": productID,
+              "repair_address": repairAddress,
+              "phone_no": mobileNumber,
+              "repair_price": price,
+              "issue_date": formattedDate(issueDate),
+              "repair_date": formattedDate(repairingDate),
+              "remarks": remarks,
+              "repair_id": repairID
+          ]
+          
+          var images: [String: Data] = [:]
+//          
+//          if let damageImageData = selectedImageDamage?.jpegData(compressionQuality: 0.7) {
+//              images["thumbnail"] = damageImageData
+//          }
+          if let receiptImageData = selectedImageReceiptBill?.jpegData(compressionQuality: 0.7) {
+              images["receipt_bill"] = receiptImageData
+          }
+
+          ApiClient.shared.callHttpMethod(apiendpoint: Constant.updateItemRepairDetail, method: .post, param: dict, model: RepairListModel.self, isMultipart: true, images: images) { result in
+              switch result {
+              case .success(let model):
+                  if model.data != nil {
+                      print("Successfully updated repair details")
+                  } else {
+                      print("No data returned")
+                  }
+              case .failure(let error):
+                  print("Error updating repair details:", error)
+              }
+          }
+      }
     
     
 }

@@ -22,6 +22,7 @@
 		C7344C562D38E05000D1E030 /* MainViewItemByDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7344C552D38E05000D1E030 /* MainViewItemByDateView.swift */; };
 		C7344C582D38E3AB00D1E030 /* GetItemByDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7344C572D38E3AB00D1E030 /* GetItemByDateModel.swift */; };
 		C75DBE582D5F478E00540200 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C75DBE572D5F478E00540200 /* GoogleService-Info.plist */; };
+		C766C5452D6482700036CA48 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C766C5442D6482700036CA48 /* LoaderView.swift */; };
 		C76C8ED62D36A29500F3A8E3 /* EnterChallanIDModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */; };
 		C76EFB8F2D227FE600B51955 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB8E2D227FE600B51955 /* QRScannerView.swift */; };
 		C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB932D22C1DA00B51955 /* SideMenuView.swift */; };
@@ -81,6 +82,7 @@
 		C7344C572D38E3AB00D1E030 /* GetItemByDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetItemByDateModel.swift; sourceTree = "<group>"; };
 		C75DBE562D5F3B8C00540200 /* InventoryAppUIDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InventoryAppUIDebug.entitlements; sourceTree = "<group>"; };
 		C75DBE572D5F478E00540200 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C766C5442D6482700036CA48 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		C76C8ED52D36A29500F3A8E3 /* EnterChallanIDModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterChallanIDModal.swift; sourceTree = "<group>"; };
 		C76EFB8E2D227FE600B51955 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		C76EFB932D22C1DA00B51955 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,14 @@
 			path = MainViewItemByDate;
 			sourceTree = "<group>";
 		};
+		C766C5432D64825E0036CA48 /* LoaderView */ = {
+			isa = PBXGroup;
+			children = (
+				C766C5442D6482700036CA48 /* LoaderView.swift */,
+			);
+			path = LoaderView;
+			sourceTree = "<group>";
+		};
 		C76EFB8D2D227FD400B51955 /* QRScannerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +310,7 @@
 		C7868D7C2D0AC78500D09D41 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C766C5432D64825E0036CA48 /* LoaderView */,
 				C78354942D312F9100959FEA /* ViewModifier */,
 				C718A9762D29533A00487615 /* Toster */,
 				C76F1ED12D1069E3000D0ADC /* PopUpCustom */,
@@ -596,6 +607,7 @@
 				C724F5A22D3A5ACE00C01873 /* SubmitChallanModel.swift in Sources */,
 				C72A5E482D32417500B73D29 /* RequestData.swift in Sources */,
 				C7A5A5D12D420A4400E4EC96 /* LoginView.swift in Sources */,
+				C766C5452D6482700036CA48 /* LoaderView.swift in Sources */,
 				C7DC34762D0AB20300FAC786 /* InventoryAppUIApp.swift in Sources */,
 				C7868DB42D0AF92800D09D41 /* GetAllItemModel.swift in Sources */,
 			);

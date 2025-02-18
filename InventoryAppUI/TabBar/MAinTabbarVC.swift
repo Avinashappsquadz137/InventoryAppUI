@@ -173,7 +173,7 @@ struct NavBar: View {
                     Image(systemName: trailingImage)
                         .font(.system(size: 30, weight: .regular))
                 }
-                .accentColor(.brightOrange)
+                .accentColor(.black)
             }
             
 //            Button(action: rightButtonAction) {

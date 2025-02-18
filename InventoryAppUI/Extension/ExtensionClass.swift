@@ -34,3 +34,11 @@ func formattedDate(from dateString: String, fromFormat: String, toFormat: String
         return nil
     }
 }
+
+func convertToDate(_ dateString: String) -> Date? {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd-MM-yyyy" 
+    formatter.timeZone = TimeZone.current
+    formatter.locale = Locale.current
+    return formatter.date(from: dateString)
+}

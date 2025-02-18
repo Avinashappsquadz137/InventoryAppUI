@@ -224,6 +224,9 @@ class ApiClient: NSObject {
         model: T.Type,
         completion: @escaping (Result<T, Error>) -> Void
     ){
+        DispatchQueue.main.async {
+            LoaderView.shared.show(in: UIApplication.shared.keyWindow ?? UIWindow())
+        }
         var apiMethod: HTTPMethod = .get
         var urlEncoding: ParameterEncoding = URLEncoding.queryString
         let header = setHeader()
@@ -255,11 +258,14 @@ class ApiClient: NSObject {
                       print("Upload Progress: \(progress.fractionCompleted)")
                   }
             .response { response in
-           // self.removeRequest(requests)
-            print("Response:--", response.response?.statusCode ?? 00)
-            
-            switch response.result {
-            case .success(let data):
+                // self.removeRequest(requests)
+                DispatchQueue.main.async {
+                    LoaderView.shared.hide()
+                }
+                print("Response:--", response.response?.statusCode ?? 00)
+                
+                switch response.result {
+                case .success(let data):
                
                 do {
                     if let jsonObject = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any] {

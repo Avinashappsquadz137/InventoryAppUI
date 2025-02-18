@@ -20,6 +20,7 @@ class UserDefaultsManager {
     private let isLoggedInKey = "isLoggedIn"
     private let isUserName =  "isUserName"
     private let emailKey = "userEmail"
+    private let fCMToken = "FCMToken"
     
     func saveFromDate(_ date: Date) {
         UserDefaults.standard.set(date, forKey: fromDateKey)
@@ -60,5 +61,13 @@ class UserDefaultsManager {
     func getEmail() -> String {
         return UserDefaults.standard.string(forKey: emailKey) ?? ""
     }
+    
+    func setFCMToken(_ token: String) {
+        UserDefaults.standard.set(token, forKey: fCMToken)
+    }
 
+    func getFCMToken() -> String {
+        return UserDefaults.standard.string(forKey: fCMToken) ?? ""
+    }
+    
 }
