@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var userName = "9818524882"
-    @State private var passWord = "87654321"
+    @State private var userName = ""
+    @State private var passWord = ""
     @State private var worngUserName = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
