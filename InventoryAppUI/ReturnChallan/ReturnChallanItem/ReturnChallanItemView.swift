@@ -10,14 +10,17 @@ import SwiftUI
 struct ReturnChallanItemView: View {
     
     var challanDetail: ChallanIDModal
+    var texteWayBill: String 
+    var textVehicleNo: String
     @State private var isChecked = false
     @State private var itemCheckedStates: [Bool]
     
-    init(challanDetail: ChallanIDModal, isCheckboxVisible: Bool) {
-        self.challanDetail = challanDetail
-        _itemCheckedStates = State(initialValue: Array(repeating: false, count: challanDetail.products?.count ?? 0))
-    }
-    
+    init(challanDetail: ChallanIDModal, isCheckboxVisible: Bool, texteWayBill: String, textVehicleNo: String) {
+            self.challanDetail = challanDetail
+            self.texteWayBill = texteWayBill
+            self.textVehicleNo = textVehicleNo 
+            _itemCheckedStates = State(initialValue: Array(repeating: false, count: challanDetail.products?.count ?? 0))
+        }
     
     var body: some View {
         VStack {
@@ -85,12 +88,14 @@ struct ReturnChallanItemView: View {
         let parameters: [String: Any] = [
             "emp_code": "1",
             "challan_id": "\(challanDetail.temp_id ?? "")",
-            "products" : selectedProductIDs]
+            "products" : selectedProductIDs,
+            "vehicleNo" : textVehicleNo,
+            "eway_bill_no" : texteWayBill]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.returnItemByChallanId,
             method: .post,
             param: parameters,
-            model: RemoveData.self
+            model: ReturnItemChallanId.self
         ) { result in
             DispatchQueue.main.async {
                 switch result {

@@ -70,10 +70,15 @@ struct ReturnChallanByID: View {
                 if challanDetail != nil {
                     NavigationLink(
                         destination: Group {
-                              if let detail = challanDetail {
-                                  ReturnChallanItemView(challanDetail: detail, isCheckboxVisible: true)
-                              }
-                          },
+                            if let detail = challanDetail {
+                                ReturnChallanItemView(
+                                    challanDetail: detail,
+                                    isCheckboxVisible: true,
+                                    texteWayBill: texteWayBill,
+                                    textVehicleNo: textVehicleNo
+                                )
+                            }
+                        },
                         isActive: $isNavigatingToNext,
                         label: {
                             Text("Next")

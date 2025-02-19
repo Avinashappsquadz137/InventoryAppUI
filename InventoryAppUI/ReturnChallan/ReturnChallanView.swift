@@ -43,7 +43,7 @@ struct ReturnChallanView: View {
             QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
         }
         .fullScreenCover(isPresented: $showDateilScreen) {
-            ReturnChallanByID()
+            ReturnChallanByID().environment(\.colorScheme, .light)
         }
     }
 }
