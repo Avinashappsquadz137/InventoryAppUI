@@ -6,6 +6,7 @@ target 'InventoryAppUI' do
   use_frameworks!
 
   # Pods for InventoryAppUI
+pod 'IQKeyboardManagerSwift', '~> 8.0'
 pod 'Alamofire'
 pod 'Firebase/Core'
 pod 'FirebaseAnalytics'

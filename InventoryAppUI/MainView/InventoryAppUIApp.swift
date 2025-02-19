@@ -10,6 +10,8 @@ import Firebase
 import UserNotifications
 import FirebaseMessaging
 import FirebaseCore
+import IQKeyboardManagerSwift
+
 @main
 struct InventoryAppUIApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -37,6 +39,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+        IQKeyboardManager.shared.resignOnTouchOutside = true
         UNUserNotificationCenter.current().delegate = self
        
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]

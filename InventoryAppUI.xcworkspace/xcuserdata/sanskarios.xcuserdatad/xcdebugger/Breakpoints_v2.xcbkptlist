@@ -16,8 +16,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
             endingLineNumber = "142"
-            landmarkName = "submitRepairDetails()"
+            landmarkName = "getItemRepairById()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "920A1A6E-CDCE-4132-8F2A-D4E94585E630 - a4eba57bab9ffa98"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetItemRepairByIdModel, Swift.Error&gt;) -&gt; () in InventoryAppUI.AddProductRepairDetail.getItemRepairById() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/RepairProduct/AddProductRepairDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143"
+                  offsetFromSymbolStart = "3032">
+               </Location>
+               <Location
+                  uuid = "920A1A6E-CDCE-4132-8F2A-D4E94585E630 - a4eba57bab9ffa98"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;InventoryAppUI.GetItemRepairByIdModel, Swift.Error&gt;) -&gt; () in InventoryAppUI.AddProductRepairDetail.getItemRepairById() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/RepairProduct/AddProductRepairDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143"
+                  offsetFromSymbolStart = "3100">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,10 +78,42 @@
             filePath = "InventoryAppUI/MainView/InventoryAppUIApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "application(_:didReceiveRemoteNotification:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "461BC8E6-E55F-4D25-A591-D00E51535EE5 - 6c7a37291c163a27"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) async -&gt; __C.UIBackgroundFetchResult"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "461BC8E6-E55F-4D25-A591-D00E51535EE5 - 6c7a37291c163d84"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) async -&gt; __C.UIBackgroundFetchResult"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -62,10 +126,72 @@
             filePath = "InventoryAppUI/MainView/InventoryAppUIApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "application(_:didReceiveRemoteNotification:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A953A47B-37E7-4154-9237-12A43997709D - ac9f34b647692bcf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) async -&gt; __C.UIBackgroundFetchResult"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "A953A47B-37E7-4154-9237-12A43997709D - 6c7a37291c163aa3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) async -&gt; __C.UIBackgroundFetchResult"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "A953A47B-37E7-4154-9237-12A43997709D - ac9f34b647692b6c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) async -&gt; __C.UIBackgroundFetchResult"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "A953A47B-37E7-4154-9237-12A43997709D - 6c7a37291c163a00"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didReceiveRemoteNotification: Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;) async -&gt; __C.UIBackgroundFetchResult"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -78,10 +204,42 @@
             filePath = "InventoryAppUI/MainView/InventoryAppUIApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "application(_:didFailToRegisterForRemoteNotificationsWithError:)"
-            landmarkType = "7">
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "37B21F19-CDB2-4163-9B3A-FCAEDB15CC26 - 805549ce12b6deb6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didFailToRegisterForRemoteNotificationsWithError: Swift.Error) -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "37B21F19-CDB2-4163-9B3A-FCAEDB15CC26 - 805549ce12b6df4b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didFailToRegisterForRemoteNotificationsWithError: Swift.Error) -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "124">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,9 +252,120 @@
             filePath = "InventoryAppUI/MainView/InventoryAppUIApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "873C89A6-9F6B-47FF-8FB6-E1BA7D1A56DA - 602f1e5a13c08484"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Foundation.Data) -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "873C89A6-9F6B-47FF-8FB6-E1BA7D1A56DA - 602f1e5a13c08461"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "InventoryAppUI.AppDelegate.application(_: __C.UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Foundation.Data) -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/MainView/InventoryAppUIApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EFD5207C-42F5-4405-AFEE-5B9B521322F9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InventoryAppUI/ReturnChallan/ReturnChallanItem/ReturnChallanItemView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "returnItemByChallanId()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EFD5207C-42F5-4405-AFEE-5B9B521322F9 - b24fcf4231c3692a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #4 (Swift.Result&lt;InventoryAppUI.ReturnItemChallanId, Swift.Error&gt;) -&gt; () in InventoryAppUI.ReturnChallanItemView.returnItemByChallanId() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/ReturnChallan/ReturnChallanItem/ReturnChallanItemView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "568">
+               </Location>
+               <Location
+                  uuid = "EFD5207C-42F5-4405-AFEE-5B9B521322F9 - b24fcf4231c3692a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #4 (Swift.Result&lt;InventoryAppUI.ReturnItemChallanId, Swift.Error&gt;) -&gt; () in InventoryAppUI.ReturnChallanItemView.returnItemByChallanId() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/ReturnChallan/ReturnChallanItem/ReturnChallanItemView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "EFD5207C-42F5-4405-AFEE-5B9B521322F9 - b24fcf4231c3692a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #4 (Swift.Result&lt;InventoryAppUI.ReturnItemChallanId, Swift.Error&gt;) -&gt; () in InventoryAppUI.ReturnChallanItemView.returnItemByChallanId() -&gt; ()"
+                  moduleName = "InventoryAppUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanskarios/Documents/Appsquadz/InventoryAppUI/InventoryAppUI/ReturnChallan/ReturnChallanItem/ReturnChallanItemView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "332">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "260BFEDE-3570-4B73-8B84-8A2654EC7B0C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InventoryAppUI/ReturnChallan/ReturnChallanItem/ReturnChallanItemView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "returnItemByChallanId()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
