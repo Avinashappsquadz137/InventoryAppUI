@@ -132,7 +132,7 @@ struct AllCartList: View {
             }
 
             .fullScreenCover(isPresented: $showDateilScreen) {
-                CreateChallanDetails(checkedStates: checkedStates)
+                CreateChallanDetails(checkedStates: checkedStates).environment(\.colorScheme, .light)
             }
         }
         .onAppear {
