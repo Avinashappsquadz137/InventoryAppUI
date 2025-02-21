@@ -134,18 +134,10 @@ struct ItemDetailCell: View {
                         Spacer()
                         Button(action: {
                             onDelete()
-                           // deleteCartItem()
                         }) {
                             Image(systemName: "trash")
                                 .font(.system(size: 20))
                                 .foregroundColor(.red)
-//                            Text("DELETE")
-//                                .font(.headline)
-//                                .padding(8)
-//                                .frame(maxWidth: 100)
-//                                .background(Color.red)
-//                                .foregroundColor(.white)
-//                                .cornerRadius(8)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }

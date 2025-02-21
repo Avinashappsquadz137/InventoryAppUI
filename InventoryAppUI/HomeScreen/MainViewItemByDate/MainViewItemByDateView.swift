@@ -12,18 +12,14 @@ struct MainViewItemByDateView: View {
     @State private var item: [Items] = []
     @State private var isFromDatePickerVisible: Bool = false
     @State private var isToDatePickerVisible: Bool = false
-    
     @State private var showPopup = false
     @State var isShowingScanner = false
     @State private var scannedText = ""
     @State private var checkedStates: [String] = []
-    
     @State private var itemCounts: [Int] = []
     @State private var addedToCart: [Bool] = []
     @State private var searchText: String = ""
-    
     @State private var isDateSelected = false
-    
     @State var fromDate: Date = UserDefaultsManager.shared.getFromDate() ?? Date()
     @State var toDate: Date = UserDefaultsManager.shared.getToDate() ?? Date()
     
@@ -34,8 +30,7 @@ struct MainViewItemByDateView: View {
             return item.filter {
                 $0.iTEM_NAME?.localizedCaseInsensitiveContains(searchText) ?? false
             }
-        }
-    }
+        }}
     
     var body: some View {
         ZStack{
@@ -58,52 +53,44 @@ struct MainViewItemByDateView: View {
                 }
                 .padding(10)
                 Spacer()
-//                if item.isEmpty {
-//                    Text("Select Date For Items")
-//                        .font(.title)
-//                        .bold()
-//                    Button(action: {
-//                        showPopup = true
-//                    }) {
-//                        Image(systemName: "calendar.badge.plus")
-//                            .foregroundColor(.brightOrange)
-//                            .font(.system(size: 100))
-//                    }
-//                }else {
-                    List(filteredItems.indices, id: \.self) { index in
+                List(filteredItems, id: \.iTEM_MASTER_ID) { filteredItem in
+                    if let originalIndex = item.firstIndex(where: { $0.iTEM_MASTER_ID == filteredItem.iTEM_MASTER_ID }) {
                         ItemDetailCell(
-                            itemMasterId: filteredItems[index].iTEM_MASTER_ID,
-                            itemName: filteredItems[index].iTEM_NAME ?? "Unknown",
-                            itemDetail: "Brand: \(filteredItems[index].bRAND ?? "Unknown"), Model: \(filteredItems[index].mODEL_NO ?? "Unknown")",
-                            itemDesc: filteredItems[index].currently_available,
-                            itemCounts: $itemCounts[index], // Pass as binding
+                            itemMasterId: filteredItem.iTEM_MASTER_ID,
+                            itemName: filteredItem.iTEM_NAME ?? "Unknown",
+                            itemDetail: "Brand: \(filteredItem.bRAND ?? "Unknown"), Model: \(filteredItem.mODEL_NO ?? "Unknown")",
+                            itemDesc: filteredItem.currently_available,
+                            itemCounts: $itemCounts[originalIndex],
                             isAddToCartButtonVisible: Binding(
-                                get: { addedToCart[index] ? 1 : 0 },
+                                get: { addedToCart[originalIndex] ? 1 : 0 },
                                 set: { newValue in
-                                    addedToCart[index] = newValue == 1
+                                    addedToCart[originalIndex] = newValue == 1
                                 }
                             ),
                             isCheckboxVisible: false,
-                            itemImageURL: filteredItems[index].iTEM_THUMBNAIL,
+                            itemImageURL: filteredItem.iTEM_THUMBNAIL,
                             onAddToCart: {
-                                addedToCart[index] = true
-                                print("Added to cart: \(filteredItems[index].iTEM_NAME ?? "Unknown")")
+                                addedToCart[originalIndex] = true
+                                print("Added to cart: \(filteredItem.iTEM_NAME ?? "Unknown")")
                             },
                             onCountChanged: { newCount in
-                                itemCounts[index] = newCount
-                                print("Updated count for \(filteredItems[index].iTEM_NAME ?? "Unknown"): \(newCount)")
+                                itemCounts[originalIndex] = newCount
+                                print("Updated count for \(filteredItem.iTEM_NAME ?? "Unknown"): \(newCount)")
                             },
-                            hideDeleteButton: true, onDelete: {}, onCheckUncheck: {}
-                        )}
-                    .listStyle(PlainListStyle())
-                    .onTapGesture {
-                        if isDateSelected {
-                            showPopup = false
-                        }else {
-                            showPopup = true
-                        }
+                            hideDeleteButton: true,
+                            onDelete: {},
+                            onCheckUncheck: {}
+                        )
                     }
-                //}
+                }
+                .listStyle(PlainListStyle())
+                .onTapGesture {
+                    if isDateSelected {
+                        showPopup = false
+                    }else {
+                        showPopup = true
+                    }
+                }
                 Spacer()
             }
             if showPopup {
@@ -132,9 +119,7 @@ struct MainViewItemByDateView: View {
         .onAppear {
             getItemByDateDetail()
         }
-        
     }
-    
     
     func saveDatesToUserDefaults() {
         UserDefaultsManager.shared.saveFromDate(fromDate)
