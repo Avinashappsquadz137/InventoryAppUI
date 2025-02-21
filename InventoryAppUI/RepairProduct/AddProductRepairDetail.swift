@@ -25,9 +25,9 @@ struct AddProductRepairDetail: View {
     @State private var isImagePickerPresented: Bool = false
     @State private var isPickingForDamage: Bool = true
     @State private var isCamera: Bool = false
-    
+    @State private var isSubmitting = false
     @State private var itemRepair: [ItemRepairById] = []
-
+    @Environment(\.dismiss) private var dismiss
 //    init(product: RepairList?) {
 //        self.product = product
 //        getItemRepairById()
@@ -115,6 +115,7 @@ struct AddProductRepairDetail: View {
                 )
             }
         }
+        .overlay(ToastView())
     }
     
     func getItemRepairById() {
@@ -177,6 +178,8 @@ struct AddProductRepairDetail: View {
     }
 
     func submitRepairDetails() {
+        guard !isSubmitting else { return } 
+            isSubmitting = true
           guard let productID = product?.iTEM_MASTER_ID, let repairID = product?.iTEM_REPAIR_ID else {
               print("Invalid product or repair ID")
               return
@@ -203,21 +206,25 @@ struct AddProductRepairDetail: View {
               images["receipt_bill"] = receiptImageData
           }
 
-          ApiClient.shared.callHttpMethod(apiendpoint: Constant.updateItemRepairDetail, method: .post, param: dict, model: RepairListModel.self, isMultipart: true, images: images) { result in
+          ApiClient.shared.callHttpMethod(apiendpoint: Constant.updateItemRepairDetail, method: .post, param: dict, model: repairDetails.self, isMultipart: true, images: images) { result in
               switch result {
               case .success(let model):
                   if model.data != nil {
-                      print("Successfully updated repair details")
+                      ToastManager.shared.show(message: model.message ?? "Successfully updated repair details")
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                          isSubmitting = false
+                          dismiss()
+                      }
                   } else {
                       print("No data returned")
                   }
               case .failure(let error):
+                  isSubmitting = false
                   print("Error updating repair details:", error)
               }
           }
       }
-    
-    
+
 }
 
 struct SectionHeader: View {

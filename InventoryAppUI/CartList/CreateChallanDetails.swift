@@ -17,6 +17,7 @@ struct CreateChallanDetails: View {
     @State var showDateilScreen = false
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedDate: Date = Date()
+    @State private var isSubmitting = false
     let checkedStates: [String]
     
     let data = ["Client Name","Location","Company Name & Address","GST No", "State","Pincode","Contact Person","Mobile No","Show Start Date","Show End Date","Inventory Loading Date","Vehicle","Vehicle No"]
@@ -118,6 +119,8 @@ struct CreateChallanDetails: View {
     }
     
     func createOrderByCartItem() {
+        guard !isSubmitting else { return }
+            isSubmitting = true
         var dict = [String: Any]()
         dict["emp_code"] = "1"
         dict["items_in_cart"] = checkedStates
@@ -166,6 +169,7 @@ struct CreateChallanDetails: View {
                         print("Fetched items: \(data)")
                         ToastManager.shared.show(message: model.message ?? "")
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            isSubmitting = false
                             if let window = UIApplication.shared.windows.first {
                                 window.rootViewController = UIHostingController(rootView: MAinTabbarVC().environment(\.colorScheme, .light))
                                 window.makeKeyAndVisible()
