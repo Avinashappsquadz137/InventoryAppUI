@@ -110,7 +110,7 @@ struct MainViewItemByDateView: View {
                         fromDate: $fromDate,
                         toDate: $toDate
                     )
-                    
+                    .padding(20)
                 }
                 .transition(.opacity)
                 .animation(.easeInOut, value: showPopup)

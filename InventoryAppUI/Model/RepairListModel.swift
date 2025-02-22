@@ -38,7 +38,10 @@ struct RepairList : Codable {
     let iTEM_THUMBNAIL : String?
     let iTEM_REPAIR_ID : String?
     let rEPAIR_STATUS : String?
- 
+    let rEPAIR_PRICE : String?
+    let rEPAIR_DATE : String?
+    let rEMARKS : String?
+    
     enum CodingKeys: String, CodingKey {
 
         case iTEM_MASTER_ID = "ITEM_MASTER_ID"
@@ -48,6 +51,10 @@ struct RepairList : Codable {
         case iTEM_THUMBNAIL = "ITEM_THUMBNAIL"
         case iTEM_REPAIR_ID = "ITEM_REPAIR_ID"
         case rEPAIR_STATUS = "REPAIR_STATUS"
+        case rEPAIR_PRICE = "REPAIR_PRICE"
+        case rEPAIR_DATE = "REPAIR_DATE"
+        case rEMARKS = "REMARKS"
+        
     }
 
     init(from decoder: Decoder) throws {
@@ -59,6 +66,9 @@ struct RepairList : Codable {
         iTEM_THUMBNAIL = try values.decodeIfPresent(String.self, forKey: .iTEM_THUMBNAIL)
         iTEM_REPAIR_ID = try values.decodeIfPresent(String.self, forKey: .iTEM_REPAIR_ID)
         rEPAIR_STATUS = try values.decodeIfPresent(String.self, forKey: .rEPAIR_STATUS)
+        rEPAIR_PRICE = try values.decodeIfPresent(String.self, forKey: .rEPAIR_PRICE)
+        rEPAIR_DATE = try values.decodeIfPresent(String.self, forKey: .rEPAIR_DATE)
+        rEMARKS = try values.decodeIfPresent(String.self, forKey: .rEMARKS)
     }
 
 }

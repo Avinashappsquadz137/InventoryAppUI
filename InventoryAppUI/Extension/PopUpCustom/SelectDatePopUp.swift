@@ -54,7 +54,8 @@ struct SelectDatePopUp: View {
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
-                .background(Color.brightOrange.opacity(0.1))
+                .tint(Color.brightOrange)
+                .background(Color.brightOrange.opacity(0.2))
                 .cornerRadius(8)
                 .padding(10)
             }
@@ -90,7 +91,8 @@ struct SelectDatePopUp: View {
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
-                .background(Color.brightOrange.opacity(0.1))
+                .tint(Color.brightOrange)
+                .background(Color.brightOrange.opacity(0.2))
                 .cornerRadius(8)
                 .padding(10)
             }
@@ -124,9 +126,14 @@ struct SelectDatePopUp: View {
             }
         }
         .padding(10)
-        .frame(width: 300)
         .background(Color.white)
         .cornerRadius(12)
         .shadow(radius: 10)
+        .onAppear {
+            if Calendar.current.isDate(fromDate, equalTo: Date(), toGranularity: .day) == false {
+                fromDate = Date()
+            }
+            
+        }
     }
 }

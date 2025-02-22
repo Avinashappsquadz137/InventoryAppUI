@@ -36,9 +36,9 @@ struct RepairProductMainView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("More Details:")
                                 .font(.headline)
-                            Text("Price: ₹\(product.iTEM_MASTER_ID ?? "N/A")")
-                            Text("Repair Date: \(product.bRAND ?? "N/A")")
-                            Text("Remarks: \(product.iTEM_NAME ?? "N/A")")
+                            Text("Price: ₹\(product.rEPAIR_PRICE ?? "N/A")")
+                            Text("Repair Date: \(product.rEPAIR_DATE ?? "N/A")")
+                            Text("Remarks: \(product.rEMARKS ?? "N/A")")
                             
                             Button(action: {
                                 readyForItemAvailable(repairID: product.iTEM_REPAIR_ID ?? "",
