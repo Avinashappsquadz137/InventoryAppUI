@@ -28,7 +28,21 @@ struct AllCartList: View {
                     if isLoading {
                         ProgressView("Loading...")
                             .padding()
-                    } else {
+                    } else if items.isEmpty {
+                        VStack {
+                            Image(systemName: "cart.fill.badge.plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .foregroundColor(.gray)
+                                .padding()
+                            
+                            Text("No Items in Cart")
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }  else {
                         if let toDate = allCartList?.to_date, let fromDate = allCartList?.from_date {
                             HStack {
                                 Text("\(fromDate)")

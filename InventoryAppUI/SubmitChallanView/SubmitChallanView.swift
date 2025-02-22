@@ -15,19 +15,33 @@ struct SubmitChallanView: View {
     
     var body: some View {
         VStack {
-            List(orders, id: \.tEMP_ID) { order in
-                MoreOrderCell(
-                    clientName: order.cLIENT_NAME ?? "Unknown",
-                    clientContact: order.cONTACT_PERSON ?? "N/A",
-                    clientLocation: order.cONTACT_PERSON ?? "N/A",
-                    clientDate: order.sHOW_DATE ?? "N/A",
-                    source: "SubmitChallanView"
-                ) {
-                    print("Open details for \(order.cHALLAN_DETAIL ?? "Unknown")")
-                    selectedPDF = order
+            if orders.isEmpty {
+                VStack {
+                    Image(systemName: "tray.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.gray)
+                    Text("No Data Available")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .padding()
                 }
+            } else {
+                List(orders, id: \.tEMP_ID) { order in
+                    MoreOrderCell(
+                        clientName: order.cLIENT_NAME ?? "Unknown",
+                        clientContact: order.cONTACT_PERSON ?? "N/A",
+                        clientLocation: order.cONTACT_PERSON ?? "N/A",
+                        clientDate: order.sHOW_DATE ?? "N/A",
+                        source: "SubmitChallanView"
+                    ) {
+                        print("Open details for \(order.cHALLAN_DETAIL ?? "Unknown")")
+                        selectedPDF = order
+                    }
+                }
+                .listStyle(PlainListStyle())
             }
-            .listStyle(PlainListStyle())
         }
         .onAppear {
             getInventoryDetail()

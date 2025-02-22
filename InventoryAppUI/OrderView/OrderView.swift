@@ -13,8 +13,20 @@ struct OrderView: View {
     var body: some View {
         VStack {
             if orders.isEmpty {
-                Text("No orders available")
-                    .foregroundColor(.gray)
+                VStack {
+                    Image(systemName: "tray.2") 
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.gray)
+                        .padding()
+                    
+                    Text("No Orders Available")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .padding(.top, 5)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 List(orders, id: \.tempID) { order in
                     MoreOrderCell(
@@ -43,7 +55,7 @@ struct OrderView: View {
             }
         }
     }
-
+    
     func getRequestDetail() {
         let dict: [String: Any] = ["emp_code": "SANS-00290"]
         ApiClient.shared.callmethodMultipart(
