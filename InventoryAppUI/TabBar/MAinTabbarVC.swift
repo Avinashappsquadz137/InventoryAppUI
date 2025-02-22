@@ -57,12 +57,12 @@ struct MAinTabbarVC: View {
                     NavigationView {
                         SubmitChallanView()
                             .onAppear {
-                                navigationTitle = "ORDERS"
+                                navigationTitle = "SUBMIT"
                             }
                     }
                     .tabItem {
                         Image.init("ic_favourite_tabbar", tintColor: .clear)
-                        Text("ORDERS")
+                        Text("SUBMIT")
                     }.tag(1)
                     
                     NavigationView {
@@ -79,12 +79,12 @@ struct MAinTabbarVC: View {
                     NavigationView {
                         OrderView()
                             .onAppear {
-                                navigationTitle = "SUBMIT"
+                                navigationTitle = "ORDERS"
                             }
                     }
                     .tabItem {
                         Image.init("saved", tintColor: .clear)
-                        Text("SUBMIT")
+                        Text("ORDERS")
                     }.tag(3)
                     NavigationView {
                         ReturnChallanView()

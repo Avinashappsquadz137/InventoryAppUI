@@ -47,11 +47,11 @@ enum SideMenuRowType: Int, CaseIterable{
         case .home:
             return "HOME"
         case .favorite:
-            return "ORDERS"
+            return "SUBMIT"
         case .chat:
             return "CARTS"
         case .profile:
-            return "SUBMIT"
+            return "ORDERS"
         case .repairProduct:
             return "REPAIR PRODUCT"
         case .privacyPolicy:
