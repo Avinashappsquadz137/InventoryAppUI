@@ -74,7 +74,7 @@ struct SubmitChallanView: View {
                         print("No data received")
                     }
                 case .failure(let error):
-                    ToastManager.shared.show(message: "Failed to fetch data: \(error.localizedDescription)")
+                    print(error.localizedDescription)
                 }
             }
         }
