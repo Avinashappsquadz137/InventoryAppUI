@@ -271,7 +271,7 @@ struct DetailsFieldCell: View {
                 )
                 .datePickerStyle(CompactDatePickerStyle())
                 .disabled(true)
-            } else if data == "Mobile No" || data ==  "Pincode"{
+            } else if data == "Mobile No" {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
@@ -283,6 +283,19 @@ struct DetailsFieldCell: View {
                             textFieldValue = filtered
                         }
                     }
+            } else if data == "Pincode" {
+                TextField("Enter \(data)", text: $textFieldValue)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.numberPad)
+                    .onChange(of: textFieldValue) { newValue in
+                        let filtered = newValue.filter { $0.isNumber }
+                        if filtered.count > 6 {
+                            textFieldValue = String(filtered.prefix(6))
+                        } else {
+                            textFieldValue = filtered
+                        }
+                    }
+                
             }else {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())

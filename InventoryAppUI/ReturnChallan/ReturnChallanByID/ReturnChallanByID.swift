@@ -48,7 +48,11 @@ struct ReturnChallanByID: View {
                         Text("State : \(challanDetail.state ?? "")")
                             .font(.headline)
                         Text("PinCode : \(challanDetail.pincode ?? "")")
-                            .font(.headline)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .keyboardType(.numberPad)
+                            .onChange(of: textFieldValue) { newValue in
+                                textFieldValue = String(newValue.prefix(6)).filter { $0.isNumber }
+                            }
                         VStack(alignment: .leading, spacing: 0) {
                             Text("eWayBill")
                                 .font(.headline)

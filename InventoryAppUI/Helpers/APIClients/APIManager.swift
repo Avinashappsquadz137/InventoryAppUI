@@ -34,20 +34,6 @@ class APIManager: NSObject {
         return escapedAddress
     }
     
-    class func getServerPath2() -> String {
-        let serverPath: String = Constant.bookingBase
-        return serverPath
-    }
-    
-    class func getFullPath2(path: String) -> String {
-        var fullPath: String!
-        fullPath = APIManager.getServerPath2()
-        fullPath.append("/")
-        fullPath.append(path)
-        let escapedAddress: String = fullPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        return escapedAddress
-    }
-    
     class func setHeader() -> [String: String] {
         let dict = [String: String]()
         // dict["device_type"] = currentUser.device_type
@@ -122,43 +108,7 @@ class APIManager: NSObject {
         }
     }
     
-    class func apiWithoutHeader(postData: NSDictionary, url: String, identifier: String, completionHandler: @escaping responseHandler) {
-        let path: String = APIManager.getFullPath2(path: url)
-        
-        print("Request URL ->  \(path)")
-        print("Request parameter ->  \(postData.jsonStringRepresentation ?? "")")
-        
-        AF.upload(
-            multipartFormData: { multipartFormData in
-                for (key, value) in postData {
-                    if value is NSArray {
-                        let str = APIManager.json(from: (value as AnyObject))
-                        multipartFormData.append((str?.data(using: .utf8)!)!, withName: key as! String)
-                    } else {
-                        multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key as! String)
-                    }
-                }
-            },
-            to: path
-        ).uploadProgress { progress in
-            print("Upload Progress: \(progress.fractionCompleted)")
-        }.responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let responseDict = value as? NSDictionary {
-                    print("HTTP Response Value -> \(responseDict.jsonStringRepresentation ?? "")")
-                    completionHandler(true, responseDict, nil, response.data)
-                } else {
-                    print("HTTP Response Value -> \(value)")
-                    completionHandler(true, nil, nil, response.data)
-                }
-            case .failure(let error):
-                print(error)
-                completionHandler(false, nil, error as NSError, nil)
-            }
-        }
-    }
-    
+
     class func apiCall2(postData: NSDictionary, url: String, identifier: String, completionHandler: @escaping (_ result: Bool, _ response: NSDictionary?, _ error: NSError?, _ errorMessage: String?) -> Void) {
         let path: String = APIManager.getFullPath(path: url)
         

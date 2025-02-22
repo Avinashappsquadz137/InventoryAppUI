@@ -36,7 +36,7 @@ struct RepairProductMainView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("More Details:")
                                 .font(.headline)
-                            Text("Price: $\(product.iTEM_MASTER_ID ?? "N/A")")
+                            Text("Price: ₹\(product.iTEM_MASTER_ID ?? "N/A")")
                             Text("Repair Date: \(product.bRAND ?? "N/A")")
                             Text("Remarks: \(product.iTEM_NAME ?? "N/A")")
                             
