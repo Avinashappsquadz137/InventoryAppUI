@@ -9,7 +9,6 @@ import SwiftUI
 
 struct EnterDetailsVC: View {
     
-    
     @State private var navigateToScannedItemsView = false
     @State private var textFieldValues: [String] = Array(repeating: "", count: 9)
     @State private var teamMembers: [CrewMember] = []
@@ -25,7 +24,7 @@ struct EnterDetailsVC: View {
         "Consignee", "Transporter", "Consigner", "HSN/SAC Code",
         "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id"
     ]
-    let userDefaultsKey = "TextFieldValues"
+ 
     
     var body: some View {
         NavigationStack {
@@ -38,7 +37,7 @@ struct EnterDetailsVC: View {
                                 get: { textFieldValues[index] },
                                 set: { newValue in
                                     textFieldValues[index] = newValue
-                                    saveTextFieldValues() // Save changes to UserDefaults
+                                  //  saveTextFieldValues() // Save changes to UserDefaults
                                 }
                             ),
                             index: index,
@@ -73,9 +72,7 @@ struct EnterDetailsVC: View {
                 }
             }
             .onAppear {
-                loadTextFieldValues()
                 getCrewMemberDetail()
-                
             }
             .modifier(ViewModifiers())
             .navigationTitle("Enter Details")
@@ -99,14 +96,7 @@ struct EnterDetailsVC: View {
             )
         }
     }
-    func saveTextFieldValues() {
-        UserDefaults.standard.set(textFieldValues, forKey: userDefaultsKey)
-    }
-    func loadTextFieldValues() {
-        if let savedValues = UserDefaults.standard.array(forKey: userDefaultsKey) as? [String], savedValues.count == data.count {
-            textFieldValues = savedValues
-        }
-    }
+  
     func validateTextFields(completion: (_ isValid: Bool, _ collectedData: [String]) -> Void) {
         let allFieldsFilled = !textFieldValues.contains(where: { $0.isEmpty })
         if allFieldsFilled {
@@ -118,7 +108,6 @@ struct EnterDetailsVC: View {
 
     func clearTextFields() {
         textFieldValues = Array(repeating: "", count: data.count)
-        saveTextFieldValues()
     }
     
     func getCrewMemberDetail() {
@@ -156,6 +145,13 @@ struct TextFieldCell: View {
                             set: { newSelection in
                                 multiSelectValues[index] = newSelection
                                 textFieldValue = newSelection.joined(separator: ", ")
+                            }
+                        ),
+                        selectedNames: Binding(
+                            get: { multiSelectValues[index + 100] ?? [] }, // Store names separately
+                            set: { newNames in
+                                multiSelectValues[index + 100] = newNames
+                                textFieldValue = newNames.joined(separator: ", ") // Update text field with names
                             }
                         )
                     )
@@ -198,7 +194,8 @@ struct TextFieldCell: View {
 struct MultiSelectView: View {
     let teamMembers: [CrewMember]
     @Binding var selectedMembers: [String]
-    
+    @Binding var selectedNames: [String]  // Store names separately
+
     var body: some View {
         List {
             ForEach(teamMembers, id: \.id) { member in
@@ -212,11 +209,15 @@ struct MultiSelectView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    if let memberId = member.id {
-                        if selectedMembers.contains(memberId) {
-                            selectedMembers.removeAll { $0 == memberId }
+                    if let memberId = member.id, let memberName = member.emp_name {
+                        if let index = selectedMembers.firstIndex(of: memberId) {
+                            // Remove if already selected
+                            selectedMembers.remove(at: index)
+                            selectedNames.remove(at: index)
                         } else {
+                            // Add new selection
                             selectedMembers.append(memberId)
+                            selectedNames.append(memberName)
                         }
                     }
                 }

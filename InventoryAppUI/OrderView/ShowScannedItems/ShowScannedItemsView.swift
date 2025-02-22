@@ -43,18 +43,20 @@ struct ShowScannedItemsView: View {
                 }
             }
             Spacer()
-            Button(action: {
-                addSaveChallanmaster()
-            }) {
-                Text("SUBMIT")
-                    .font(.headline)
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.brightOrange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            if scannedItems.count == order.items.count {
+                Button(action: {
+                    addSaveChallanmaster()
+                }) {
+                    Text("SUBMIT")
+                        .font(.headline)
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.brightOrange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(16)
             }
-            .padding(16)
         }
         .overlay(ToastView())
         .navigationTitle("Scan Items")
