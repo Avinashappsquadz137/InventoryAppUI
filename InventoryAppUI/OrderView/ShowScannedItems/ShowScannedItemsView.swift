@@ -79,8 +79,6 @@ struct ShowScannedItemsView: View {
                         rentDetails[item.itemName] = itemTotalRent
                         totalRent += itemTotalRent
                     }
-
-                // Convert the rentDetails dictionary to JSON string
                 if let jsonData = try? JSONSerialization.data(withJSONObject: rentDetails, options: []),
                    let jsonString = String(data: jsonData, encoding: .utf8) {
                     dict["RENTAMOUNT"] = "\(jsonString)"
@@ -108,7 +106,10 @@ struct ShowScannedItemsView: View {
                     }
                 case "Transport Id":
                     dict["transport_id"] = textFieldValues[index]
-
+                case "Vehicle":
+                    dict["vehicle"] = textFieldValues[index]
+                case "Vehicle No":
+                    dict["vehicleNo"] = textFieldValues[index]
                 default:
                     break
                 }

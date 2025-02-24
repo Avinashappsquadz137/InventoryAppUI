@@ -9,8 +9,7 @@ import SwiftUI
 
 struct CreateChallanDetails: View {
     
-    @State private var textFieldValues: [String] = Array(repeating: "", count: 13)
-    @State private var teamVehicle: [Transport] = []
+    @State private var textFieldValues: [String] = Array(repeating: "", count: 11)
     @State private var multiSelectValues: [Int: [String]] = [:]
     @State private var tempID: String?
     @State private var alertMessage: String = ""
@@ -20,7 +19,7 @@ struct CreateChallanDetails: View {
     @State private var isSubmitting = false
     let checkedStates: [String]
     
-    let data = ["Client Name","Location","Company Name & Address","GST No", "State","Pincode","Contact Person","Mobile No","Show Start Date","Show End Date","Inventory Loading Date","Vehicle","Vehicle No"]
+    let data = ["Client Name","Location","Company Name & Address","GST No", "State","Pincode","Contact Person","Mobile No","Show Start Date","Show End Date","Inventory Loading Date"]
     
     var body: some View {
         NavigationStack {
@@ -36,7 +35,6 @@ struct CreateChallanDetails: View {
                                 }
                             ),
                             index: index,
-                            teamVehicle: $teamVehicle,
                             multiSelectValues: $multiSelectValues
                         )
                     }
@@ -61,9 +59,6 @@ struct CreateChallanDetails: View {
                 }
                 .padding(10)
             }
-            .onAppear {
-                getTransportCategory()
-            }
             .modifier(ViewModifiers())
             .navigationTitle("Enter Challan Details")
             .navigationBarTitleDisplayMode(.inline)
@@ -86,7 +81,7 @@ struct CreateChallanDetails: View {
             let fieldName = data[index]
             
             if fieldName == "Show Start Date" || fieldName == "Show End Date" {
-                return nil // Skip validation as they're auto-filled
+                return nil
             }
             return value.isEmpty ? fieldName : nil
         }
@@ -98,26 +93,6 @@ struct CreateChallanDetails: View {
             completion(false, missingFields)
         }
     }
-    
-    func getTransportCategory() {
-        var dict = [String: Any]()
-        dict["emp_code"] = "1"
-        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getTransportCategory, method: .post, param: dict, model: TransportCategory.self){ result in
-            switch result {
-            case .success(let model):
-                if let data = model.data {
-                    self.teamVehicle = data
-               
-                    print("Fetched items: \(data)")
-                } else {
-                    print("No data received")
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     func createOrderByCartItem() {
         guard !isSubmitting else { return }
             isSubmitting = true
@@ -148,10 +123,6 @@ struct CreateChallanDetails: View {
                 dict["showEndDate"] = "\(formattedDate(UserDefaultsManager.shared.getToDate() ?? Date()))"
             case "Inventory Loading Date":
                 dict["inventoryLoadingDate"] = textFieldValues[index]
-            case "Vehicle":
-                dict["vehicle"] = textFieldValues[index]
-            case "Vehicle No":
-                dict["vehicleNo"] = textFieldValues[index]
             default:
                 break
             }
@@ -194,7 +165,6 @@ struct DetailsFieldCell: View {
     let data: String
     @Binding var textFieldValue: String
     let index: Int
-    @Binding var teamVehicle: [Transport]
     @Binding var multiSelectValues: [Int: [String]]
     
     var body: some View {
@@ -202,17 +172,7 @@ struct DetailsFieldCell: View {
             Text(data)
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if data == "Vehicle" {
-                Picker("Select Vehicle", selection: $textFieldValue) {
-                    ForEach(teamVehicle, id: \.id) { vehicle in
-                        Text(vehicle.transport_name ?? "Unknown").tag(vehicle.id ?? "")
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-                .onChange(of: textFieldValue) { newValue in
-        
-                }
-            } else if data == "Inventory Loading Date" {
+            if data == "Inventory Loading Date" {
                 DatePicker(
                     "Select \(data)",
                     selection: Binding(

@@ -10,8 +10,9 @@ import SwiftUI
 struct EnterDetailsVC: View {
     
     @State private var navigateToScannedItemsView = false
-    @State private var textFieldValues: [String] = Array(repeating: "", count: 9)
+    @State private var textFieldValues: [String] = Array(repeating: "", count: 11)
     @State private var teamMembers: [CrewMember] = []
+    @State private var teamVehicle: [Transport] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
     @State private var tempID: String?
     @State private var alertMessage: String = ""
@@ -22,7 +23,7 @@ struct EnterDetailsVC: View {
     let order: ItemDetail
     let data = [
         "Consignee", "Transporter", "Consigner", "HSN/SAC Code",
-        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id"
+        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id","Vehicle","Vehicle No"
     ]
  
     
@@ -37,11 +38,10 @@ struct EnterDetailsVC: View {
                                 get: { textFieldValues[index] },
                                 set: { newValue in
                                     textFieldValues[index] = newValue
-                                  //  saveTextFieldValues() // Save changes to UserDefaults
                                 }
                             ),
                             index: index,
-                            teamMembers: $teamMembers,
+                            teamVehicle: $teamVehicle, teamMembers: $teamMembers,
                             multiSelectValues: $multiSelectValues
                         )
                     }
@@ -73,6 +73,7 @@ struct EnterDetailsVC: View {
             }
             .onAppear {
                 getCrewMemberDetail()
+                getTransportCategory()
             }
             .modifier(ViewModifiers())
             .navigationTitle("Enter Details")
@@ -109,13 +110,28 @@ struct EnterDetailsVC: View {
     func clearTextFields() {
         textFieldValues = Array(repeating: "", count: data.count)
     }
-    
+        func getTransportCategory() {
+            var dict = [String: Any]()
+            dict["emp_code"] = "1"
+            ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getTransportCategory, method: .post, param: dict, model: TransportCategory.self){ result in
+                switch result {
+                case .success(let model):
+                    if let data = model.data {
+                        self.teamVehicle = data
+                        print("Fetched items: \(data)")
+                    } else {
+                        print("No data received")
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     func getCrewMemberDetail() {
         ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getCrewMember, method: .post, param: [:], model: CrewMemberModel.self){ result in
             switch result {
             case .success(let model):
                 self.teamMembers = model.data ?? []
-              //  self.teamMembers = model.data?.compactMap { $0.emp_name } ?? []
             case .failure(let error):
                 print(error)
             }
@@ -127,7 +143,7 @@ struct TextFieldCell: View {
     let data: String
     @Binding var textFieldValue: String
     let index: Int
-    //@Binding var teamMembers: [String]
+    @Binding var teamVehicle: [Transport]
     @Binding var teamMembers: [CrewMember]
     @Binding var multiSelectValues: [Int: [String]]
     
@@ -136,7 +152,17 @@ struct TextFieldCell: View {
             Text(data)
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if data == "Team Member" {
+            if data == "Vehicle" {
+                Picker("Select Vehicle", selection: $textFieldValue) {
+                    ForEach(teamVehicle, id: \.id) { vehicle in
+                        Text(vehicle.transport_name ?? "Unknown").tag(vehicle.id ?? "")
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .onChange(of: textFieldValue) { newValue in
+                    
+                }
+            } else if data == "Team Member" {
                 NavigationLink(
                     destination: MultiSelectView(
                         teamMembers: teamMembers,
@@ -194,7 +220,7 @@ struct TextFieldCell: View {
 struct MultiSelectView: View {
     let teamMembers: [CrewMember]
     @Binding var selectedMembers: [String]
-    @Binding var selectedNames: [String]  // Store names separately
+    @Binding var selectedNames: [String]
 
     var body: some View {
         List {
@@ -211,11 +237,9 @@ struct MultiSelectView: View {
                 .onTapGesture {
                     if let memberId = member.id, let memberName = member.emp_name {
                         if let index = selectedMembers.firstIndex(of: memberId) {
-                            // Remove if already selected
                             selectedMembers.remove(at: index)
                             selectedNames.remove(at: index)
                         } else {
-                            // Add new selection
                             selectedMembers.append(memberId)
                             selectedNames.append(memberName)
                         }
