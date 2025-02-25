@@ -25,13 +25,14 @@ struct MAinTabbarVC: View {
                     title: navigationTitle,
                     leftButtonImage: "line.3.horizontal",
                     leftButtonAction: { print("line.3.horizontal") },
-                    rightButtonImage: selectedView == 0 ? "bell" : nil,
-                    rightButtonAction: {
-                        if selectedView == 0 {
-                            print("Notification is Not available")
-                        }
-                    },
-                    badgeCount: 312, presentSideMenu: $presentSideMenu,
+//                    rightButtonImage: selectedView == 0 ? "bell" : nil,
+//                    rightButtonAction: {
+//                        if selectedView == 0 {
+//                            print("Notification is Not available")
+//                        }
+//                    },
+                  //  badgeCount: 312,
+                    presentSideMenu: $presentSideMenu,
                     trailingButtonImage: selectedView == 2 ? "qrcode.viewfinder" : nil,
                     trailingButtonAction: {
                         if selectedView == 2 {
@@ -180,25 +181,25 @@ struct NavBar: View {
                 }
                 .accentColor(.black)
             }
-            if let rightImage = rightButtonImage, let rightAction = rightButtonAction {
-                Button(action: rightAction) {
-                    ZStack {
-                        Image(systemName: rightImage)
-                            .font(.system(size: 30, weight: .regular))
-                        if badgeCount > 0 {
-                            Text(badgeCount > 99 ? "+99" : "\(badgeCount)")
-                                .font(badgeCount < 100 ? .caption : .system(size: 10))
-                                .bold()
-                                .foregroundColor(.white)
-                                .frame(width: 25, height: 25)
-                                .background(Color.red)
-                                .clipShape(Circle())
-                                .offset(x: 10, y: -10)
-                        }
-                    }
-                }
-                .accentColor(.black)
-            }
+//            if let rightImage = rightButtonImage, let rightAction = rightButtonAction {
+//                Button(action: rightAction) {
+//                    ZStack {
+//                        Image(systemName: rightImage)
+//                            .font(.system(size: 30, weight: .regular))
+//                        if badgeCount > 0 {
+//                            Text(badgeCount > 99 ? "+99" : "\(badgeCount)")
+//                                .font(badgeCount < 100 ? .caption : .system(size: 10))
+//                                .bold()
+//                                .foregroundColor(.white)
+//                                .frame(width: 25, height: 25)
+//                                .background(Color.red)
+//                                .clipShape(Circle())
+//                                .offset(x: 10, y: -10)
+//                        }
+//                    }
+//                }
+//                .accentColor(.black)
+//            }
         }
         .padding(16)
         .background(Color.brightOrange)
