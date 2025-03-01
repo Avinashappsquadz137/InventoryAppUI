@@ -187,6 +187,7 @@ struct DetailsFieldCell: View {
                             textFieldValue = formatter.string(from: newValue)
                         }
                     ),
+                    in: Date()...,
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(CompactDatePickerStyle())
@@ -243,7 +244,18 @@ struct DetailsFieldCell: View {
                             textFieldValue = filtered
                         }
                     }
-            } else if data == "Pincode" {
+            } else if data == "GST No" {
+                TextField("Enter \(data)", text: $textFieldValue)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .onChange(of: textFieldValue) { newValue in
+                        let filtered = newValue.uppercased().filter { $0.isLetter || $0.isNumber }
+                        if filtered.count > 15 {
+                            textFieldValue = String(filtered.prefix(15))
+                        } else {
+                            textFieldValue = filtered
+                        }
+                    }
+            }else if data == "Pincode" {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
