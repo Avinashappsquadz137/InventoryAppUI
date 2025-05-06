@@ -41,7 +41,7 @@ struct MainViewItemByDateView: View {
                             .padding(10)
                             .background(Color(.systemGray6))
                             .cornerRadius(8)
-                        
+                            .tint(.black)
                         Button(action: {
                             showPopup = true
                         }) {

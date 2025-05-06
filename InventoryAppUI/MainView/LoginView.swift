@@ -80,7 +80,7 @@ struct LoginView: View {
                     }
                 }.padding()
             }.navigationBarHidden(true)
-        }
+        } .overlay(ToastView())
     }
     
     func getlogin(username : String , password : String) {
@@ -105,13 +105,16 @@ struct LoginView: View {
                         UserDefaultsManager.shared.setLoggedIn(true)
                         UserDefaultsManager.shared.setUserName(data.username ?? "")
                         UserDefaultsManager.shared.setEmail(data.email ?? "")
+                        ToastManager.shared.show(message: model.message ?? "Fetched Successfully")
                         print("Fetched items: \(data)")
                     } else {
                         wrongPassword = 2
+                        ToastManager.shared.show(message: model.message ?? "Fetched Successfully")
                         print("No data received")
                     }
                 case .failure(let error):
                     wrongPassword = 2
+                    ToastManager.shared.show(message: error.localizedDescription)
                     print("API Error: \(error)")
                 }
             }
