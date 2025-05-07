@@ -41,7 +41,6 @@
 		C785E6CF2D48DAF500992E9B /* RepairListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C785E6CE2D48DAF500992E9B /* RepairListModel.swift */; };
 		C785E6D12D48E46100992E9B /* AddProductRepairDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C785E6D02D48E46100992E9B /* AddProductRepairDetail.swift */; };
 		C785E6D42D48ECC400992E9B /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C785E6D32D48ECC400992E9B /* ImagePickerView.swift */; };
-		C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D722D0AC54700D09D41 /* MainViewVC.swift */; };
 		C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */; };
 		C7868D772D0AC66600D09D41 /* SubmitPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D762D0AC66600D09D41 /* SubmitPDFView.swift */; };
 		C7868D7E2D0AC7C300D09D41 /* ExtensionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7868D7D2D0AC7C300D09D41 /* ExtensionClass.swift */; };
@@ -101,7 +100,6 @@
 		C785E6CE2D48DAF500992E9B /* RepairListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairListModel.swift; sourceTree = "<group>"; };
 		C785E6D02D48E46100992E9B /* AddProductRepairDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductRepairDetail.swift; sourceTree = "<group>"; };
 		C785E6D32D48ECC400992E9B /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
-		C7868D722D0AC54700D09D41 /* MainViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewVC.swift; sourceTree = "<group>"; };
 		C7868D742D0AC5F000D09D41 /* MAinTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAinTabbarVC.swift; sourceTree = "<group>"; };
 		C7868D762D0AC66600D09D41 /* SubmitPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPDFView.swift; sourceTree = "<group>"; };
 		C7868D7D2D0AC7C300D09D41 /* ExtensionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionClass.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 			children = (
 				C76EFB8D2D227FD400B51955 /* QRScannerView */,
 				C7344C542D38DFC800D1E030 /* MainViewItemByDate */,
-				C7868D722D0AC54700D09D41 /* MainViewVC.swift */,
 				C7868DA12D0AE5BC00D09D41 /* ItemDetailCell.swift */,
 			);
 			path = HomeScreen;
@@ -611,7 +608,6 @@
 				C78EE08D2D37B33D007ADBB8 /* ReturnChallanItemView.swift in Sources */,
 				C7868DAE2D0AF6E200D09D41 /* Constant.swift in Sources */,
 				C7B344272D1589B600129ED4 /* DataScannerRepresentable.swift in Sources */,
-				C7868D732D0AC54700D09D41 /* MainViewVC.swift in Sources */,
 				C785E6D12D48E46100992E9B /* AddProductRepairDetail.swift in Sources */,
 				C7743C2D2D4751F100E59588 /* RepairProductMainView.swift in Sources */,
 				C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */,

@@ -22,7 +22,8 @@ struct ItemDetailCell: View {
     var onDelete: () -> Void
     var onCheckUncheck : () -> Void
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
-    
+    let onCalendarTap: () -> Void
+    var isDateSelected: Bool
     var body: some View {
         HStack(spacing: 10) {
             VStack (alignment: .center){
@@ -49,6 +50,10 @@ struct ItemDetailCell: View {
                 VStack {
                     if isAddToCartButtonVisible == 0 {
                         Button(action: {
+                            if !isDateSelected {
+                                onCalendarTap()
+                                return
+                            }
                             onAddToCart()
                             addRemoveData()
                             isAddToCartButtonVisible = 1

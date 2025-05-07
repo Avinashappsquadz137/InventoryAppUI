@@ -79,18 +79,19 @@ struct MainViewItemByDateView: View {
                             },
                             hideDeleteButton: true,
                             onDelete: {},
-                            onCheckUncheck: {}
+                            onCheckUncheck: {},
+                            onCalendarTap: {
+                                if isDateSelected {
+                                    showPopup = false
+                                }else {
+                                    showPopup = true
+                                }
+                                },
+                            isDateSelected: isDateSelected
                         )
                     }
                 }
                 .listStyle(PlainListStyle())
-                .onTapGesture {
-                    if isDateSelected {
-                        showPopup = false
-                    }else {
-                        showPopup = true
-                    }
-                }
                 Spacer()
             }
             if showPopup {

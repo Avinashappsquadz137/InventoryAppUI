@@ -104,7 +104,8 @@ struct AllCartList: View {
                                             print("Selected IDs: \(checkedStates)")
                                         }
                                     }
-                                }
+                                },
+                                onCalendarTap: {},isDateSelected: false
                             )
                             .listRowInsets(EdgeInsets())
                             .padding(.vertical, 5)
