@@ -15,7 +15,7 @@ import IQKeyboardManagerSwift
 @main
 struct InventoryAppUIApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    
     init() {
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             scene.windows.forEach { window in
@@ -23,7 +23,7 @@ struct InventoryAppUIApp: App {
             }
         }
     }
-
+    
     var body: some Scene {
         WindowGroup {
             SplashView()
@@ -41,7 +41,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         IQKeyboardManager.shared.resignOnTouchOutside = true
         UNUserNotificationCenter.current().delegate = self
-       
+        
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
             options: authOptions
@@ -52,10 +52,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 print("Notification permission denied.")
             }
         }
-
+        
         application.registerForRemoteNotifications()
-
-
+        
+        
         Messaging.messaging().token { token, error in
             if let error = error {
                 print("Error fetching FCM token: \(error)")
@@ -64,29 +64,29 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 UserDefaultsManager.shared.setFCMToken(token)
             }
         }
-
+        
         return true
     }
-
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
-
+    
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register for remote notifications: \(error.localizedDescription)")
     }
-
+    
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async
-      -> UIBackgroundFetchResult {
-      
-      if let messageID = userInfo[gcmMessageIDKey] {
-        print("Message ID: \(messageID)")
-      }
-
-      print(userInfo)
-
-      return UIBackgroundFetchResult.newData
+    -> UIBackgroundFetchResult {
+        
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        print(userInfo)
+        
+        return UIBackgroundFetchResult.newData
     }
 }
 extension AppDelegate: MessagingDelegate {
@@ -97,13 +97,13 @@ extension AppDelegate: MessagingDelegate {
         }
         UserDefaultsManager.shared.setFCMToken(fcmToken)
         print("FCM Token: \(fcmToken)")
-
+        
     }
 }
 extension AppDelegate: UNUserNotificationCenterDelegate {
-
-  func userNotificationCenter(_ center: UNUserNotificationCenter,
-                              willPresent notification: UNNotification) async
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
     let userInfo = notification.request.content.userInfo
 
@@ -124,6 +124,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 struct SplashView: View {
     let isLoggedIn = UserDefaultsManager.shared.isLoggedIn()
     @State private var isActive = false
+    @StateObject private var versionChecker = VersionChecker()
     var body: some View {
         if isActive {
             if isLoggedIn {
@@ -145,11 +146,21 @@ struct SplashView: View {
                     .frame(width: 200, height: 200)
             }
             .onAppear {
+                versionChecker.checkForUpdate()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     withAnimation {
                         isActive = true
                     }
                 }
+            }
+            .alert("Update Required", isPresented: $versionChecker.shouldForceUpdate) {
+                Button("Update") {
+                    if let url = URL(string: "https://apps.apple.com/app/id6742139625") {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            } message: {
+                Text("A new version of the app is available. Please update to continue.")
             }
         }
     }

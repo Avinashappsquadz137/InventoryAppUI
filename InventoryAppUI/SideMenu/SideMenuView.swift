@@ -134,6 +134,12 @@ struct SideMenuView: View {
                         }
                         
                         Spacer()
+                        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+                        if ApiRequest.Url.buildType == .pro {
+                            Text("Version - \(appVersion)")
+                                .font(.system(size: isPad ? 18 : 14, weight: .semibold))
+                                .padding(.bottom, isPad ? 20 : 10)
+                        }
                     }
                 }
                 .padding(.top, isPad ? 150 : 100)
