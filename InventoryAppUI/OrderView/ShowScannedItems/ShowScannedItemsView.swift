@@ -67,7 +67,7 @@ struct ShowScannedItemsView: View {
             dict["challan_status"] = "0"
             dict["temp_id"] = "\(order.tempID)"
             dict["item_qr_string"] = scannedItems
-            dict["emp_code"] = "1"
+            dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
         
             
             var rentDetails: [String: Int] = [:]

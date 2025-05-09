@@ -116,7 +116,7 @@ struct ReturnChallanByID: View {
         }
     }
     func getItemDetailByChallanId() {
-        let parameters: [String: Any] = ["emp_code": "1","type": "1","challan_id":"\(textFieldValue)"]
+        let parameters: [String: Any] = ["emp_code": UserDefaultsManager.shared.getEmpCode(),"type": "1","challan_id":"\(textFieldValue)"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.getItemDetailByChallanId,
             method: .post,

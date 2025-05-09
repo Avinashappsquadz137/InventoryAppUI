@@ -169,7 +169,7 @@ struct ItemDetailCell: View {
     
     func addRemoveData() {
         let parameters: [String: Any] = [
-            "emp_code": "1",
+            "emp_code": UserDefaultsManager.shared.getEmpCode(),
             "ITEM_NAME" : itemMasterId ?? "",
             "items_in_cart": "\(itemCounts)",
             "to_date": "\(formattedDate(UserDefaultsManager.shared.getToDate() ?? Date()))",
@@ -197,7 +197,7 @@ struct ItemDetailCell: View {
     }
     func deleteCartItem() {
         let parameters: [String: Any] = [
-            "emp_code": "1",
+            "emp_code": UserDefaultsManager.shared.getEmpCode(),
             "product_id" : "\(itemMasterId ?? "")"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.deleteCartItem,

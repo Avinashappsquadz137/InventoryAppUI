@@ -58,7 +58,7 @@ struct SubmitChallanView: View {
     }
     
     func getInventoryDetail() {
-        let parameters: [String: Any] = ["emp_code": "1", "type": "1"]
+        let parameters: [String: Any] = ["emp_code": UserDefaultsManager.shared.getEmpCode(), "type": "1"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.getInventoryDetail,
             method: .post,

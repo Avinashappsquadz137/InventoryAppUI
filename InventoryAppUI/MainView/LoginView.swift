@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var userName = "" //9818524882
-    @State private var passWord = "" //87654321
+    @State private var userName = "7739866377" //9818524882
+    @State private var passWord = "87654321" //87654321
     @State private var worngUserName = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
@@ -105,6 +105,7 @@ struct LoginView: View {
                         UserDefaultsManager.shared.setLoggedIn(true)
                         UserDefaultsManager.shared.setUserName(data.username ?? "")
                         UserDefaultsManager.shared.setEmail(data.email ?? "")
+                        UserDefaultsManager.shared.setEmpCode(data.empCode ?? "")
                         ToastManager.shared.show(message: model.message ?? "Fetched Successfully")
                         print("Fetched items: \(data)")
                     } else {

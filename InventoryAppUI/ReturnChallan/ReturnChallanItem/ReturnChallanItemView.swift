@@ -86,7 +86,7 @@ struct ReturnChallanItemView: View {
                     .map { $0.element }
         let selectedProductIDs = selectedProducts?.compactMap { $0.iTEM_MASTER_ID } ?? []
         let parameters: [String: Any] = [
-            "emp_code": "1",
+            "emp_code": UserDefaultsManager.shared.getEmpCode(),
             "challan_id": "\(challanDetail.temp_id ?? "")",
             "products" : selectedProductIDs,
             "vehicleNo" : textVehicleNo,

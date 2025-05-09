@@ -129,7 +129,7 @@ struct MainViewItemByDateView: View {
     
     func getItemByDateDetail() {
         let parameters: [String: Any] = [
-            "emp_code": "1",
+            "emp_code": UserDefaultsManager.shared.getEmpCode(),
             "to_date": "\(formattedDate(toDate))",
             "from_date" : "\(formattedDate(fromDate))"]
         ApiClient.shared.callmethodMultipart(

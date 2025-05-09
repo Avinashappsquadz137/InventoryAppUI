@@ -112,7 +112,7 @@ struct EnterDetailsVC: View {
     }
         func getTransportCategory() {
             var dict = [String: Any]()
-            dict["emp_code"] = "1"
+            dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
             ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getTransportCategory, method: .post, param: dict, model: TransportCategory.self){ result in
                 switch result {
                 case .success(let model):

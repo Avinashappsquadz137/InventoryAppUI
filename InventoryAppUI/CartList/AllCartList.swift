@@ -162,7 +162,7 @@ struct AllCartList: View {
     
     func deleteCartItem(item: CartList) {
         let parameters: [String: Any] = [
-            "emp_code": "1",
+            "emp_code": UserDefaultsManager.shared.getEmpCode(),
             "product_id": "\(item.iTEM_MASTER_ID ?? "")"
         ]
 
@@ -193,7 +193,7 @@ struct AllCartList: View {
     }
 
     func getMemberDetail() {
-        let parameters: [String: Any] = ["emp_code": "1"]
+        let parameters: [String: Any] = ["emp_code": UserDefaultsManager.shared.getEmpCode()]
         
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.allcartlistByDate,
@@ -229,7 +229,7 @@ struct AllCartList: View {
         let toDate = allCartList?.to_date
         let fromDate = allCartList?.from_date
         let parameters: [String: Any] = [
-            "emp_code": "1",
+            "emp_code": UserDefaultsManager.shared.getEmpCode(),
             "ITEM_NAME" : itemID,
             "items_in_cart": "\(newCount)",
             "to_date": toDate ?? "",

@@ -122,7 +122,7 @@ struct AddProductRepairDetail: View {
             guard let repairID = product?.iTEM_REPAIR_ID else { return }
             
             let dict: [String: Any] = [
-                "emp_code": "1",
+                "emp_code": UserDefaultsManager.shared.getEmpCode(),
                 "repair_id": repairID
             ]
             
@@ -186,7 +186,7 @@ struct AddProductRepairDetail: View {
           }
           
           let dict: [String: Any] = [
-              "emp_code": "1",
+              "emp_code": UserDefaultsManager.shared.getEmpCode(),
               "product_id": productID,
               "repair_address": repairAddress,
               "phone_no": mobileNumber,

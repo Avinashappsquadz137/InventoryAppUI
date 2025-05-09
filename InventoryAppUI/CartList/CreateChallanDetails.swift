@@ -97,7 +97,7 @@ struct CreateChallanDetails: View {
         guard !isSubmitting else { return }
             isSubmitting = true
         var dict = [String: Any]()
-        dict["emp_code"] = "1"
+        dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
         dict["items_in_cart"] = checkedStates
         for (index, field) in data.enumerated() {
             switch field {

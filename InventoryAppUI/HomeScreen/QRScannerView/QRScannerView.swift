@@ -63,7 +63,7 @@ struct QRScannerView: View {
         }
     }
     func addQRItemDetail() {
-        let parameters: [String: Any] = ["emp_code": "1","item_qr_string": "\(scannedText)"]
+        let parameters: [String: Any] = ["emp_code": "\(UserDefaultsManager.shared.getEmpCode())","item_qr_string": "\(scannedText)"]
         ApiClient.shared.callmethodMultipart(
             apiendpoint: Constant.addToCartByItemQr,
             method: .post,

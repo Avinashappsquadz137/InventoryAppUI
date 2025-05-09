@@ -103,7 +103,7 @@ struct RepairProductMainView: View {
     
     func readyForItemAvailable(repairID : String ,itemID : String) {
         var dict = [String: Any]()
-        dict["emp_code"] = "1"
+        dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
         dict["repair_id"] = repairID
         dict["item_id"] = itemID
         
@@ -126,7 +126,7 @@ struct RepairProductMainView: View {
     
     func getAllItemRepairList() {
         var dict = [String: Any]()
-        dict["emp_code"] = "1"
+        dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
         ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getAllItemRepairList, method: .post, param: dict, model: RepairListModel.self){ result in
             switch result {
             case .success(let model):
