@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B51267BB368D2B2146655F6E /* Pods_InventoryAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */; };
 		C7023ECF2DCB969E0043B8B1 /* VersionCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7023ECE2DCB969A0043B8B1 /* VersionCheckers.swift */; };
+		C7023F882DCF29700043B8B1 /* UploadDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */; };
 		C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */; };
 		C718A9782D29534B00487615 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9772D29534B00487615 /* ToastManager.swift */; };
 		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
@@ -68,6 +69,7 @@
 		98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InventoryAppUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E644721B02B22C030B1630 /* Pods-InventoryAppUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InventoryAppUI.release.xcconfig"; path = "Target Support Files/Pods-InventoryAppUI/Pods-InventoryAppUI.release.xcconfig"; sourceTree = "<group>"; };
 		C7023ECE2DCB969A0043B8B1 /* VersionCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCheckers.swift; sourceTree = "<group>"; };
+		C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDocumentView.swift; sourceTree = "<group>"; };
 		C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAvailabilityModel.swift; sourceTree = "<group>"; };
 		C718A9772D29534B00487615 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
@@ -162,6 +164,14 @@
 			path = VersionCheckers;
 			sourceTree = "<group>";
 		};
+		C7023F862DCF29640043B8B1 /* UploadDocumentView */ = {
+			isa = PBXGroup;
+			children = (
+				C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */,
+			);
+			path = UploadDocumentView;
+			sourceTree = "<group>";
+		};
 		C718A9762D29533A00487615 /* Toster */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +192,7 @@
 		C724F59D2D3A56D700C01873 /* SubmitChallanView */ = {
 			isa = PBXGroup;
 			children = (
+				C7023F862DCF29640043B8B1 /* UploadDocumentView */,
 				C7868D762D0AC66600D09D41 /* SubmitPDFView.swift */,
 				C724F59F2D3A595B00C01873 /* SubmitChallanView.swift */,
 			);
@@ -628,6 +639,7 @@
 				C77B6EC72D11A72D0052ADE5 /* EnterDetailsVC.swift in Sources */,
 				C78CDE182D4E22080084762D /* WaveAnimations.swift in Sources */,
 				C7868D752D0AC5F000D09D41 /* MAinTabbarVC.swift in Sources */,
+				C7023F882DCF29700043B8B1 /* UploadDocumentView.swift in Sources */,
 				C76C8ED62D36A29500F3A8E3 /* EnterChallanIDModal.swift in Sources */,
 				C783549C2D313C5800959FEA /* MoreOrderCell.swift in Sources */,
 				C78354992D31398700959FEA /* ReturnChallanByID.swift in Sources */,

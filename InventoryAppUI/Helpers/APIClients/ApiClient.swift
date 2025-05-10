@@ -32,6 +32,7 @@ class ApiClient: NSObject {
         model: T.Type,
         isMultipart: Bool = false, // Flag for multipart requests
         images: [String: Data] = [:], // Image data dictionary
+        files: [String: (data: Data, fileName: String, mimeType: String)] = [:],
         completion: @escaping (Result<T, Error>) -> Void
     ) {
         let fullUrl = (Constant.BASEURL + apiendpoint).trimmingCharacters(in: .whitespacesAndNewlines)

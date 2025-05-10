@@ -12,10 +12,10 @@ struct MAinTabbarVC: View {
     @State var presentSideMenu = false
     @State private var selectedView = 0
     @State private var navigationTitle = "HOME"
-    
     @State var isShowingScanner = false
     @State private var scannedText = ""
-    
+    @State private var isShowingUploadPopup = false
+
     var body: some View {
         ZStack(){
             
@@ -43,6 +43,13 @@ struct MAinTabbarVC: View {
                                 print("Scanner is not supported or available")
                             }
                         }
+                    },
+                    extraButtonImage: selectedView == 0 ? "plus" : nil,
+                        extraButtonAction: {
+                            if selectedView == 0 {
+                                isShowingUploadPopup = true
+                            }
+                            print("Plus button tapped")
                     }
                 )
                 Spacer()
@@ -123,13 +130,14 @@ struct MAinTabbarVC: View {
             UITabBar.appearance().standardAppearance = tabBarAppearance
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         }
-
+        .sheet(isPresented: $isShowingUploadPopup) {
+            UploadDocumentView()
+        }
         .fullScreenCover(isPresented: $isShowingScanner) {
             QRScannerView(isShowingScanner: $isShowingScanner, scannedText: $scannedText)
         }
         .navigationBarBackButtonHidden(true)
     }
-    
 }
 
 struct TabbarVC_Previews: PreviewProvider {
@@ -151,13 +159,15 @@ struct NavBar: View {
     var title: String
     var leftButtonImage: String
     var leftButtonAction: () -> Void
-    var rightButtonImage: String? // ✅ Make this optional
+    var rightButtonImage: String?
     var rightButtonAction: (() -> Void)?
     var badgeCount: Int = 0
     @Binding var presentSideMenu: Bool
     var trailingButtonImage: String?
     var trailingButtonAction: (() -> Void)?
-    
+    var extraButtonImage: String?
+    var extraButtonAction: (() -> Void)?
+
     var body: some View {
         HStack {
             Button(action: {
@@ -200,6 +210,15 @@ struct NavBar: View {
 //                }
 //                .accentColor(.black)
 //            }
+            // Inside trailing HStack (where other buttons are):
+            if let extraImage = extraButtonImage, let extraAction = extraButtonAction {
+                Button(action: extraAction) {
+                    Image(systemName: extraImage)
+                        .font(.system(size: 24, weight: .regular))
+                }
+                .accentColor(.black)
+            }
+
         }
         .padding(16)
         .background(Color.brightOrange)
