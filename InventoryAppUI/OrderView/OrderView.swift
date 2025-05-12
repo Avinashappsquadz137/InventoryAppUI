@@ -9,7 +9,16 @@ import SwiftUI
 struct OrderView: View {
     @State private var orders: [ItemDetail] = []
     @State private var selectedOrder: ItemDetail? = nil
-
+    @State private var searchText = ""
+    private var filteredItems: [ItemDetail] {
+        if searchText.isEmpty {
+            return orders
+        } else {
+            return orders.filter {
+                $0.clientName.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
     var body: some View {
         VStack {
             if orders.isEmpty {
@@ -28,7 +37,23 @@ struct OrderView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                List(orders, id: \.tempID) { order in
+                HStack(spacing: 4) {
+                    TextField("Search...", text: $searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(minWidth: 100)
+
+                    Button(action: {
+                        withAnimation {
+                            searchText = ""
+                        }
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(.gray)
+                    }
+                }
+                .padding(2)
+                List(filteredItems, id: \.tempID) { order in
                     MoreOrderCell(
                         clientName: order.clientName,
                         clientContact: order.personMobileNo,

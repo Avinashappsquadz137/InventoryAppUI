@@ -38,7 +38,7 @@ struct MainViewItemByDateView: View {
                 HStack {
                     if !item.isEmpty {
                         TextField("Search items...", text: $searchText)
-                            .padding(10)
+                            .padding(5)
                             .background(Color(.systemGray6))
                             .cornerRadius(8)
                             .tint(.black)
@@ -51,7 +51,7 @@ struct MainViewItemByDateView: View {
                         }
                     }
                 }
-                .padding(10)
+                .padding(5)
                 Spacer()
                 List(filteredItems, id: \.iTEM_MASTER_ID) { filteredItem in
                     if let originalIndex = item.firstIndex(where: { $0.iTEM_MASTER_ID == filteredItem.iTEM_MASTER_ID }) {

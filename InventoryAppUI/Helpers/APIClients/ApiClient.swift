@@ -63,6 +63,10 @@ class ApiClient: NSObject {
                     for (key, imageData) in images {
                         multipartFormData.append(imageData, withName: key, fileName: "\(key).jpg", mimeType: "image/jpeg")
                     }
+                    // ✅ Append files
+                    for (key, file) in files {
+                        multipartFormData.append(file.data, withName: key, fileName: file.fileName, mimeType: file.mimeType)
+                    }
                 },
                 to: fullUrl,
                 method: .post,

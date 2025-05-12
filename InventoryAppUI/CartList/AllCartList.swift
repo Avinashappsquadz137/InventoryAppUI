@@ -17,10 +17,20 @@ struct AllCartList: View {
     @State private var allCartList: GetAllCartList? = nil
     
     @State private var showDateilScreen = false
-    
     @State private var itemToDelete: CartList? = nil
     @State private var showDeleteConfirmation: Bool = false
-    
+    @State private var isSearching = false
+    @State private var searchText = ""
+    private var filteredItems: [CartList] {
+        if searchText.isEmpty {
+            return items
+        } else {
+            return items.filter {
+                $0.iTEM_NAME?.lowercased().contains(searchText.lowercased()) ?? false
+            }
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -44,25 +54,54 @@ struct AllCartList: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }  else {
                         if let toDate = allCartList?.to_date, let fromDate = allCartList?.from_date {
-                            HStack {
-                                Text("\(fromDate)")
-                                    .font(.headline)
-                                    .padding(10)
-                                    .frame(maxWidth: .infinity)
+                            HStack(spacing: 10) {
+                                if !isSearching {
+                                    Group {
+                                        Text("\(fromDate)")
+                                        Text("\(toDate)")
+                                    }
+                                    .font(.subheadline)
+                                    .padding(8)
                                     .background(Color.brightOrange.opacity(0.1))
                                     .foregroundColor(.brightOrange)
                                     .cornerRadius(8)
-                                Text("\(toDate)")
-                                    .font(.headline)
-                                    .padding(10)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.brightOrange.opacity(0.1))
-                                    .foregroundColor(.brightOrange)
-                                    .cornerRadius(8)
-                            }.padding(5)
+                                    
+                                }
+                                Button(action: {
+                                    withAnimation {
+                                        isSearching = true
+                                    }
+                                }) {
+                                    Image(systemName: "magnifyingglass")
+                                        .font(.system(size: 25))
+                                        .foregroundColor(.brightOrange)
+                                }
+                                if isSearching {
+                                    HStack(spacing: 4) {
+                                        TextField("Search...", text: $searchText)
+                                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                                            .frame(minWidth: 100)
+
+                                        Button(action: {
+                                            withAnimation {
+                                                isSearching = false
+                                                searchText = ""
+                                            }
+                                        }) {
+                                            Image(systemName: "xmark.circle.fill")
+                                                .font(.system(size: 20))
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                    .transition(.move(edge: .trailing))
+                                }
+
+                               // Spacer()
+                            }
+//                            .padding(.horizontal, 10)
+//                            .padding(.vertical, 5)
                         }
-                        
-                        List(items, id: \.id) { item in
+                        List(filteredItems, id: \.id) { item in
                             ItemDetailCell(
                                 itemMasterId: item.iTEM_MASTER_ID,
                                 itemName: item.iTEM_NAME ?? "Unknown",

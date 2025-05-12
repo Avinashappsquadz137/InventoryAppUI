@@ -75,6 +75,7 @@ struct UploadDocumentView: View {
                 }
             }
         }
+        .overlay(ToastView())
     }
     func uploadExcelApi() {
         guard let fileURL = selectedFileURL else {
@@ -119,18 +120,17 @@ struct UploadDocumentView: View {
 }
 
 
-struct GetSuccessMessage : Codable {
-    let status : Bool?
-    let message : String?
-    let data : [String]?
-    let error : [String]?
+struct GetSuccessMessage: Codable {
+    let status: Bool?
+    let message: String?
+    let data: [String]?
+    let error: [String]?
 
     enum CodingKeys: String, CodingKey {
-
-        case status = "status"
-        case message = "message"
-        case data = "data"
-        case error = "error"
+        case status
+        case message
+        case data
+        case error
     }
 
     init(from decoder: Decoder) throws {
@@ -138,10 +138,18 @@ struct GetSuccessMessage : Codable {
         status = try values.decodeIfPresent(Bool.self, forKey: .status)
         message = try values.decodeIfPresent(String.self, forKey: .message)
         data = try values.decodeIfPresent([String].self, forKey: .data)
-        error = try values.decodeIfPresent([String].self, forKey: .error)
+        
+        // Handle "error" as either a string or an array of strings
+        if let errorArray = try? values.decodeIfPresent([String].self, forKey: .error) {
+            error = errorArray
+        } else if let errorString = try? values.decodeIfPresent(String.self, forKey: .error) {
+            error = [errorString]
+        } else {
+            error = nil
+        }
     }
-
 }
+
 struct DocumentPicker: UIViewControllerRepresentable {
     var supportedTypes: [UTType]
     var onDocumentPicked: (URL) -> Void
