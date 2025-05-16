@@ -10,6 +10,7 @@
 		B51267BB368D2B2146655F6E /* Pods_InventoryAppUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D6A9D197C82889BFA85F2D /* Pods_InventoryAppUI.framework */; };
 		C7023ECF2DCB969E0043B8B1 /* VersionCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7023ECE2DCB969A0043B8B1 /* VersionCheckers.swift */; };
 		C7023F882DCF29700043B8B1 /* UploadDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */; };
+		C70EFA9F2DD22FE30055DA2A /* OrderScannedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70EFA9E2DD22FDC0055DA2A /* OrderScannedItemsView.swift */; };
 		C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */; };
 		C718A9782D29534B00487615 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9772D29534B00487615 /* ToastManager.swift */; };
 		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
@@ -70,6 +71,7 @@
 		B7E644721B02B22C030B1630 /* Pods-InventoryAppUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InventoryAppUI.release.xcconfig"; path = "Target Support Files/Pods-InventoryAppUI/Pods-InventoryAppUI.release.xcconfig"; sourceTree = "<group>"; };
 		C7023ECE2DCB969A0043B8B1 /* VersionCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCheckers.swift; sourceTree = "<group>"; };
 		C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDocumentView.swift; sourceTree = "<group>"; };
+		C70EFA9E2DD22FDC0055DA2A /* OrderScannedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderScannedItemsView.swift; sourceTree = "<group>"; };
 		C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAvailabilityModel.swift; sourceTree = "<group>"; };
 		C718A9772D29534B00487615 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
@@ -170,6 +172,14 @@
 				C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */,
 			);
 			path = UploadDocumentView;
+			sourceTree = "<group>";
+		};
+		C70EFA9D2DD22F580055DA2A /* OrderItemScannedItems */ = {
+			isa = PBXGroup;
+			children = (
+				C70EFA9E2DD22FDC0055DA2A /* OrderScannedItemsView.swift */,
+			);
+			path = OrderItemScannedItems;
 			sourceTree = "<group>";
 		};
 		C718A9762D29533A00487615 /* Toster */ = {
@@ -280,6 +290,7 @@
 		C783549A2D313C2600959FEA /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
+				C70EFA9D2DD22F580055DA2A /* OrderItemScannedItems */,
 				C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */,
 				C72A5E4B2D3270D500B73D29 /* ShowScannedItems */,
 				C783549B2D313C5800959FEA /* MoreOrderCell.swift */,
@@ -622,6 +633,7 @@
 				C718A9782D29534B00487615 /* ToastManager.swift in Sources */,
 				C78CDE1A2D4E3C940084762D /* GetItemRepairByIdModel.swift in Sources */,
 				C784D9572D2FDAC700D83DE6 /* UserDefultS.swift in Sources */,
+				C70EFA9F2DD22FE30055DA2A /* OrderScannedItemsView.swift in Sources */,
 				C785E6CD2D48D62C00992E9B /* RepairProductCell.swift in Sources */,
 				C7344C562D38E05000D1E030 /* MainViewItemByDateView.swift in Sources */,
 				C785E6CF2D48DAF500992E9B /* RepairListModel.swift in Sources */,

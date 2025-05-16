@@ -10,7 +10,7 @@ import SwiftUI
 struct EnterDetailsVC: View {
     
     @State private var navigateToScannedItemsView = false
-    @State private var textFieldValues: [String] = Array(repeating: "", count: 11)
+    @State private var textFieldValues: [String] = Array(repeating: "", count: 7)
     @State private var teamMembers: [CrewMember] = []
     @State private var teamVehicle: [Transport] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
@@ -22,11 +22,11 @@ struct EnterDetailsVC: View {
     
     let order: ItemDetail
     let data = [
-        "Consignee", "Transporter", "Consigner", "HSN/SAC Code",
-        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member", "Transport Id","Vehicle","Vehicle No"
+        "HSN/SAC Code",
+        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member","Vehicle","Vehicle No"
     ]
  
-    
+    //Consignee", "Transporter", "Consigner", "Transport Id"
     var body: some View {
         NavigationStack {
             VStack {
@@ -78,18 +78,6 @@ struct EnterDetailsVC: View {
             .modifier(ViewModifiers())
             .navigationTitle("Enter Details")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.left")
-                            Text("Back")
-                        }
-                    }
-                }
-            }.overlay(ToastView())
             NavigationLink(
                 destination: ShowScannedItemsView(order: order,textFieldValues: $textFieldValues, multiSelectValues: $multiSelectValues, teamMembers: teamMembers, data: data),
                 isActive: $navigateToScannedItemsView,

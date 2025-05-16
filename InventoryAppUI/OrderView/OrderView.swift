@@ -76,7 +76,9 @@ struct OrderView: View {
             set: { if !$0 { selectedOrder = nil } }
         )) {
             if let order = selectedOrder {
-                EnterDetailsVC(order: order).environment(\.colorScheme, .light)
+                NavigationStack {
+                    OrderScannedItemsView(order: order)
+                }
             }
         }
     }
