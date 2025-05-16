@@ -18,27 +18,64 @@ struct CreateChallanDetails: View {
     @State private var selectedDate: Date = Date()
     @State private var isSubmitting = false
     let checkedStates: [String]
+   
     
-    let data = ["Client Name","Location","Company Name & Address","GST No", "State","Pincode","Contact Person","Mobile No","Show Start Date","Show End Date","Inventory Loading Date"]
+    let data = ["Client Name","Location","Company Name & Address","GST No", "State","Pincode","Contact Person","Mobile No","Start Date","End Date","Inventory Loading Date"]
     
     var body: some View {
         NavigationStack {
             VStack {
                 List {
                     ForEach(0..<data.count, id: \.self) { index in
-                        DetailsFieldCell(
-                            data: data[index],
-                            textFieldValue: Binding(
-                                get: { textFieldValues[index] },
-                                set: { newValue in
-                                    textFieldValues[index] = newValue
+                        if data[index] == "Start Date" {
+                            HStack {
+                                // Show Start Date
+                                DetailsFieldCell(
+                                    data: "Start Date",
+                                    textFieldValue: Binding(
+                                        get: { textFieldValues[index] },
+                                        set: { newValue in
+                                            textFieldValues[index] = newValue
+                                        }
+                                    ),
+                                    index: index,
+                                    multiSelectValues: $multiSelectValues,
+                                    showTitle: false
+                                )
+                                
+                                // Show End Date
+                                if let endDateIndex = data.firstIndex(of: "End Date") {
+                                    DetailsFieldCell(
+                                        data: "End Date",
+                                        textFieldValue: Binding(
+                                            get: { textFieldValues[endDateIndex] },
+                                            set: { newValue in
+                                                textFieldValues[endDateIndex] = newValue
+                                            }
+                                        ),
+                                        index: endDateIndex,
+                                        multiSelectValues: $multiSelectValues,
+                                        showTitle: false
+                                    )
                                 }
-                            ),
-                            index: index,
-                            multiSelectValues: $multiSelectValues
-                        )
+                            }
+                        } else if data[index] != "End Date" {
+                            // Normal fields (excluding "Show End Date" since it's shown above)
+                            DetailsFieldCell(
+                                data: data[index],
+                                textFieldValue: Binding(
+                                    get: { textFieldValues[index] },
+                                    set: { newValue in
+                                        textFieldValues[index] = newValue
+                                    }
+                                ),
+                                index: index,
+                                multiSelectValues: $multiSelectValues
+                            )
+                        }
                     }
                 }
+
                 HStack {
                     Button("Submit") {
                         validateTextFields { isValid, collectedData in
@@ -80,7 +117,7 @@ struct CreateChallanDetails: View {
         let missingFields = textFieldValues.enumerated().compactMap { (index, value) -> String? in
             let fieldName = data[index]
             
-            if fieldName == "Show Start Date" || fieldName == "Show End Date" {
+            if fieldName == "Start Date" || fieldName == "End Date" {
                 return nil
             }
             return value.isEmpty ? fieldName : nil
@@ -117,9 +154,9 @@ struct CreateChallanDetails: View {
                 dict["contactPerson"] = textFieldValues[index]
             case "Mobile No":
                 dict["mobileNo"] = textFieldValues[index]
-            case "Show Start Date":
+            case "Start Date":
                 dict["showStartDate"] = "\(formattedDate(UserDefaultsManager.shared.getFromDate() ?? Date()))"
-            case "Show End Date":
+            case "End Date":
                 dict["showEndDate"] = "\(formattedDate(UserDefaultsManager.shared.getToDate() ?? Date()))"
             case "Inventory Loading Date":
                 dict["inventoryLoadingDate"] = textFieldValues[index]
@@ -166,12 +203,14 @@ struct DetailsFieldCell: View {
     @Binding var textFieldValue: String
     let index: Int
     @Binding var multiSelectValues: [Int: [String]]
-    
+    var showTitle: Bool = true
     var body: some View {
         VStack {
-            Text(data)
-                .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            if showTitle {
+                Text(data)
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
             if data == "Inventory Loading Date" {
                 DatePicker(
                     "Select \(data)",
@@ -187,11 +226,11 @@ struct DetailsFieldCell: View {
                             textFieldValue = formatter.string(from: newValue)
                         }
                     ),
-                    in: Date()...,
+                  
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(CompactDatePickerStyle())
-            }else if data == "Show Start Date" {
+            }else if data == "Start Date" {
                 let defaultStartDate = UserDefaultsManager.shared.getFromDate() ?? Date()
                 DatePicker(
                     "\(data)",
@@ -212,7 +251,7 @@ struct DetailsFieldCell: View {
                 .datePickerStyle(CompactDatePickerStyle())
                 .disabled(true)
                 
-            }else if data == "Show End Date" {
+            }else if data == "End Date" {
                 let defaultEndDate = UserDefaultsManager.shared.getToDate() ?? Date()
                 DatePicker(
                     "\(data)",
