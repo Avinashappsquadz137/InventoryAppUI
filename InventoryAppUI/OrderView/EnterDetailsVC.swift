@@ -9,8 +9,8 @@ import SwiftUI
 
 struct EnterDetailsVC: View {
     
-    @State private var navigateToScannedItemsView = false
-    @State private var textFieldValues: [String] = Array(repeating: "", count: 7)
+   
+    @State private var textFieldValues: [String] = Array(repeating: "", count: 3)
     @State private var teamMembers: [CrewMember] = []
     @State private var teamVehicle: [Transport] = []
     @State private var multiSelectValues: [Int: [String]] = [:]
@@ -22,11 +22,11 @@ struct EnterDetailsVC: View {
     
     let order: ItemDetail
     let data = [
-        "HSN/SAC Code",
-        "Eway Bill Transaction", "Eway Bill No", "Eway Bill Date", "Team Member","Vehicle","Vehicle No"
+        "HSN/SAC Code","Team Member","Vehicle",
     ]
  
-    //Consignee", "Transporter", "Consigner", "Transport Id"
+    //Consignee", "Transporter", "Consigner", "Transport Id, "Vehicle No""
+    //"Eway Bill Amount", "Eway Bill No", "Eway Bill Date",
     var body: some View {
         NavigationStack {
             VStack {
@@ -47,28 +47,25 @@ struct EnterDetailsVC: View {
                     }
                 }
                 HStack {
-                    Button("SAVE") {
+                    Button(action: {
                         validateTextFields { isValid, collectedData in
                             if isValid {
                                 print("Form is valid: \(collectedData)")
-                                navigateToScannedItemsView = true
+                           
                             } else {
                                 ToastManager.shared.show(message:"Please fill all required fields.")
                             }
                         }
+                    }) {
+                        Text("Submit")
+                            .font(.headline)
+                            .padding(10)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.brightOrange)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
                     .padding()
-                    .background(Color.brightOrange)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    
-                    Button("Clear") {
-                        clearTextFields()
-                    }
-                    .padding()
-                    .background(Color.gray)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
                 }
             }
             .onAppear {
@@ -78,11 +75,6 @@ struct EnterDetailsVC: View {
             .modifier(ViewModifiers())
             .navigationTitle("Enter Details")
             .navigationBarTitleDisplayMode(.inline)
-            NavigationLink(
-                destination: ShowScannedItemsView(order: order,textFieldValues: $textFieldValues, multiSelectValues: $multiSelectValues, teamMembers: teamMembers, data: data),
-                isActive: $navigateToScannedItemsView,
-                label: { EmptyView() }
-            )
         }
     }
   
@@ -134,6 +126,8 @@ struct TextFieldCell: View {
     @Binding var teamVehicle: [Transport]
     @Binding var teamMembers: [CrewMember]
     @Binding var multiSelectValues: [Int: [String]]
+    @State private var showVehicleFields = false
+    @State private var vehicleGroups: [VehicleDetailGroup] = [VehicleDetailGroup()]
     
     var body: some View {
         VStack {
@@ -141,16 +135,89 @@ struct TextFieldCell: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
             if data == "Vehicle" {
-                Picker("Select Vehicle", selection: $textFieldValue) {
-                    ForEach(teamVehicle, id: \.id) { vehicle in
-                        Text(vehicle.transport_name ?? "Unknown").tag(vehicle.id ?? "")
+                VStack(alignment: .leading, spacing: 8) {
+                    if showVehicleFields {
+                        ForEach($vehicleGroups) { $group in
+                            Group {
+                                HStack {
+                                    Picker("Select Vehicle", selection: $group.selectedVehicleID) {
+                                        ForEach(teamVehicle, id: \.id) { vehicle in
+                                            Text(vehicle.transport_name ?? "Unknown")
+                                                .tag(vehicle.id ?? "")
+                                        }
+                                    }
+                                    .pickerStyle(MenuPickerStyle())
+                                }
+                                HStack {
+                                    TextField("Vehicle Number", text: $group.vehicleNumber)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    TextField("Driver Contact", text: $group.driverContact)
+                                        .keyboardType(.numberPad)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                }
+                                HStack {
+                                    TextField("Driver Name", text: $group.driverName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    TextField("Bill Amount", text: $group.awayBillAmount)
+                                        .keyboardType(.numberPad)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    
+                                }
+                                HStack {
+                                    TextField("Bill No", text: $group.ewayBillNo)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    DatePicker(
+                                        "Bill Date",
+                                        selection: Binding<Date>(
+                                            get: {
+                                                let formatter = DateFormatter()
+                                                formatter.dateFormat = "yyyy-MM-dd"
+                                                return formatter.date(from: group.ewayBillDate) ?? Date()
+                                            },
+                                            set: { newValue in
+                                                let formatter = DateFormatter()
+                                                formatter.dateFormat = "yyyy-MM-dd"
+                                                group.ewayBillDate = formatter.string(from: newValue)
+                                            }
+                                        ),
+                                        displayedComponents: [.date]
+                                    )
+                                    .datePickerStyle(CompactDatePickerStyle())
+                                }
+                                HStack {
+                                    Spacer()
+                                    Button(action: {
+                                        if let index = vehicleGroups.firstIndex(where: { $0.id == group.id }) {
+                                            vehicleGroups.remove(at: index)
+                                        }
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "minus.circle")
+                                            Text("Remove")
+                                        }
+                                        .foregroundColor(.red)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding(.bottom, 10)
+                        }
                     }
-                }
-                .pickerStyle(MenuPickerStyle())
-                .onChange(of: textFieldValue) { newValue in
+                        Button(action: {
+                            vehicleGroups.append(VehicleDetailGroup())
+                            showVehicleFields = true
+                        }) {
+                            HStack {
+                                Image(systemName: "plus.circle.fill")
+                                Text("Add")
+                            }
+                            .padding(.top, 4)
+                            .foregroundColor(.blue)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     
                 }
-            } else if data == "Team Member" {
+            }  else if data == "Team Member" {
                 NavigationLink(
                     destination: MultiSelectView(
                         teamMembers: teamMembers,
@@ -162,10 +229,10 @@ struct TextFieldCell: View {
                             }
                         ),
                         selectedNames: Binding(
-                            get: { multiSelectValues[index + 100] ?? [] }, // Store names separately
+                            get: { multiSelectValues[index + 100] ?? [] },
                             set: { newNames in
                                 multiSelectValues[index + 100] = newNames
-                                textFieldValue = newNames.joined(separator: ", ") // Update text field with names
+                                textFieldValue = newNames.joined(separator: ", ")
                             }
                         )
                     )
@@ -173,29 +240,8 @@ struct TextFieldCell: View {
                     HStack {
                         Text(textFieldValue.isEmpty ? "Select Team Members" : textFieldValue)
                             .foregroundColor(textFieldValue.isEmpty ? .gray : .primary)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
                     }
                 }
-            } else if data == "Eway Bill Date" {
-                DatePicker(
-                    "Select \(data)",
-                    selection: Binding(
-                        get: {
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "yyyy-MM-dd"
-                            return formatter.date(from: textFieldValue) ?? Date()
-                        },
-                        set: { newValue in
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "yyyy-MM-dd"
-                            textFieldValue = formatter.string(from: newValue)
-                        }
-                    ),
-                    displayedComponents: [.date]
-                )
-                .datePickerStyle(CompactDatePickerStyle())
             }else {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -238,3 +284,15 @@ struct MultiSelectView: View {
         .navigationTitle("Select Team Members")
     }
 }
+struct VehicleDetailGroup: Identifiable {
+    let id = UUID()
+    var selectedVehicleID: String = ""
+    var vehicleNumber: String = ""
+    var driverName: String = ""
+    var driverContact: String = ""
+    var awayBillAmount: String = ""
+    var ewayBillNo: String = ""
+    var ewayBillDate: String = ""
+    
+}
+

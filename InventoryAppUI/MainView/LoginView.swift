@@ -9,13 +9,14 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var userName = "7739866377" //9818524882
-    @State private var passWord = "87654321" //87654321
+    @State private var userName = "" //9818524882
+    @State private var passWord = "" //87654321
     @State private var worngUserName = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
+    @State private var isPasswordVisible: Bool = false
     let isPad: Bool = UIDevice.current.userInterfaceIdiom == .pad
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -40,14 +41,28 @@ struct LoginView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: isPad ? 200 : 80, height:  isPad ? 200 : 70)
                         .padding()
-                    TextField("Enter Username",text: $userName)
-                        .padding()
-                        .frame(height: 50)
-                        .background(Color.black.opacity(0.09))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(worngUserName))
+                    TextField("Enter Number", text: $userName)
+                           .keyboardType(.numberPad)
+                           .padding()
+                           .frame(height: 50)
+                           .background(Color.black.opacity(0.09))
+                           .cornerRadius(10)
+                           .border(.red, width: CGFloat(worngUserName))
+                           .onChange(of: userName) { newValue in
+                               let filtered = newValue.filter { $0.isNumber }
+                               if filtered.count > 10 {
+                                   userName = String(filtered.prefix(10))
+                               } else {
+                                   userName = filtered
+                               }
+                               if userName.count == 10, let first = userName.first, ["6", "7", "8", "9"].contains(first) {
+                                   worngUserName = 0
+                               } else {
+                                   worngUserName = 2
+                               }
+                           }
                     
-                    SecureField("Enter Password",text: $passWord)
+                    TextField("Enter Password",text: $passWord)
                         .padding()
                         .frame(height: 50)
                         .background(Color.black.opacity(0.09))

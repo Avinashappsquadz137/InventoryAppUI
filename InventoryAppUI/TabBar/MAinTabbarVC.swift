@@ -210,7 +210,6 @@ struct NavBar: View {
 //                }
 //                .accentColor(.black)
 //            }
-            // Inside trailing HStack (where other buttons are):
             if let extraImage = extraButtonImage, let extraAction = extraButtonAction {
                 Button(action: extraAction) {
                     Image(systemName: extraImage)
