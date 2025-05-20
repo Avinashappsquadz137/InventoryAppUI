@@ -20,7 +20,17 @@ struct OrderScannedItemsView: View {
     @State private var scannedCategories: [String] = []
     @State private var scannedCategoryCounts: [String: Int] = [:]
     @State private var navigate = false
-    
+    private var allItemsScanned: Bool {
+        for item in order.items {
+            guard let requiredQty = Int(item.quantity) else { return false }
+            let scannedQty = scannedCategoryCounts[item.itemName, default: 0]
+            if scannedQty < requiredQty {
+                return false
+            }
+        }
+        return true
+    }
+
     var body: some View {
         VStack {
             DataScannerRepresentable(
@@ -39,13 +49,13 @@ struct OrderScannedItemsView: View {
             List(order.items, id: \.itemName) { item in
                 HStack {
                     VStack(alignment: .leading) {
-                        let scannedCount = scannedCategoryCounts[item.category, default: 0]
+                        let scannedCount = scannedCategoryCounts[item.itemName, default: 0]
                         let quantity = Int(item.quantity) ?? 0
                         Text("\(item.itemName) - \(scannedCount)/\(quantity)")
                             .font(.subheadline)
                     }
                     Spacer()
-                    if let count = scannedCategoryCounts[item.category],
+                    if let count = scannedCategoryCounts[item.itemName],
                        let required = Int(item.quantity),
                        count >= required {
                         Image(systemName: "checkmark.seal.fill")
@@ -54,21 +64,22 @@ struct OrderScannedItemsView: View {
                 }
             }
             Spacer()
-            NavigationLink(destination: EnterDetailsVC(order: order), isActive: $navigate) {
+            NavigationLink(destination: EnterDetailsVC(scannedItems: $scannedItems, order: order), isActive: $navigate) {
                        EmptyView()
                    }
                 Button(action: {
                     print("All items scanned: \(scannedItems)")
                     navigate = true
                 }) {
-                    Text("SUBMIT")
+                    Text("NEXT")
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.brightOrange)
+                        .background(allItemsScanned ? Color.brightOrange : Color.gray)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                .disabled(!allItemsScanned)
                 .padding(10)
         }
         .navigationTitle("Scan Items")
@@ -123,21 +134,15 @@ struct OrderScannedItemsView: View {
 
         let currentCount = scannedCategoryCounts[scannedItemName, default: 0]
 
-        if currentCount >= quantity {
-            alertMessage = "This item has already been scanned \(quantity) times."
-            showAlert = true
-        } else {
             scannedCategoryCounts[scannedItemName] = currentCount + 1
 
             if scannedCategoryCounts[scannedItemName] == quantity {
                 selectedItemName = matchingItem.itemName
 
                 if let name = selectedItemName, !scannedItems.contains(name) {
-                    scannedItems.append(name)
+                    scannedItems.append(newValue)
                 }
             }
-        }
-
         scannedText = ""
     }
 

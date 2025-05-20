@@ -1,8 +1,8 @@
 //
 //  Constant.swift
-//  Binko Movi
+//  Avinash Gupta
 //
-//  Created by Warln on 20/08/22.
+//  Created by IOS on 20/08/22.
 
 
 import UIKit
@@ -53,6 +53,7 @@ struct Constant {
     static let getItemRepairById           = "api_panel/get_item_repair_by_id"
     static let readyForItemAvailable       = "api_panel/ready_for_item_available"
     static let uploadExcelForEvent         = "api_panel/upload_excel_for_event"
+    static let submitChallanMaster         = "api_panel/submit_challan_master"
     
 
 }

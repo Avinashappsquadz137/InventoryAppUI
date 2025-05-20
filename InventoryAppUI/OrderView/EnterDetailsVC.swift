@@ -19,11 +19,11 @@ struct EnterDetailsVC: View {
     @State var showDateilScreen = false
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedDate: Date = Date()
+    @State private var vehicleGroups: [VehicleDetailGroup] = []
+    @Binding var scannedItems: [String]
     
     let order: ItemDetail
-    let data = [
-        "HSN/SAC Code","Team Member","Vehicle",
-    ]
+    let data = ["HSN/SAC Code","Team Member","Vehicle"]
  
     //Consignee", "Transporter", "Consigner", "Transport Id, "Vehicle No""
     //"Eway Bill Amount", "Eway Bill No", "Eway Bill Date",
@@ -42,21 +42,37 @@ struct EnterDetailsVC: View {
                             ),
                             index: index,
                             teamVehicle: $teamVehicle, teamMembers: $teamMembers,
-                            multiSelectValues: $multiSelectValues
+                            multiSelectValues: $multiSelectValues,
+                            vehicleGroups: $vehicleGroups
                         )
                     }
                 }
                 HStack {
                     Button(action: {
-                        validateTextFields { isValid, collectedData in
-                            if isValid {
-                                print("Form is valid: \(collectedData)")
-                           
-                            } else {
-                                ToastManager.shared.show(message:"Please fill all required fields.")
-                            }
-                        }
-                    }) {
+                        if let validationMessage = validateForm() {
+                               ToastManager.shared.show(message: validationMessage)
+                               return
+                           }
+                        let teamMemberIDs = multiSelectValues[1] ?? []
+                        let hsnCode = textFieldValues[0]
+                       
+                          let vehicleDetails = vehicleGroups.map { group in
+                              return [
+                                  "vehicle": group.selectedVehicleID,
+                                  "vehicleNo": group.vehicleNumber,
+                                  "name": group.driverName,
+                                  "contact": group.driverContact,
+                                  "ewayBillAmount": group.awayBillAmount,
+                                  "ewayBillNo": group.ewayBillNo,
+                                  "ewayBillDate": group.ewayBillDate
+                              ]
+                          }
+                         addSaveChallanmaster(hsnCode: hsnCode,
+                                                teamMemberIDs: teamMemberIDs,
+                                                vehicleDetails: vehicleDetails,
+                                                itemQRStrings: scannedItems,
+                                                tempID: order.tempID)
+                    }){
                         Text("Submit")
                             .font(.headline)
                             .padding(10)
@@ -72,20 +88,50 @@ struct EnterDetailsVC: View {
                 getCrewMemberDetail()
                 getTransportCategory()
             }
-            .modifier(ViewModifiers())
+            .overlay(ToastView())
             .navigationTitle("Enter Details")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
   
-    func validateTextFields(completion: (_ isValid: Bool, _ collectedData: [String]) -> Void) {
-        let allFieldsFilled = !textFieldValues.contains(where: { $0.isEmpty })
-        if allFieldsFilled {
-            completion(true, textFieldValues)
-        } else {
-            completion(false, [])
+    func validateForm() -> String? {
+        if textFieldValues[0].isEmpty {
+            return "Please enter HSN/SAC Code"
         }
+        if (multiSelectValues[1]?.isEmpty ?? true) {
+            return "Please select at least one Team Member"
+        }
+        if vehicleGroups.isEmpty {
+            return "Please add at least one Vehicle"
+        }
+        
+        for (index, group) in vehicleGroups.enumerated() {
+            if group.selectedVehicleID.isEmpty {
+                return "Please select a vehicle for entry \(index + 1)"
+            }
+            if group.vehicleNumber.isEmpty {
+                return "Please enter vehicle number for entry \(index + 1)"
+            }
+            if group.driverName.isEmpty {
+                return "Please enter driver name for entry \(index + 1)"
+            }
+            if group.driverContact.isEmpty {
+                return "Please enter driver contact for entry \(index + 1)"
+            }
+            if group.awayBillAmount.isEmpty {
+                return "Please enter eWay Bill Amount for entry \(index + 1)"
+            }
+            if group.ewayBillNo.isEmpty {
+                return "Please enter eWay Bill Number for entry \(index + 1)"
+            }
+            if group.ewayBillDate.isEmpty {
+                return "Please select eWay Bill Date for entry \(index + 1)"
+            }
+        }
+
+        return nil
     }
+
 
     func clearTextFields() {
         textFieldValues = Array(repeating: "", count: data.count)
@@ -117,6 +163,56 @@ struct EnterDetailsVC: View {
             }
         }
     }
+    
+    func addSaveChallanmaster(hsnCode: String,
+                              teamMemberIDs: [String],
+                              vehicleDetails: [[String: Any]],
+                              itemQRStrings: [String],
+                              tempID: String) {
+        
+        var dict = [String: Any]()
+        dict["challan_status"] = "0"
+        dict["temp_id"] = "\(tempID)"
+        dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
+        dict["hsn_sac_code"] = hsnCode
+        dict["team_member"] = teamMemberIDs
+        dict["transporter"] = vehicleDetails
+        dict["item_qr_string"] = itemQRStrings
+
+        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.addSaveChallanmaster, method: .post, param: dict, model: SaveChallanMaster.self) { result in
+            switch result {
+            case .success(let model):
+                if let data = model.data {
+                    print("Fetched items: \(data)")
+                    submitChallanMaster(tempID: data.temp_id ?? "\(tempID)")
+                    ToastManager.shared.show(message: model.message ?? "Success")
+                } else {
+                    print("No data received")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    func submitChallanMaster(tempID: String) {
+        var dict = [String: Any]()
+        dict["temp_id"] = "\(tempID)"
+        dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
+ 
+        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.submitChallanMaster, method: .post, param: dict, model: SaveChallanMaster.self) { result in
+            switch result {
+            case .success(let model):
+                if let data = model.data {
+                    print("Fetched items: \(data)")
+                    ToastManager.shared.show(message: model.message ?? "Success")
+                } else {
+                    print("No data received")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 struct TextFieldCell: View {
@@ -127,7 +223,7 @@ struct TextFieldCell: View {
     @Binding var teamMembers: [CrewMember]
     @Binding var multiSelectValues: [Int: [String]]
     @State private var showVehicleFields = false
-    @State private var vehicleGroups: [VehicleDetailGroup] = [VehicleDetailGroup()]
+    @Binding var vehicleGroups: [VehicleDetailGroup]
     
     var body: some View {
         VStack {
