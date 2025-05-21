@@ -109,41 +109,26 @@ struct OrderScannedItemsView: View {
         guard !newValue.isEmpty else { return }
         print("Scanned QR code: \(newValue)")
         playBeepSound()
-
-        let components = newValue.components(separatedBy: "_")
-        guard components.count > 1 else {
-            alertMessage = "Invalid QR code format."
-            showAlert = true
-            scannedText = ""
-            return
-        }
-
-        guard let scannedItemName = components.last, !scannedItemName.isEmpty else {
-            alertMessage = "Invalid QR code format."
-            showAlert = true
-            scannedText = ""
-            return
-        }
-        guard let matchingItem = order.items.first(where: { $0.itemName == scannedItemName }),
-              let quantity = Int(matchingItem.quantity) else {
+        let normalizedScanned = newValue.replacingOccurrences(of: "-", with: " ").lowercased()
+        guard let matchingItem = order.items.first(where: {
+            normalizedScanned.contains($0.itemName.lowercased())
+        }), let quantity = Int(matchingItem.quantity) else {
             alertMessage = "This item is not in the order list."
             showAlert = true
             scannedText = ""
             return
         }
 
-        let currentCount = scannedCategoryCounts[scannedItemName, default: 0]
+        let itemName = matchingItem.itemName
+        let currentCount = scannedCategoryCounts[itemName, default: 0]
+        scannedCategoryCounts[itemName] = currentCount + 1
 
-            scannedCategoryCounts[scannedItemName] = currentCount + 1
-
-            if scannedCategoryCounts[scannedItemName] == quantity {
-                selectedItemName = matchingItem.itemName
-
-                if let name = selectedItemName, !scannedItems.contains(name) {
-                    scannedItems.append(newValue)
-                }
+        if scannedCategoryCounts[itemName] == quantity {
+            selectedItemName = itemName
+            if !scannedItems.contains(itemName) {
+                scannedItems.append(newValue)
             }
+        }
         scannedText = ""
     }
-
 }

@@ -78,14 +78,11 @@ struct CreateChallanDetails: View {
 
                 HStack {
                     Button("Submit") {
-                        validateTextFields { isValid, collectedData in
-                            if isValid {
-                                print("Form is valid: \(collectedData)")
-                                createOrderByCartItem()
-                            } else {
-                                ToastManager.shared.show(message:"Please fill all required fields.")
-                            }
-                        }
+                        if let validationMessage = validateForm() {
+                               ToastManager.shared.show(message: validationMessage)
+                               return
+                           }
+                        createOrderByCartItem()
                     }
                     .font(.headline)
                     .padding(10)
@@ -113,23 +110,33 @@ struct CreateChallanDetails: View {
             }.overlay(ToastView())
         }
     }
-    func validateTextFields(completion: (_ isValid: Bool, _ collectedData: [String]) -> Void) {
-        let missingFields = textFieldValues.enumerated().compactMap { (index, value) -> String? in
-            let fieldName = data[index]
-            
-            if fieldName == "Start Date" || fieldName == "End Date" {
-                return nil
+
+    func validateForm() -> String? {
+        for (index, value) in textFieldValues.enumerated() {
+            let field = data[index]
+            if field == "Start Date" || field == "End Date" {
+                continue
             }
-            return value.isEmpty ? fieldName : nil
+            
+            if value.trimmingCharacters(in: .whitespaces).isEmpty {
+                return "Please enter \(field)."
+            }
+            
+            if field == "Mobile No" && value.count != 10 {
+                return "Mobile number must be exactly 10 digits."
+            }
+            
+            if field == "Pincode" && value.count != 6 {
+                return "Pincode must be exactly 6 digits."
+            }
+            
+            if field == "GST No" && value.count != 15 {
+                return "GST No must be exactly 15 characters."
+            }
         }
-        
-        if missingFields.isEmpty {
-            completion(true, textFieldValues)
-        } else {
-            print("The following fields are missing: \(missingFields.joined(separator: ", "))")
-            completion(false, missingFields)
-        }
+        return nil 
     }
+
     func createOrderByCartItem() {
         guard !isSubmitting else { return }
             isSubmitting = true
