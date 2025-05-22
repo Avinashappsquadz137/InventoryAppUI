@@ -45,8 +45,7 @@ struct OrderScannedItemsView: View {
             .border(Color.gray, width: 2)
             .padding(.top)
             Divider().padding(.vertical, 8)
-
-            List(order.items, id: \.itemName) { item in
+            List(order.items.sorted(by: scanningOrder), id: \.itemName) { item in
                 HStack {
                     VStack(alignment: .leading) {
                         let scannedCount = scannedCategoryCounts[item.itemName, default: 0]
@@ -101,7 +100,12 @@ struct OrderScannedItemsView: View {
         }
         .overlay(ToastView())
     }
-    
+    private func scanningOrder(_ lhs: Item, _ rhs: Item) -> Bool {
+        let lhsIndex = scannedItems.firstIndex { $0.contains(lhs.itemName) } ?? Int.max
+        let rhsIndex = scannedItems.firstIndex { $0.contains(rhs.itemName) } ?? Int.max
+        return lhsIndex > rhsIndex
+    }
+
     private func playBeepSound() {
         AudioServicesPlaySystemSound(SystemSoundID(1057))
     }
@@ -121,13 +125,20 @@ struct OrderScannedItemsView: View {
 
         let itemName = matchingItem.itemName
         let currentCount = scannedCategoryCounts[itemName, default: 0]
-        scannedCategoryCounts[itemName] = currentCount + 1
+        if currentCount >= quantity {
+            alertMessage = "\(itemName) has already been scanned \(quantity) times."
+            showAlert = true
+            scannedText = ""
+            return
+        }
+        withAnimation {
+            scannedCategoryCounts[itemName] = currentCount + 1
+        }
 
         if scannedCategoryCounts[itemName] == quantity {
             selectedItemName = itemName
-            if !scannedItems.contains(itemName) {
-                scannedItems.append(newValue)
-            }
+            scannedItems.removeAll { $0 == itemName }
+            scannedItems.append(newValue)
         }
         scannedText = ""
     }

@@ -20,7 +20,7 @@ struct CreateChallanDetails: View {
     let checkedStates: [String]
    
     
-    let data = ["Client Name","Location","Company Name & Address","GST No", "State","Pincode","Contact Person","Mobile No","Start Date","End Date","Inventory Loading Date"]
+    let data = ["Event Name" ,"Client Name","Location","Company Name & Address","GST No", "State","Pincode","Mobile No","Start Date","End Date","Inventory Loading Date"]
     
     var body: some View {
         NavigationStack {
@@ -157,7 +157,7 @@ struct CreateChallanDetails: View {
                 dict["state"] = textFieldValues[index]
             case "Pincode":
                 dict["pincode"] = textFieldValues[index]
-            case "Contact Person":
+            case "Event Name":
                 dict["contactPerson"] = textFieldValues[index]
             case "Mobile No":
                 dict["mobileNo"] = textFieldValues[index]
@@ -183,8 +183,8 @@ struct CreateChallanDetails: View {
                     if let data = model.data {
                         print("Fetched items: \(data)")
                         ToastManager.shared.show(message: model.message ?? "")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            isSubmitting = false
+                        isSubmitting = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             if let window = UIApplication.shared.windows.first {
                                 window.rootViewController = UIHostingController(rootView: MAinTabbarVC().environment(\.colorScheme, .light))
                                 window.makeKeyAndVisible()

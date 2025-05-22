@@ -119,8 +119,39 @@ struct MessageData : Codable {
     }
 
     init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+
+            if let intValue = try? container.decode(Int.self, forKey: .temp_id) {
+                temp_id = String(intValue)
+            } else if let stringValue = try? container.decode(String.self, forKey: .temp_id) {
+                temp_id = stringValue
+            } else {
+                temp_id = nil
+            }
+        }
+
+}
+
+struct SubmitChallan : Codable {
+    let status : Bool?
+    let message : String?
+    let data : String?
+    let error : String?
+
+    enum CodingKeys: String, CodingKey {
+
+        case status = "status"
+        case message = "message"
+        case data = "data"
+        case error = "error"
+    }
+
+    init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        temp_id = try values.decodeIfPresent(String.self, forKey: .temp_id)
+        status = try values.decodeIfPresent(Bool.self, forKey: .status)
+        message = try values.decodeIfPresent(String.self, forKey: .message)
+        data = try values.decodeIfPresent(String.self, forKey: .data)
+        error = try values.decodeIfPresent(String.self, forKey: .error)
     }
 
 }

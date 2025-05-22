@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EnterDetailsVC: View {
     
-   
+    
     @State private var textFieldValues: [String] = Array(repeating: "", count: 3)
     @State private var teamMembers: [CrewMember] = []
     @State private var teamVehicle: [Transport] = []
@@ -21,10 +21,12 @@ struct EnterDetailsVC: View {
     @State private var selectedDate: Date = Date()
     @State private var vehicleGroups: [VehicleDetailGroup] = []
     @Binding var scannedItems: [String]
+    @State private var pdfURL: URL? = nil
+    @State private var isShowingWebView = false
     
     let order: ItemDetail
     let data = ["HSN/SAC Code","Team Member","Vehicle"]
- 
+    
     //Consignee", "Transporter", "Consigner", "Transport Id, "Vehicle No""
     //"Eway Bill Amount", "Eway Bill No", "Eway Bill Date",
     var body: some View {
@@ -50,28 +52,33 @@ struct EnterDetailsVC: View {
                 HStack {
                     Button(action: {
                         if let validationMessage = validateForm() {
-                               ToastManager.shared.show(message: validationMessage)
-                               return
-                           }
+                            ToastManager.shared.show(message: validationMessage)
+                            return
+                        }
                         let teamMemberIDs = multiSelectValues[1] ?? []
                         let hsnCode = textFieldValues[0]
-                       
-                          let vehicleDetails = vehicleGroups.map { group in
-                              return [
-                                  "vehicle": group.selectedVehicleID,
-                                  "vehicleNo": group.vehicleNumber,
-                                  "name": group.driverName,
-                                  "contact": group.driverContact,
-                                  "ewayBillAmount": group.awayBillAmount,
-                                  "ewayBillNo": group.ewayBillNo,
-                                  "ewayBillDate": group.ewayBillDate
-                              ]
-                          }
-                         addSaveChallanmaster(hsnCode: hsnCode,
-                                                teamMemberIDs: teamMemberIDs,
-                                                vehicleDetails: vehicleDetails,
-                                                itemQRStrings: scannedItems,
-                                                tempID: order.tempID)
+                        
+                        let vehicleDetails = vehicleGroups.map { group in
+                            return [
+                                "vehicle": group.selectedVehicleID,
+                                "vehicleNo": group.vehicleNumber,
+                                "name": group.driverName,
+                                "contact": group.driverContact,
+                                "ewayBillAmount": group.awayBillAmount,
+                                "ewayBillNo": group.ewayBillNo,
+                                "ewayBillDate": group.ewayBillDate
+                            ]
+                        }
+                        
+                        addSaveChallanmaster(hsnCode: hsnCode,
+                                             teamMemberIDs: teamMemberIDs,
+                                             vehicleDetails: vehicleDetails,
+                                             itemQRStrings: scannedItems,
+                                             tempID: order.tempID)
+                        defer {
+                            submitChallanMaster(tempID: order.tempID)
+                        }
+                        
                     }){
                         Text("Submit")
                             .font(.headline)
@@ -91,9 +98,78 @@ struct EnterDetailsVC: View {
             .overlay(ToastView())
             .navigationTitle("Enter Details")
             .navigationBarTitleDisplayMode(.inline)
+            .fullScreenCover(isPresented: $isShowingWebView) {
+                if let url = pdfURL {
+                    ZStack {
+                        WebView(url: url)
+                            .edgesIgnoringSafeArea(.all)
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    isShowingWebView = false
+                                    orderView()
+                                }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.black)
+                                        .padding()
+                                }
+                            }
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    downloadPDF(from: url)
+                                }) {
+                                    HStack {
+                                        Image(systemName: "arrow.down.circle.fill")
+                                        Text("Download")
+                                    }
+                                    .padding()
+                                    .background(Color.brightOrange)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                    .padding(.bottom, 20)
+                                    .padding(.trailing, 20)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
     }
-  
+    func downloadPDF(from url: URL) {
+        let task = URLSession.shared.downloadTask(with: url) { tempURL, response, error in
+            if let tempURL = tempURL {
+                do {
+                    let fileManager = FileManager.default
+                    let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    let destinationURL = documentsURL.appendingPathComponent(url.lastPathComponent)
+                    
+                    if fileManager.fileExists(atPath: destinationURL.path) {
+                        try fileManager.removeItem(at: destinationURL)
+                    }
+                    try fileManager.copyItem(at: tempURL, to: destinationURL)
+                    DispatchQueue.main.async {
+                        ToastManager.shared.show(message: "PDF downloaded to Files app")
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        ToastManager.shared.show(message: "Download failed: \(error.localizedDescription)")
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    ToastManager.shared.show(message: "Download failed")
+                }
+            }
+        }
+        task.resume()
+    }
+    
     func validateForm() -> String? {
         if textFieldValues[0].isEmpty {
             return "Please enter HSN/SAC Code"
@@ -115,8 +191,10 @@ struct EnterDetailsVC: View {
             if group.driverName.isEmpty {
                 return "Please enter driver name for entry \(index + 1)"
             }
-            if group.driverContact.isEmpty {
-                return "Please enter driver contact for entry \(index + 1)"
+            if group.driverContact.count != 10 && !group.driverContact.isEmpty {
+                Text("Please enter a 10-digit mobile number.")
+                    .foregroundColor(.red)
+                    .font(.caption)
             }
             if group.awayBillAmount.isEmpty {
                 return "Please enter eWay Bill Amount for entry \(index + 1)"
@@ -128,31 +206,31 @@ struct EnterDetailsVC: View {
                 return "Please select eWay Bill Date for entry \(index + 1)"
             }
         }
-
+        
         return nil
     }
-
-
+    
+    
     func clearTextFields() {
         textFieldValues = Array(repeating: "", count: data.count)
     }
-        func getTransportCategory() {
-            var dict = [String: Any]()
-            dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
-            ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getTransportCategory, method: .post, param: dict, model: TransportCategory.self){ result in
-                switch result {
-                case .success(let model):
-                    if let data = model.data {
-                        self.teamVehicle = data
-                        print("Fetched items: \(data)")
-                    } else {
-                        print("No data received")
-                    }
-                case .failure(let error):
-                    print(error)
+    func getTransportCategory() {
+        var dict = [String: Any]()
+        dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
+        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getTransportCategory, method: .post, param: dict, model: TransportCategory.self){ result in
+            switch result {
+            case .success(let model):
+                if let data = model.data {
+                    self.teamVehicle = data
+                    print("Fetched items: \(data)")
+                } else {
+                    print("No data received")
                 }
+            case .failure(let error):
+                print(error)
             }
         }
+    }
     func getCrewMemberDetail() {
         ApiClient.shared.callmethodMultipart(apiendpoint: Constant.getCrewMember, method: .post, param: [:], model: CrewMemberModel.self){ result in
             switch result {
@@ -198,19 +276,37 @@ struct EnterDetailsVC: View {
         var dict = [String: Any]()
         dict["temp_id"] = "\(tempID)"
         dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
- 
-        ApiClient.shared.callmethodMultipart(apiendpoint: Constant.submitChallanMaster, method: .post, param: dict, model: SaveChallanMaster.self) { result in
+        
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.submitChallanMaster,
+            method: .post,
+            param: dict,
+            model: SubmitChallan.self
+        ) { result in
             switch result {
             case .success(let model):
-                if let data = model.data {
-                    print("Fetched items: \(data)")
-                    ToastManager.shared.show(message: model.message ?? "Success")
+                if let urlString = model.data,
+                   let encodedURLString = (Constant.BASEURL + "Files/" + urlString).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                   let url = URL(string: encodedURLString) {
+                    DispatchQueue.main.async {
+                        print("PDF URL to load: \(url.absoluteString)")
+                        self.pdfURL = url
+                        self.isShowingWebView = true
+                    }
                 } else {
-                    print("No data received")
+                    ToastManager.shared.show(message: "No valid URL received")
                 }
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    func orderView() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            window.rootViewController = UIHostingController(rootView: MAinTabbarVC().environment(\.colorScheme, .light))
+            window.makeKeyAndVisible()
         }
     }
 }
@@ -250,6 +346,14 @@ struct TextFieldCell: View {
                                     TextField("Driver Contact", text: $group.driverContact)
                                         .keyboardType(.numberPad)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .onChange(of: group.driverContact) { newValue in
+                                            let filtered = newValue.filter { $0.isNumber }
+                                            if filtered.count > 10 {
+                                                group.driverContact = String(filtered.prefix(10))
+                                            } else {
+                                                group.driverContact = filtered
+                                            }
+                                        }
                                 }
                                 HStack {
                                     TextField("Driver Name", text: $group.driverName)
@@ -299,18 +403,18 @@ struct TextFieldCell: View {
                             .padding(.bottom, 10)
                         }
                     }
-                        Button(action: {
-                            vehicleGroups.append(VehicleDetailGroup())
-                            showVehicleFields = true
-                        }) {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                Text("Add")
-                            }
-                            .padding(.top, 4)
-                            .foregroundColor(.blue)
+                    Button(action: {
+                        vehicleGroups.append(VehicleDetailGroup())
+                        showVehicleFields = true
+                    }) {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")
+                            Text("Add")
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .padding(.top, 4)
+                        .foregroundColor(.blue)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
                 }
             }  else if data == "Team Member" {
@@ -351,7 +455,7 @@ struct MultiSelectView: View {
     let teamMembers: [CrewMember]
     @Binding var selectedMembers: [String]
     @Binding var selectedNames: [String]
-
+    
     var body: some View {
         List {
             ForEach(teamMembers, id: \.id) { member in
