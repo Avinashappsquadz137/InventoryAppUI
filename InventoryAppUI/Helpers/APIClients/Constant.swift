@@ -54,6 +54,7 @@ struct Constant {
     static let readyForItemAvailable       = "api_panel/ready_for_item_available"
     static let uploadExcelForEvent         = "api_panel/upload_excel_for_event"
     static let submitChallanMaster         = "api_panel/submit_challan_master"
+    static let getState                    = "api_panel/get_state"
     
 
 }

@@ -18,7 +18,9 @@ struct CreateChallanDetails: View {
     @State private var selectedDate: Date = Date()
     @State private var isSubmitting = false
     let checkedStates: [String]
-   
+    @State private var states: [StateItem] = []
+    @State private var selectedStateID: String?
+
     
     let data = ["Event Name" ,"Client Name","Location","Company Name & Address","GST No", "State","Pincode","Mobile No","Start Date","End Date","Inventory Loading Date"]
     
@@ -40,7 +42,7 @@ struct CreateChallanDetails: View {
                                     ),
                                     index: index,
                                     multiSelectValues: $multiSelectValues,
-                                    showTitle: false
+                                    showTitle: false, selectedStateID: $selectedStateID
                                 )
                                 
                                 // Show End Date
@@ -55,7 +57,7 @@ struct CreateChallanDetails: View {
                                         ),
                                         index: endDateIndex,
                                         multiSelectValues: $multiSelectValues,
-                                        showTitle: false
+                                        showTitle: false ,selectedStateID: $selectedStateID
                                     )
                                 }
                             }
@@ -70,7 +72,8 @@ struct CreateChallanDetails: View {
                                     }
                                 ),
                                 index: index,
-                                multiSelectValues: $multiSelectValues
+                                multiSelectValues: $multiSelectValues,
+                                states: states ,selectedStateID: $selectedStateID
                             )
                         }
                     }
@@ -92,6 +95,9 @@ struct CreateChallanDetails: View {
                     .cornerRadius(10)
                 }
                 .padding(10)
+            }
+            .onAppear {
+                getState()
             }
             .modifier(ViewModifiers())
             .navigationTitle("Enter Challan Details")
@@ -154,7 +160,7 @@ struct CreateChallanDetails: View {
             case "GST No":
                 dict["gst_no"] = textFieldValues[index]
             case "State":
-                dict["state"] = textFieldValues[index]
+                dict["state"] = selectedStateID ?? textFieldValues[index]
             case "Pincode":
                 dict["pincode"] = textFieldValues[index]
             case "Event Name":
@@ -166,7 +172,11 @@ struct CreateChallanDetails: View {
             case "End Date":
                 dict["showEndDate"] = "\(formattedDate(UserDefaultsManager.shared.getToDate() ?? Date()))"
             case "Inventory Loading Date":
-                dict["inventoryLoadingDate"] = textFieldValues[index]
+                let dateString = textFieldValues[index].isEmpty
+                    ? inventoryDateFormatter.string(from: Date())
+                    : textFieldValues[index]
+
+                dict["inventoryLoadingDate"] = dateString
             default:
                 break
             }
@@ -200,7 +210,24 @@ struct CreateChallanDetails: View {
             }
         }
     }
-    
+    func getState() {
+        ApiClient.shared.callmethodMultipart(
+            apiendpoint: Constant.getState,
+            method: .post,
+            param: [:],
+            model: StateResponse.self
+        ) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    self.states = response.data
+                    ToastManager.shared.show(message: response.message ?? "States fetched successfully")
+                case .failure(let error):
+                    ToastManager.shared.show(message: error.localizedDescription)
+                }
+            }
+        }
+    }
 }
 
 
@@ -210,51 +237,9 @@ struct DetailsFieldCell: View {
     @Binding var textFieldValue: String
     let index: Int
     @Binding var multiSelectValues: [Int: [String]]
-    @State private var selectedState: StateModel? = nil
-    let defaultStates: [StateModel] = [
-        StateModel(name: "Andhra Pradesh"),
-        StateModel(name: "Arunachal Pradesh"),
-        StateModel(name: "Assam"),
-        StateModel(name: "Bihar"),
-        StateModel(name: "Chhattisgarh"),
-        StateModel(name: "Goa"),
-        StateModel(name: "Gujarat"),
-        StateModel(name: "Haryana"),
-        StateModel(name: "Himachal Pradesh"),
-        StateModel(name: "Jharkhand"),
-        StateModel(name: "Karnataka"),
-        StateModel(name: "Kerala"),
-        StateModel(name: "Madhya Pradesh"),
-        StateModel(name: "Maharashtra"),
-        StateModel(name: "Manipur"),
-        StateModel(name: "Meghalaya"),
-        StateModel(name: "Mizoram"),
-        StateModel(name: "Nagaland"),
-        StateModel(name: "Odisha"),
-        StateModel(name: "Punjab"),
-        StateModel(name: "Rajasthan"),
-        StateModel(name: "Sikkim"),
-        StateModel(name: "Tamil Nadu"),
-        StateModel(name: "Telangana"),
-        StateModel(name: "Tripura"),
-        StateModel(name: "Uttar Pradesh"),
-        StateModel(name: "Uttarakhand"),
-        StateModel(name: "West Bengal"),
-        
-        // Union Territories
-        StateModel(name: "Andaman and Nicobar Islands"),
-        StateModel(name: "Chandigarh"),
-        StateModel(name: "Dadra and Nagar Haveli and Daman and Diu"),
-        StateModel(name: "Delhi"),
-        StateModel(name: "Jammu and Kashmir"),
-        StateModel(name: "Ladakh"),
-        StateModel(name: "Lakshadweep"),
-        StateModel(name: "Puducherry")
-    ]
-
-    @State private var stateList: [StateModel] = []
-    
+    var states: [StateItem] = []
     var showTitle: Bool = true
+    @Binding var selectedStateID: String?
     var body: some View {
         VStack {
             if showTitle {
@@ -359,12 +344,14 @@ struct DetailsFieldCell: View {
             } else if data == "State" {
                 VStack(alignment: .leading) {
                     HStack {
-                        TextField("Choose or enter a state", text: $textFieldValue)
+                        TextField("Choose a state", text: $textFieldValue)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .disabled(true)
                         Menu {
-                            ForEach(defaultStates, id: \.self) { state in
+                            ForEach(states, id: \.id) { state in
                                 Button(action: {
                                     textFieldValue = state.name
+                                    selectedStateID = state.id
                                 }) {
                                     Text(state.name)
                                 }
@@ -386,7 +373,13 @@ struct DetailsFieldCell: View {
     }
 }
 
-struct StateModel: Identifiable, Codable, Hashable {
-    let id = UUID()
+struct StateResponse: Codable {
+    let status: Bool
+    let message: String?
+    let data: [StateItem]
+}
+
+struct StateItem: Codable, Identifiable {
+    let id: String
     let name: String
 }

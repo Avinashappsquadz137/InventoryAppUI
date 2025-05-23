@@ -30,6 +30,7 @@ struct OrderScannedItemsView: View {
         }
         return true
     }
+    @State private var scannedCodes: Set<String> = []
 
     var body: some View {
         VStack {
@@ -112,6 +113,12 @@ struct OrderScannedItemsView: View {
     private func handleScannedText(_ newValue: String) {
         guard !newValue.isEmpty else { return }
         print("Scanned QR code: \(newValue)")
+        if scannedCodes.contains(newValue) {
+            alertMessage = "This QR code has already been scanned."
+            showAlert = true
+            scannedText = ""
+            return
+        }
         playBeepSound()
         let normalizedScanned = newValue.replacingOccurrences(of: "-", with: " ").lowercased()
         guard let matchingItem = order.items.first(where: {
@@ -122,7 +129,7 @@ struct OrderScannedItemsView: View {
             scannedText = ""
             return
         }
-
+        
         let itemName = matchingItem.itemName
         let currentCount = scannedCategoryCounts[itemName, default: 0]
         if currentCount >= quantity {
@@ -134,7 +141,8 @@ struct OrderScannedItemsView: View {
         withAnimation {
             scannedCategoryCounts[itemName] = currentCount + 1
         }
-
+        scannedCodes.insert(newValue)
+        
         if scannedCategoryCounts[itemName] == quantity {
             selectedItemName = itemName
             scannedItems.removeAll { $0 == itemName }
