@@ -18,6 +18,7 @@ struct ReturnChallanByID: View {
     
     var body: some View {
         NavigationStack {
+            ScrollView{
             VStack {
                 Text("Enter Challan ID")
                     .font(.title)
@@ -97,6 +98,7 @@ struct ReturnChallanByID: View {
                     .disabled(texteWayBill.isEmpty || textVehicleNo.isEmpty)
                 }
             }
+        }
             .padding()
             .modifier(ViewModifiers())
             .navigationTitle("Enter Challan ID")

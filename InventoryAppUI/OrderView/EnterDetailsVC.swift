@@ -27,8 +27,6 @@ struct EnterDetailsVC: View {
     let order: ItemDetail
     let data = ["HSN/SAC Code","Team Member","Vehicle"]
     
-    //Consignee", "Transporter", "Consigner", "Transport Id, "Vehicle No""
-    //"Eway Bill Amount", "Eway Bill No", "Eway Bill Date",
     var body: some View {
         NavigationStack {
             VStack {
@@ -492,7 +490,7 @@ struct VehicleDetailGroup: Identifiable {
     var driverContact: String = ""
     var awayBillAmount: String = ""
     var ewayBillNo: String = ""
-    var ewayBillDate: String = ""
+    var ewayBillDate: String = (formattedDate(Date())) 
     
 }
 

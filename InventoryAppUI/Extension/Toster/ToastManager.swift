@@ -37,7 +37,7 @@ struct ToastView: View {
         ZStack {
             if toastManager.showToast {
                 Text(toastManager.toastMessage)
-                    .font(.headline)
+                    .font(.subheadline)
                     .padding()
                     .background(Color.black.opacity(0.8))
                     .foregroundColor(.white)

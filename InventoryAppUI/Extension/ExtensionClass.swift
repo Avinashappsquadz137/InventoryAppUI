@@ -14,6 +14,11 @@ extension Color {
   
 }
 
+var inventoryDateFormatter: DateFormatter {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd-MM-yyyy"
+    return formatter
+}
 
 func formattedDate(_ date: Date) -> String {
     let formatter = DateFormatter()

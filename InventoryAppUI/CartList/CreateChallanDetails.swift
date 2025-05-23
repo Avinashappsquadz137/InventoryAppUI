@@ -114,7 +114,7 @@ struct CreateChallanDetails: View {
     func validateForm() -> String? {
         for (index, value) in textFieldValues.enumerated() {
             let field = data[index]
-            if field == "Start Date" || field == "End Date" {
+            if field == "Start Date" || field == "End Date"  || field  == "Inventory Loading Date" {
                 continue
             }
             
@@ -210,6 +210,50 @@ struct DetailsFieldCell: View {
     @Binding var textFieldValue: String
     let index: Int
     @Binding var multiSelectValues: [Int: [String]]
+    @State private var selectedState: StateModel? = nil
+    let defaultStates: [StateModel] = [
+        StateModel(name: "Andhra Pradesh"),
+        StateModel(name: "Arunachal Pradesh"),
+        StateModel(name: "Assam"),
+        StateModel(name: "Bihar"),
+        StateModel(name: "Chhattisgarh"),
+        StateModel(name: "Goa"),
+        StateModel(name: "Gujarat"),
+        StateModel(name: "Haryana"),
+        StateModel(name: "Himachal Pradesh"),
+        StateModel(name: "Jharkhand"),
+        StateModel(name: "Karnataka"),
+        StateModel(name: "Kerala"),
+        StateModel(name: "Madhya Pradesh"),
+        StateModel(name: "Maharashtra"),
+        StateModel(name: "Manipur"),
+        StateModel(name: "Meghalaya"),
+        StateModel(name: "Mizoram"),
+        StateModel(name: "Nagaland"),
+        StateModel(name: "Odisha"),
+        StateModel(name: "Punjab"),
+        StateModel(name: "Rajasthan"),
+        StateModel(name: "Sikkim"),
+        StateModel(name: "Tamil Nadu"),
+        StateModel(name: "Telangana"),
+        StateModel(name: "Tripura"),
+        StateModel(name: "Uttar Pradesh"),
+        StateModel(name: "Uttarakhand"),
+        StateModel(name: "West Bengal"),
+        
+        // Union Territories
+        StateModel(name: "Andaman and Nicobar Islands"),
+        StateModel(name: "Chandigarh"),
+        StateModel(name: "Dadra and Nagar Haveli and Daman and Diu"),
+        StateModel(name: "Delhi"),
+        StateModel(name: "Jammu and Kashmir"),
+        StateModel(name: "Ladakh"),
+        StateModel(name: "Lakshadweep"),
+        StateModel(name: "Puducherry")
+    ]
+
+    @State private var stateList: [StateModel] = []
+    
     var showTitle: Bool = true
     var body: some View {
         VStack {
@@ -219,21 +263,17 @@ struct DetailsFieldCell: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             if data == "Inventory Loading Date" {
+                let defaultDate = inventoryDateFormatter.date(from: textFieldValue) ?? Date()
                 DatePicker(
                     "Select \(data)",
                     selection: Binding(
                         get: {
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "yyyy-MM-dd"
-                            return formatter.date(from: textFieldValue) ?? Date()
+                            inventoryDateFormatter.date(from: textFieldValue) ?? Date()
                         },
                         set: { newValue in
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "yyyy-MM-dd"
-                            textFieldValue = formatter.string(from: newValue)
+                            textFieldValue = inventoryDateFormatter.string(from: newValue)
                         }
                     ),
-                  
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(CompactDatePickerStyle())
@@ -293,6 +333,8 @@ struct DetailsFieldCell: View {
             } else if data == "GST No" {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.asciiCapable)
+                    .autocapitalization(.allCharacters)
                     .onChange(of: textFieldValue) { newValue in
                         let filtered = newValue.uppercased().filter { $0.isLetter || $0.isNumber }
                         if filtered.count > 15 {
@@ -314,7 +356,28 @@ struct DetailsFieldCell: View {
                         }
                     }
                 
-            }else {
+            } else if data == "State" {
+                VStack(alignment: .leading) {
+                    HStack {
+                        TextField("Choose or enter a state", text: $textFieldValue)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Menu {
+                            ForEach(defaultStates, id: \.self) { state in
+                                Button(action: {
+                                    textFieldValue = state.name
+                                }) {
+                                    Text(state.name)
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "chevron.down")
+                                .padding(8)
+                                .background(Color(UIColor.systemGray5))
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+            } else {
                 TextField("Enter \(data)", text: $textFieldValue)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
@@ -323,3 +386,7 @@ struct DetailsFieldCell: View {
     }
 }
 
+struct StateModel: Identifiable, Codable, Hashable {
+    let id = UUID()
+    let name: String
+}
