@@ -46,48 +46,49 @@ struct EnterDetailsVC: View {
                             vehicleGroups: $vehicleGroups
                         )
                     }
-                }
-                HStack {
-                    Button(action: {
-                        if let validationMessage = validateForm() {
-                            ToastManager.shared.show(message: validationMessage)
-                            return
+                    HStack {
+                        Button(action: {
+                            if let validationMessage = validateForm() {
+                                ToastManager.shared.show(message: validationMessage)
+                                return
+                            }
+                            let teamMemberIDs = multiSelectValues[1] ?? []
+                            let hsnCode = textFieldValues[0]
+                            
+                            let vehicleDetails = vehicleGroups.map { group in
+                                return [
+                                    "vehicle": group.selectedVehicleID,
+                                    "vehicleNo": group.vehicleNumber,
+                                    "name": group.driverName,
+                                    "contact": group.driverContact,
+                                    "ewayBillAmount": group.awayBillAmount,
+                                    "ewayBillNo": group.ewayBillNo,
+                                    "ewayBillDate": group.ewayBillDate
+                                ]
+                            }
+                            
+                            addSaveChallanmaster(hsnCode: hsnCode,
+                                                 teamMemberIDs: teamMemberIDs,
+                                                 vehicleDetails: vehicleDetails,
+                                                 itemQRStrings: scannedItems,
+                                                 tempID: order.tempID)
+                            defer {
+                                submitChallanMaster(tempID: order.tempID)
+                            }
+                            
+                        }){
+                            Text("Submit")
+                                .font(.headline)
+                                .padding(10)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.brightOrange)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
-                        let teamMemberIDs = multiSelectValues[1] ?? []
-                        let hsnCode = textFieldValues[0]
-                        
-                        let vehicleDetails = vehicleGroups.map { group in
-                            return [
-                                "vehicle": group.selectedVehicleID,
-                                "vehicleNo": group.vehicleNumber,
-                                "name": group.driverName,
-                                "contact": group.driverContact,
-                                "ewayBillAmount": group.awayBillAmount,
-                                "ewayBillNo": group.ewayBillNo,
-                                "ewayBillDate": group.ewayBillDate
-                            ]
-                        }
-                        
-                        addSaveChallanmaster(hsnCode: hsnCode,
-                                             teamMemberIDs: teamMemberIDs,
-                                             vehicleDetails: vehicleDetails,
-                                             itemQRStrings: scannedItems,
-                                             tempID: order.tempID)
-                        defer {
-                            submitChallanMaster(tempID: order.tempID)
-                        }
-                        
-                    }){
-                        Text("Submit")
-                            .font(.headline)
-                            .padding(10)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.brightOrange)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                        .padding(5)
                     }
-                    .padding()
                 }
+                
             }
             .onAppear {
                 getCrewMemberDetail()
@@ -330,17 +331,44 @@ struct TextFieldCell: View {
                         ForEach($vehicleGroups) { $group in
                             Group {
                                 HStack {
-                                    Picker("Select Vehicle", selection: $group.selectedVehicleID) {
-                                        ForEach(teamVehicle, id: \.id) { vehicle in
-                                            Text(vehicle.transport_name ?? "Unknown")
-                                                .tag(vehicle.id ?? "")
-                                        }
-                                    }
-                                    .pickerStyle(MenuPickerStyle())
-                                }
-                                HStack {
                                     TextField("Vehicle Number", text: $group.vehicleNumber)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .keyboardType(.asciiCapable)
+                                        .autocapitalization(.allCharacters)
+                                        .font(.footnote)
+                                        .onChange(of: group.vehicleNumber) { newValue in
+                                            let filtered = newValue.uppercased().filter { $0.isLetter || $0.isNumber }
+                                                group.vehicleNumber = filtered
+                                        }
+                                    TextField("Select Vehicle", text: Binding(
+                                        get: {
+                                            teamVehicle.first(where: { $0.id == group.selectedVehicleID })?.transport_name ?? ""
+                                        },
+                                        set: { _ in }
+                                    ))
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .disabled(true)
+                                    Menu {
+                                        ForEach(teamVehicle, id: \.id) { vehicle in
+                                            Button(action: {
+                                                group.selectedVehicleID = vehicle.id ?? ""
+                                            }) {
+                                                Text(vehicle.transport_name ?? "Unknown")
+                                            }
+                                        }
+                                    } label: {
+                                        Image(systemName: "chevron.down")
+                                            .padding(8)
+                                            .background(Color(UIColor.systemGray5))
+                                            .cornerRadius(8)
+                                    }
+                                    
+                                    
+                                }
+                                HStack {
+                                    TextField("Driver Name", text: $group.driverName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    
                                     TextField("Driver Contact", text: $group.driverContact)
                                         .keyboardType(.numberPad)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -354,34 +382,33 @@ struct TextFieldCell: View {
                                         }
                                 }
                                 HStack {
-                                    TextField("Driver Name", text: $group.driverName)
+                                    TextField("Bill No", text: $group.ewayBillNo)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                     TextField("Bill Amount", text: $group.awayBillAmount)
                                         .keyboardType(.numberPad)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                     
                                 }
-                                HStack {
-                                    TextField("Bill No", text: $group.ewayBillNo)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    DatePicker(
-                                        "Bill Date",
-                                        selection: Binding<Date>(
-                                            get: {
-                                                let formatter = DateFormatter()
-                                                formatter.dateFormat = "yyyy-MM-dd"
-                                                return formatter.date(from: group.ewayBillDate) ?? Date()
-                                            },
-                                            set: { newValue in
-                                                let formatter = DateFormatter()
-                                                formatter.dateFormat = "yyyy-MM-dd"
-                                                group.ewayBillDate = formatter.string(from: newValue)
-                                            }
-                                        ),
-                                        displayedComponents: [.date]
-                                    )
-                                    .datePickerStyle(CompactDatePickerStyle())
-                                }
+//                                HStack {
+//                                   
+////                                    DatePicker(
+////                                        "Bill Date",
+////                                        selection: Binding<Date>(
+////                                            get: {
+////                                                let formatter = DateFormatter()
+////                                                formatter.dateFormat = "yyyy-MM-dd"
+////                                                return formatter.date(from: group.ewayBillDate) ?? Date()
+////                                            },
+////                                            set: { newValue in
+////                                                let formatter = DateFormatter()
+////                                                formatter.dateFormat = "yyyy-MM-dd"
+////                                                group.ewayBillDate = formatter.string(from: newValue)
+////                                            }
+////                                        ),
+////                                        displayedComponents: [.date]
+////                                    )
+////                                    .datePickerStyle(CompactDatePickerStyle())
+//                                }
                                 HStack {
                                     Spacer()
                                     Button(action: {
