@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PDFKit
 
 struct EnterDetailsVC: View {
     
@@ -22,10 +23,11 @@ struct EnterDetailsVC: View {
     @State private var vehicleGroups: [VehicleDetailGroup] = []
     @Binding var scannedItems: [String]
     @State private var pdfURL: URL? = nil
-    @State private var isShowingWebView = false
     
     let order: ItemDetail
     let data = ["HSN/SAC Code","Team Member","Vehicle"]
+    
+    @State private var navigate = false
     
     var body: some View {
         NavigationStack {
@@ -47,6 +49,8 @@ struct EnterDetailsVC: View {
                         )
                     }
                     HStack {
+                       
+                        
                         Button(action: {
                             if let validationMessage = validateForm() {
                                 ToastManager.shared.show(message: validationMessage)
@@ -72,10 +76,10 @@ struct EnterDetailsVC: View {
                                                  vehicleDetails: vehicleDetails,
                                                  itemQRStrings: scannedItems,
                                                  tempID: order.tempID)
-                            defer {
-                                submitChallanMaster(tempID: order.tempID)
-                            }
-                            
+                         
+                        
+                            self.tempID = "\(order.tempID)"
+                            self.navigate = true
                         }){
                             Text("Submit")
                                 .font(.headline)
@@ -87,8 +91,14 @@ struct EnterDetailsVC: View {
                         }
                         .padding(5)
                     }
+                    
                 }
-                
+                NavigationLink(
+                    destination: PdfViewScreen(tempID: tempID ?? "\(order.tempID)"),
+                    isActive: $navigate
+                ) {
+                    EmptyView()
+                }
             }
             .onAppear {
                 getCrewMemberDetail()
@@ -97,76 +107,8 @@ struct EnterDetailsVC: View {
             .overlay(ToastView())
             .navigationTitle("Enter Details")
             .navigationBarTitleDisplayMode(.inline)
-            .fullScreenCover(isPresented: $isShowingWebView) {
-                if let url = pdfURL {
-                    ZStack {
-                        WebView(url: url)
-                            .edgesIgnoringSafeArea(.all)
-                        VStack {
-                            HStack {
-                                Spacer()
-                                Button(action: {
-                                    isShowingWebView = false
-                                    orderView()
-                                }) {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .font(.system(size: 30))
-                                        .foregroundColor(.black)
-                                        .padding()
-                                }
-                            }
-                            Spacer()
-                            HStack {
-                                Spacer()
-                                Button(action: {
-                                    downloadPDF(from: url)
-                                }) {
-                                    HStack {
-                                        Image(systemName: "arrow.down.circle.fill")
-                                        Text("Download")
-                                    }
-                                    .padding()
-                                    .background(Color.brightOrange)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                                    .padding(.bottom, 20)
-                                    .padding(.trailing, 20)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
+ 
         }
-    }
-    func downloadPDF(from url: URL) {
-        let task = URLSession.shared.downloadTask(with: url) { tempURL, response, error in
-            if let tempURL = tempURL {
-                do {
-                    let fileManager = FileManager.default
-                    let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-                    let destinationURL = documentsURL.appendingPathComponent(url.lastPathComponent)
-                    
-                    if fileManager.fileExists(atPath: destinationURL.path) {
-                        try fileManager.removeItem(at: destinationURL)
-                    }
-                    try fileManager.copyItem(at: tempURL, to: destinationURL)
-                    DispatchQueue.main.async {
-                        ToastManager.shared.show(message: "PDF downloaded to Files app")
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        ToastManager.shared.show(message: "Download failed: \(error.localizedDescription)")
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    ToastManager.shared.show(message: "Download failed")
-                }
-            }
-        }
-        task.resume()
     }
     
     func validateForm() -> String? {
@@ -209,10 +151,6 @@ struct EnterDetailsVC: View {
         return nil
     }
     
-    
-    func clearTextFields() {
-        textFieldValues = Array(repeating: "", count: data.count)
-    }
     func getTransportCategory() {
         var dict = [String: Any]()
         dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
@@ -261,7 +199,6 @@ struct EnterDetailsVC: View {
             case .success(let model):
                 if let data = model.data {
                     print("Fetched items: \(data)")
-                    submitChallanMaster(tempID: data.temp_id ?? "\(tempID)")
                     ToastManager.shared.show(message: model.message ?? "Success")
                 } else {
                     print("No data received")
@@ -271,43 +208,9 @@ struct EnterDetailsVC: View {
             }
         }
     }
-    func submitChallanMaster(tempID: String) {
-        var dict = [String: Any]()
-        dict["temp_id"] = "\(tempID)"
-        dict["emp_code"] = UserDefaultsManager.shared.getEmpCode()
-        
-        ApiClient.shared.callmethodMultipart(
-            apiendpoint: Constant.submitChallanMaster,
-            method: .post,
-            param: dict,
-            model: SubmitChallan.self
-        ) { result in
-            switch result {
-            case .success(let model):
-                if let urlString = model.data,
-                   let encodedURLString = (Constant.BASEURL + "Files/" + urlString).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                   let url = URL(string: encodedURLString) {
-                    DispatchQueue.main.async {
-                        print("PDF URL to load: \(url.absoluteString)")
-                        self.pdfURL = url
-                        self.isShowingWebView = true
-                    }
-                } else {
-                    ToastManager.shared.show(message: "No valid URL received")
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+
     
-    func orderView() {
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = scene.windows.first {
-            window.rootViewController = UIHostingController(rootView: MAinTabbarVC().environment(\.colorScheme, .light))
-            window.makeKeyAndVisible()
-        }
-    }
+
 }
 
 struct TextFieldCell: View {
@@ -331,7 +234,7 @@ struct TextFieldCell: View {
                         ForEach($vehicleGroups) { $group in
                             Group {
                                 HStack {
-                                    TextField("Vehicle Number", text: $group.vehicleNumber)
+                                    TextField("Vehicle No", text: $group.vehicleNumber)
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                         .keyboardType(.asciiCapable)
                                         .autocapitalization(.allCharacters)

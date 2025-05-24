@@ -11,6 +11,7 @@
 		C7023ECF2DCB969E0043B8B1 /* VersionCheckers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7023ECE2DCB969A0043B8B1 /* VersionCheckers.swift */; };
 		C7023F882DCF29700043B8B1 /* UploadDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */; };
 		C70EFA9F2DD22FE30055DA2A /* OrderScannedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70EFA9E2DD22FDC0055DA2A /* OrderScannedItemsView.swift */; };
+		C7134B522DE1BFD700E25480 /* PdfViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7134B512DE1BFD000E25480 /* PdfViewScreen.swift */; };
 		C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */; };
 		C718A9782D29534B00487615 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9772D29534B00487615 /* ToastManager.swift */; };
 		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
@@ -69,6 +70,7 @@
 		C7023ECE2DCB969A0043B8B1 /* VersionCheckers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionCheckers.swift; sourceTree = "<group>"; };
 		C7023F872DCF296E0043B8B1 /* UploadDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadDocumentView.swift; sourceTree = "<group>"; };
 		C70EFA9E2DD22FDC0055DA2A /* OrderScannedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderScannedItemsView.swift; sourceTree = "<group>"; };
+		C7134B512DE1BFD000E25480 /* PdfViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfViewScreen.swift; sourceTree = "<group>"; };
 		C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAvailabilityModel.swift; sourceTree = "<group>"; };
 		C718A9772D29534B00487615 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
@@ -176,6 +178,14 @@
 			path = OrderItemScannedItems;
 			sourceTree = "<group>";
 		};
+		C7134B502DE1BFBA00E25480 /* PDFView */ = {
+			isa = PBXGroup;
+			children = (
+				C7134B512DE1BFD000E25480 /* PdfViewScreen.swift */,
+			);
+			path = PDFView;
+			sourceTree = "<group>";
+		};
 		C718A9762D29533A00487615 /* Toster */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +285,7 @@
 		C783549A2D313C2600959FEA /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
+				C7134B502DE1BFBA00E25480 /* PDFView */,
 				C70EFA9D2DD22F580055DA2A /* OrderItemScannedItems */,
 				C77B6EC62D11A72D0052ADE5 /* EnterDetailsVC.swift */,
 				C783549B2D313C5800959FEA /* MoreOrderCell.swift */,
@@ -588,6 +599,7 @@
 				C7868D772D0AC66600D09D41 /* SubmitPDFView.swift in Sources */,
 				C783549E2D313C7200959FEA /* OrderView.swift in Sources */,
 				C72A5E4A2D326C0400B73D29 /* CrewMemberModel.swift in Sources */,
+				C7134B522DE1BFD700E25480 /* PdfViewScreen.swift in Sources */,
 				C7344C582D38E3AB00D1E030 /* GetItemByDateModel.swift in Sources */,
 				C76EFB942D22C1DA00B51955 /* SideMenuView.swift in Sources */,
 				C76F1ED32D106A05000D0ADC /* SelectDatePopUp.swift in Sources */,
@@ -774,6 +786,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InventoryAppUI/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan QR codes to get Item Details.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to navigate to the client's location.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to let you choose and upload images for personalized features in the app.";
@@ -814,6 +827,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = InventoryAppUI/Info.plist;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to scan QR codes to get Item Details.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to navigate to the client's location.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to let you choose and upload images for personalized features in the app.";
