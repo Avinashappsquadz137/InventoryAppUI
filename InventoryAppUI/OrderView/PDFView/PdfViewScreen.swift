@@ -12,10 +12,8 @@ import PDFKit
 struct PdfViewScreen: View {
     
     let tempID: String
-    
     @State private var pdfURL: URL?
     @State private var isLoading: Bool = true
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ZStack {

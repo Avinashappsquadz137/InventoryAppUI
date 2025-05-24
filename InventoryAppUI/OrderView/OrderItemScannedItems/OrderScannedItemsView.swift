@@ -31,16 +31,10 @@ struct OrderScannedItemsView: View {
         return true
     }
     @State private var scannedCodes: Set<String> = []
-
     var body: some View {
         VStack {
-            DataScannerRepresentable(
-                shouldStartScanning: .constant(true),
-                scannedText: $scannedText,
-                dataToScanFor: [.barcode(symbologies: [.qr])]
-            )
-            .onChange(of: scannedText) { newValue in
-                handleScannedText(newValue)
+            QRCodeScannerView { code in
+                handleScannedText(code)
             }
             .frame(height: 300)
             .border(Color.gray, width: 2)

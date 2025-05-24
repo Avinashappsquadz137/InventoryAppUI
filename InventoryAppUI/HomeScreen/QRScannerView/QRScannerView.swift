@@ -12,26 +12,21 @@ struct QRScannerView: View {
     @Binding var isShowingScanner: Bool
     @Binding var scannedText: String
     
-    @State private var showAddButton: Bool = false // Track when to show the "Add Item" button
+    @State private var showAddButton: Bool = false 
     
     var body: some View {
         NavigationView {
             VStack {
                 if DataScannerViewController.isSupported && DataScannerViewController.isAvailable {
                     ZStack {
-                        // Scanner view restricted to a frame
-                        DataScannerRepresentable(
-                            shouldStartScanning: .constant(true),
-                            scannedText: $scannedText,
-                            dataToScanFor: [.barcode(symbologies: [.qr])]
-                        )
-                        .onChange(of: scannedText) { newValue in
+                        QRCodeScannerView { newValue in
+                            scannedText = newValue
                             if !newValue.isEmpty {
                                 showAddButton = true
                             }
                         }
-                        .frame(width: 300, height: 300) // Adjust the scanner frame
-                        .border(Color.gray, width: 2) // Optional border for the scanner frame
+                        .frame(width: 300, height: 300)
+                        .border(Color.gray, width: 2)
                     }
                     if showAddButton {
                         Button(action: {
