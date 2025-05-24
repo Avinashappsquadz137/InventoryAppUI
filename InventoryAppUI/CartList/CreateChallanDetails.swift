@@ -221,7 +221,6 @@ struct CreateChallanDetails: View {
                 switch result {
                 case .success(let response):
                     self.states = response.data
-                    ToastManager.shared.show(message: response.message ?? "States fetched successfully")
                 case .failure(let error):
                     ToastManager.shared.show(message: error.localizedDescription)
                 }

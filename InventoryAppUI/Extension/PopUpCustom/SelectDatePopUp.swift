@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectDatePopUp: View {
     @Binding var showPopup: Bool
-    let onSubmit: () -> Void 
+    let onSubmit: () -> Void
     let checkedStates: [String]
     
     @Binding var fromDate: Date
@@ -17,13 +17,13 @@ struct SelectDatePopUp: View {
     
     @State private var isFromDatePickerVisible: Bool = false
     @State private var isToDatePickerVisible: Bool = false
-
+    
     var body: some View {
         VStack(spacing: 20) {
             Text("Select Date Range")
-                .font(.title)
+                .font(.subheadline)
                 .fontWeight(.bold)
-
+            
             Button(action: {
                 isFromDatePickerVisible.toggle()
                 isToDatePickerVisible = false
@@ -36,7 +36,7 @@ struct SelectDatePopUp: View {
                     .foregroundColor(.brightOrange)
                     .cornerRadius(8)
             }
-
+            
             if isFromDatePickerVisible {
                 DatePicker(
                     "",
@@ -59,7 +59,7 @@ struct SelectDatePopUp: View {
                 .cornerRadius(8)
                 .padding(10)
             }
-
+            
             Button(action: {
                 isToDatePickerVisible.toggle()
                 isFromDatePickerVisible = false
@@ -84,7 +84,7 @@ struct SelectDatePopUp: View {
                                 fromDate = toDate
                             }
                             isToDatePickerVisible = false
-                           
+                            
                         }
                     ),
                     in: fromDate...,
@@ -111,9 +111,12 @@ struct SelectDatePopUp: View {
                 }
 
                 Button(action: {
-                    print("From Date: \(fromDate), To Date: \(toDate)")
-                    onSubmit()
-                  
+                    if fromDate > toDate {
+                        ToastManager.shared.show(message: "From Date cannot be later than To Date")
+                    } else {
+                        print("From Date: \(fromDate), To Date: \(toDate)")
+                        onSubmit()
+                    }
                 }) {
                     Text("OK")
                         .font(.headline)
@@ -132,6 +135,13 @@ struct SelectDatePopUp: View {
         .onAppear {
             if Calendar.current.isDate(fromDate, equalTo: Date(), toGranularity: .day) == false {
                 fromDate = Date()
+            }
+            let today = Date()
+            if fromDate < today {
+                fromDate = today
+            }
+            if toDate < fromDate {
+                toDate = fromDate
             }
             
         }
