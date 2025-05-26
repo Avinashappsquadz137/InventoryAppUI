@@ -19,7 +19,7 @@ struct SelectDatePopUp: View {
     @State private var isToDatePickerVisible: Bool = false
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 10) {
             Text("Select Date Range")
                 .font(.subheadline)
                 .fontWeight(.bold)

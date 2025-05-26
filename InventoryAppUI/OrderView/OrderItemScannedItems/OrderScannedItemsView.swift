@@ -5,7 +5,6 @@
 //  Created by Sanskar IOS Dev on 12/05/25.
 //
 
-
 import SwiftUI
 import AudioToolbox
 
@@ -103,6 +102,7 @@ struct OrderScannedItemsView: View {
 
     private func playBeepSound() {
         AudioServicesPlaySystemSound(SystemSoundID(1057))
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     private func handleScannedText(_ newValue: String) {
         guard !newValue.isEmpty else { return }
@@ -113,7 +113,6 @@ struct OrderScannedItemsView: View {
             scannedText = ""
             return
         }
-        playBeepSound()
         let normalizedScanned = newValue.replacingOccurrences(of: "-", with: " ").lowercased()
         guard let matchingItem = order.items.first(where: {
             normalizedScanned.contains($0.itemName.lowercased())
@@ -136,7 +135,7 @@ struct OrderScannedItemsView: View {
             scannedCategoryCounts[itemName] = currentCount + 1
         }
         scannedCodes.insert(newValue)
-        
+        playBeepSound()
         if scannedCategoryCounts[itemName] == quantity {
             selectedItemName = itemName
             scannedItems.removeAll { $0 == itemName }

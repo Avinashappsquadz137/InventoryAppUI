@@ -58,7 +58,7 @@ struct QRCodeScannerView: UIViewRepresentable {
             guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
                   let code = metadataObject.stringValue else { return }
 
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            //AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             onCodeScanned?(code)
         }
     }
