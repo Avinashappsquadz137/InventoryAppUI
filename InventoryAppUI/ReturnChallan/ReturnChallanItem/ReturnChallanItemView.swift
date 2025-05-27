@@ -10,23 +10,20 @@ import SwiftUI
 struct ReturnChallanItemView: View {
     
     var challanDetail: ChallanIDModal
-    var texteWayBill: String 
+    var texteWayBill: String
     var textVehicleNo: String
     @State private var isChecked = false
     @State private var itemCheckedStates: [Bool]
     
     init(challanDetail: ChallanIDModal, isCheckboxVisible: Bool, texteWayBill: String, textVehicleNo: String) {
-            self.challanDetail = challanDetail
-            self.texteWayBill = texteWayBill
-            self.textVehicleNo = textVehicleNo 
-            _itemCheckedStates = State(initialValue: Array(repeating: false, count: challanDetail.products?.count ?? 0))
-        }
+        self.challanDetail = challanDetail
+        self.texteWayBill = texteWayBill
+        self.textVehicleNo = textVehicleNo
+        _itemCheckedStates = State(initialValue: Array(repeating: false, count: challanDetail.products?.count ?? 0))
+    }
     
     var body: some View {
         VStack {
-
-            
-            
             Button(action: {
                 isChecked.toggle()
                 itemCheckedStates = Array(repeating: isChecked, count: itemCheckedStates.count)
@@ -75,6 +72,7 @@ struct ReturnChallanItemView: View {
             
         }
         .padding(10)
+        .overlay(ToastView())
     }
     private func updateAllSelectState() {
         isChecked = itemCheckedStates.allSatisfy { $0 }
@@ -82,8 +80,8 @@ struct ReturnChallanItemView: View {
     
     func returnItemByChallanId() {
         let selectedProducts = challanDetail.products?.enumerated()
-                    .filter { index, _ in itemCheckedStates[index] }
-                    .map { $0.element }
+            .filter { index, _ in itemCheckedStates[index] }
+            .map { $0.element }
         let selectedProductIDs = selectedProducts?.compactMap { $0.iTEM_MASTER_ID } ?? []
         let parameters: [String: Any] = [
             "emp_code": UserDefaultsManager.shared.getEmpCode(),
@@ -95,13 +93,16 @@ struct ReturnChallanItemView: View {
             apiendpoint: Constant.returnItemByChallanId,
             method: .post,
             param: parameters,
-            model: ReturnItemChallanId.self
+            model: GetSuccessMessage.self
         ) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let model):
                     if let data = model.data {
                         ToastManager.shared.show(message: model.message ?? "Success")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            orderView()
+                        }
                     } else {
                         print("No data received")
                     }
@@ -109,6 +110,13 @@ struct ReturnChallanItemView: View {
                     print("API Error: \(error)")
                 }
             }
+        }
+    }
+    func orderView() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            window.rootViewController = UIHostingController(rootView: MAinTabbarVC().environment(\.colorScheme, .light))
+            window.makeKeyAndVisible()
         }
     }
 }

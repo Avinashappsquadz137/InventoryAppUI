@@ -13,6 +13,7 @@
 		C70EFA9F2DD22FE30055DA2A /* OrderScannedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70EFA9E2DD22FDC0055DA2A /* OrderScannedItemsView.swift */; };
 		C7134B522DE1BFD700E25480 /* PdfViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7134B512DE1BFD000E25480 /* PdfViewScreen.swift */; };
 		C7134B542DE1E2BD00E25480 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7134B532DE1E2B700E25480 /* QRCodeScannerView.swift */; };
+		C717B8762DE5B4D700FEFCC9 /* GetSuccessMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717B8752DE5B4D500FEFCC9 /* GetSuccessMessage.swift */; };
 		C718A9752D294E9900487615 /* ItemAvailabilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */; };
 		C718A9782D29534B00487615 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718A9772D29534B00487615 /* ToastManager.swift */; };
 		C718C1DF2D0C37FB008A1EFC /* AllCartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */; };
@@ -72,6 +73,7 @@
 		C70EFA9E2DD22FDC0055DA2A /* OrderScannedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderScannedItemsView.swift; sourceTree = "<group>"; };
 		C7134B512DE1BFD000E25480 /* PdfViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfViewScreen.swift; sourceTree = "<group>"; };
 		C7134B532DE1E2B700E25480 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
+		C717B8752DE5B4D500FEFCC9 /* GetSuccessMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSuccessMessage.swift; sourceTree = "<group>"; };
 		C718A9742D294E9900487615 /* ItemAvailabilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAvailabilityModel.swift; sourceTree = "<group>"; };
 		C718A9772D29534B00487615 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		C718C1DE2D0C37FB008A1EFC /* AllCartList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCartList.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				C7743C312D47B19A00E59588 /* GetLoginModel.swift */,
 				C785E6CE2D48DAF500992E9B /* RepairListModel.swift */,
 				C78CDE192D4E3C940084762D /* GetItemRepairByIdModel.swift */,
+				C717B8752DE5B4D500FEFCC9 /* GetSuccessMessage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7868D772D0AC66600D09D41 /* SubmitPDFView.swift in Sources */,
+				C717B8762DE5B4D700FEFCC9 /* GetSuccessMessage.swift in Sources */,
 				C783549E2D313C7200959FEA /* OrderView.swift in Sources */,
 				C72A5E4A2D326C0400B73D29 /* CrewMemberModel.swift in Sources */,
 				C7134B522DE1BFD700E25480 /* PdfViewScreen.swift in Sources */,
