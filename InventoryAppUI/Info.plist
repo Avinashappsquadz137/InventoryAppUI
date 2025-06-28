@@ -15,7 +15,7 @@
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIImageName</key>
-		<string>inventory-management</string>
+		<string>LandingImage</string>
 		<key>UILaunchScreen</key>
 		<dict/>
 	</dict>

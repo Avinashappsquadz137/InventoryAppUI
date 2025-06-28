@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var userName =  "" //9818524882
-    @State private var passWord = "" //87654321
+    @State private var userName =  "9818524882" //9818524882
+    @State private var passWord = "87654321" //87654321
     @State private var worngUserName = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
@@ -22,61 +22,78 @@ struct LoginView: View {
             ZStack {
                 Color.brightOrange
                     .ignoresSafeArea()
-                Circle()
-                    //.scale(1.7)
-                    .scale(isPad ? 1.5 : 1.7)
-                    .foregroundColor(.white.opacity(0.2))
-                Circle()
-                    //.scale(1.36)
-                    .scale(isPad ? 1.2 : 1.36)
-                    .foregroundColor(.white)
-                    .overlay(
-                        MotionAnimationView()
-                            .clipShape(Circle().scale(isPad ? 4 : 2))
-                    )
+//                Circle()
+//                    //.scale(1.7)
+//                    .scale(isPad ? 1.5 : 1.7)
+//                    .foregroundColor(.white.opacity(0.2))
+//                Circle()
+//                    //.scale(1.36)
+//                    .scale(isPad ? 1.2 : 1.36)
+//                    .foregroundColor(.white)
+//                    .overlay(
+//                        MotionAnimationView()
+//                            .clipShape(Circle().scale(isPad ? 4 : 2))
+//                    )
                 VStack(alignment: .center) {
                     Spacer()
                     Image("inventory-management")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: isPad ? 200 : 80, height:  isPad ? 200 : 70)
-                        .padding()
-                    TextField("Enter Number", text: $userName)
-                           .keyboardType(.numberPad)
-                           .padding()
-                           .frame(height: 50)
-                           .background(Color.black.opacity(0.09))
-                           .cornerRadius(10)
-                           .border(.red, width: CGFloat(worngUserName))
-                           .onChange(of: userName) { newValue in
-                               let filtered = newValue.filter { $0.isNumber }
-                               if filtered.count > 10 {
-                                   userName = String(filtered.prefix(10))
-                               } else {
-                                   userName = filtered
-                               }
-                               if userName.count == 10, let first = userName.first, ["6", "7", "8", "9"].contains(first) {
-                                   worngUserName = 0
-                               } else {
-                                   worngUserName = 2
-                               }
-                           }
-                    
-                    TextField("Enter Password",text: $passWord)
-                        .padding()
-                        .frame(height: 50)
-                        .background(Color.black.opacity(0.09))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongPassword))
-                    
+                        .frame(width: isPad ? 200 : 160, height:  isPad ? 200 : 120)
+                        .padding(10)
+                    ZStack(alignment: .leading) {
+                        if userName.isEmpty {
+                            Text("Enter Mobile Number")
+                                .foregroundColor(.black)
+                                .padding(.leading, 12)
+                        }
+                        
+                        TextField("", text: $userName)
+                            .keyboardType(.numberPad)
+                            .padding()
+                            .frame(height: 50)
+                            .background(Color.white.opacity(0.1))
+                            .foregroundColor(.white) // Text color after typing
+                            .cornerRadius(10)
+                            .border(Color.red, width: CGFloat(worngUserName))
+                            .onChange(of: userName) { newValue in
+                                let filtered = newValue.filter { $0.isNumber }
+                                if filtered.count > 10 {
+                                    userName = String(filtered.prefix(10))
+                                } else {
+                                    userName = filtered
+                                }
+                                if userName.count == 10, let first = userName.first, ["6", "7", "8", "9"].contains(first) {
+                                    worngUserName = 0
+                                } else {
+                                    worngUserName = 2
+                                }
+                            }
+                    }
+                    ZStack(alignment: .leading) {
+                        if passWord.isEmpty {
+                            Text("Enter Password")
+                                .foregroundColor(.black)
+                                .padding(.leading, 12)
+                        }
+
+                        TextField("", text: $passWord)
+                            .padding()
+                            .frame(height: 50)
+                            .background(Color.white.opacity(0.1))
+                            .foregroundColor(.white) // User input color
+                            .cornerRadius(10)
+                            .border(.red, width: CGFloat(wrongPassword))
+                    }
+
                     Button(action: {
                         getlogin(username: userName, password: passWord)
                     }) {
                         Text("Login")
                             .font(.headline)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color.brightOrange)
                             .frame(maxWidth: .infinity, maxHeight: 50)
-                            .background(Color.brightOrange)
+                            .background(.white)
                             .cornerRadius(10)
                     }
                     NavigationLink(

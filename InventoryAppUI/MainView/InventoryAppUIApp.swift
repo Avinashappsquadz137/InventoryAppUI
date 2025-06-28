@@ -139,8 +139,8 @@ struct SplashView: View {
             }
         } else {
             ZStack {
-                Color.white.ignoresSafeArea()
-                Image("inventory-management")
+                Color.brightOrange.ignoresSafeArea()
+                Image("LandingImage")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 200)
