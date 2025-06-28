@@ -22,7 +22,7 @@ struct MAinTabbarVC: View {
             
             VStack(){
                 NavBar(
-                    title: navigationTitle,
+                  //  title: navigationTitle,
                     leftButtonImage: "line.3.horizontal",
                     leftButtonAction: { print("line.3.horizontal") },
 //                    rightButtonImage: selectedView == 0 ? "bell" : nil,
@@ -50,7 +50,8 @@ struct MAinTabbarVC: View {
                                 isShowingUploadPopup = true
                             }
                             print("Plus button tapped")
-                    }
+                    },
+                    centerImageName: "inventory-management"
                 )
                 Spacer()
                 TabView(selection: $selectedView) {
@@ -156,7 +157,7 @@ extension Image {
 }
 struct NavBar: View {
     
-    var title: String
+   // var title: String
     var leftButtonImage: String
     var leftButtonAction: () -> Void
     var rightButtonImage: String?
@@ -167,60 +168,51 @@ struct NavBar: View {
     var trailingButtonAction: (() -> Void)?
     var extraButtonImage: String?
     var extraButtonAction: (() -> Void)?
-
+    var centerImageName: String? = "inventory-management"
     var body: some View {
-        HStack {
-            Button(action: {
-                
-                presentSideMenu.toggle()
-                leftButtonAction()
-            }) {
-                Image(systemName: leftButtonImage)
-                    .font(.system(size: 30, weight: .regular))
+        ZStack {
+            if let centerImageName = centerImageName {
+                Image(centerImageName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 30)
             }
-            .accentColor(.black)
-            Spacer()
-            Text(title)
-                .font(.system(size: 24, weight: .bold))
-          
-            Spacer()
-            if let trailingImage = trailingButtonImage, let trailingAction = trailingButtonAction {
-                Button(action: trailingAction) {
-                    Image(systemName: trailingImage)
+            HStack {
+                // Left button
+                Button(action: {
+                    presentSideMenu.toggle()
+                    leftButtonAction()
+                }) {
+                    Image(systemName: leftButtonImage)
                         .font(.system(size: 30, weight: .regular))
                 }
                 .accentColor(.black)
-            }
-//            if let rightImage = rightButtonImage, let rightAction = rightButtonAction {
-//                Button(action: rightAction) {
-//                    ZStack {
-//                        Image(systemName: rightImage)
-//                            .font(.system(size: 30, weight: .regular))
-//                        if badgeCount > 0 {
-//                            Text(badgeCount > 99 ? "+99" : "\(badgeCount)")
-//                                .font(badgeCount < 100 ? .caption : .system(size: 10))
-//                                .bold()
-//                                .foregroundColor(.white)
-//                                .frame(width: 25, height: 25)
-//                                .background(Color.red)
-//                                .clipShape(Circle())
-//                                .offset(x: 10, y: -10)
-//                        }
-//                    }
-//                }
-//                .accentColor(.black)
-//            }
-            if let extraImage = extraButtonImage, let extraAction = extraButtonAction {
-                Button(action: extraAction) {
-                    Image(systemName: extraImage)
-                        .font(.system(size: 24, weight: .regular))
-                }
-                .accentColor(.black)
-            }
 
+                Spacer()
+                // Right side buttons
+                HStack(spacing: 16) {
+                    if let trailingImage = trailingButtonImage, let trailingAction = trailingButtonAction {
+                        Button(action: trailingAction) {
+                            Image(systemName: trailingImage)
+                                .font(.system(size: 30, weight: .regular))
+                        }
+                        .accentColor(.black)
+                    }
+
+                    if let extraImage = extraButtonImage, let extraAction = extraButtonAction {
+                        Button(action: extraAction) {
+                            Image(systemName: extraImage)
+                                .font(.system(size: 24, weight: .regular))
+                        }
+                        .accentColor(.black)
+                    }
+                }
+            }
+            .padding(.horizontal, 16)
         }
-        .padding(16)
+        .frame(height: 60) 
         .background(Color.brightOrange)
         .shadow(radius: 10)
     }
+
 }
