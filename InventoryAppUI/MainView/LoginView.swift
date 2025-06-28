@@ -87,7 +87,11 @@ struct LoginView: View {
                     }
 
                     Button(action: {
-                        getlogin(username: userName, password: passWord)
+                        if userName.isEmpty || passWord.isEmpty {
+                            ToastManager.shared.show(message: "Please fill in login credentials")
+                          } else {
+                              getlogin(username: userName, password: passWord)
+                          }
                     }) {
                         Text("Login")
                             .font(.headline)
