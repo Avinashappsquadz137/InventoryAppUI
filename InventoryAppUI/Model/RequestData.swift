@@ -76,12 +76,14 @@ struct Item: Codable {
     let itemName: String
     let quantity: String
     let itemId : String
+    let amount : String
 
     enum CodingKeys: String, CodingKey {
         case category = "Category"
         case itemName = "Item Name"
         case quantity = "Quantity"
         case itemId = "ItemId"
+        case amount = "Amount"
     }
 }
 

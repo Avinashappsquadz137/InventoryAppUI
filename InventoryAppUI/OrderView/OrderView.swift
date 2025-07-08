@@ -77,7 +77,7 @@ struct OrderView: View {
         )) {
             if let order = selectedOrder {
                 NavigationStack {
-                    OrderScannedItemsView(order: order)
+                    ShowScannedItemsView(order: order)
                 }
             }
         }

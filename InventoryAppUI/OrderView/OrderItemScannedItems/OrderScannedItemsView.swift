@@ -10,6 +10,7 @@ import AudioToolbox
 
 struct OrderScannedItemsView: View {
     let order: ItemDetail
+    let itemPrices: [String: String]
     @Environment(\.presentationMode) var presentationMode
     @State private var scannedItems: [String] = []
     @State private var scannedText: String = ""
@@ -57,7 +58,7 @@ struct OrderScannedItemsView: View {
                 }
             }
             Spacer()
-            NavigationLink(destination: EnterDetailsVC(scannedItems: $scannedItems, order: order), isActive: $navigate) {
+            NavigationLink(destination: EnterDetailsVC(scannedItems: $scannedItems, itemPrices : itemPrices, order: order), isActive: $navigate) {
                        EmptyView()
                    }
                 Button(action: {
@@ -77,18 +78,6 @@ struct OrderScannedItemsView: View {
         }
         .navigationTitle("Scan Items")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
-                    }
-                }
-            }
-        }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Alert"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }

@@ -23,7 +23,7 @@ struct EnterDetailsVC: View {
     @State private var vehicleGroups: [VehicleDetailGroup] = []
     @Binding var scannedItems: [String]
     @State private var pdfURL: URL? = nil
-    
+    let itemPrices: [String: String]
     let order: ItemDetail
     let data = ["HSN/SAC Code","Team Member","Vehicle"]
     
@@ -193,6 +193,18 @@ struct EnterDetailsVC: View {
         dict["team_member"] = teamMemberIDs
         dict["transporter"] = vehicleDetails
         dict["item_qr_string"] = itemQRStrings
+        
+        var rentDetails: [String: Int] = [:]
+        for item in order.items {
+            let rentPerItem = Int(itemPrices[item.itemName] ?? "0") ?? 0
+            let quantity = Int(item.quantity) ?? 0
+            let itemTotalRent = rentPerItem * quantity
+            rentDetails[item.itemName] = itemTotalRent
+        }
+        if let jsonData = try? JSONSerialization.data(withJSONObject: rentDetails, options: []),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            dict["RENTAMOUNT"] = jsonString 
+        }
 
         ApiClient.shared.callmethodMultipart(apiendpoint: Constant.addSaveChallanmaster, method: .post, param: dict, model: SaveChallanMaster.self) { result in
             switch result {
@@ -208,8 +220,6 @@ struct EnterDetailsVC: View {
             }
         }
     }
-
-    
 
 }
 
@@ -292,26 +302,6 @@ struct TextFieldCell: View {
                                         .textFieldStyle(RoundedBorderTextFieldStyle())
                                     
                                 }
-//                                HStack {
-//                                   
-////                                    DatePicker(
-////                                        "Bill Date",
-////                                        selection: Binding<Date>(
-////                                            get: {
-////                                                let formatter = DateFormatter()
-////                                                formatter.dateFormat = "yyyy-MM-dd"
-////                                                return formatter.date(from: group.ewayBillDate) ?? Date()
-////                                            },
-////                                            set: { newValue in
-////                                                let formatter = DateFormatter()
-////                                                formatter.dateFormat = "yyyy-MM-dd"
-////                                                group.ewayBillDate = formatter.string(from: newValue)
-////                                            }
-////                                        ),
-////                                        displayedComponents: [.date]
-////                                    )
-////                                    .datePickerStyle(CompactDatePickerStyle())
-//                                }
                                 HStack {
                                     Spacer()
                                     Button(action: {
