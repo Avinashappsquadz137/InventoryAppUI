@@ -148,8 +148,10 @@ struct SplashView: View {
             .onAppear {
                 versionChecker.checkForUpdate()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    withAnimation {
-                        isActive = true
+                    if !versionChecker.shouldForceUpdate {
+                        withAnimation {
+                            isActive = true
+                        }
                     }
                 }
             }
